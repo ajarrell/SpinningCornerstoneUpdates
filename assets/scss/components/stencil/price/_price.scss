@@ -1,0 +1,31 @@
+// =============================================================================
+// PRICE (CSS)
+// =============================================================================
+
+.price--rrp {
+    font-size: 16px;
+    color: #999;
+
+    @media (min-width: 992px) {
+        position: relative;
+        top: -2px;
+        left: 5px;
+    }
+}
+
+.price--rrp,
+.price--discounted {
+    text-decoration: line-through;
+}
+
+.price-section--minor {
+    color: color("greys", "light");
+}
+
+.sale-price .price--withoutTax {
+    color: #ff4341 !important;
+}
+
+.price--withoutTax {
+    font-weight: bold;
+}

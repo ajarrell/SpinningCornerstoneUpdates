@@ -1,0 +1,159 @@
+// =============================================================================
+// PRODUCT VIEW (CSS)
+// =============================================================================
+
+
+// Product view layout
+// -----------------------------------------------------------------------------
+
+.productView {
+    @include grid-row($behavior: "nest");
+    margin-left: -(spacing("base"));
+    margin-right: -(spacing("base"));
+
+    .modal & {
+        padding-bottom: 0;
+        padding-top: 0;
+    }
+}
+
+.productView--quickView {
+    .socialLinks-item--print {
+        display: none;
+    }
+}
+
+.productView-options {
+    form {
+        .form-field {
+            margin-bottom: 15px;
+        }
+        .form-label {
+            display: none;
+            visibility: hidden;
+            opacity: 0;
+            height: 0;
+            width: 0;
+        }
+        .form-select {
+            min-height: 44px;
+            font-size: 16px;
+        }
+    }
+}
+
+.productView-images {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    @media (min-width: 992px) {
+        width: grid-calc(6, $total-columns);
+    }
+}
+
+.productView-details {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    &.noMargin {
+        margin-bottom: 0 !important;
+    }
+
+    @media (min-width: 992px) {
+        clear: right;
+        float: right;
+        width: grid-calc(6, $total-columns);
+    }
+}
+
+.productView-description {
+    @include grid-column(12);
+    padding-left: spacing("base");
+    padding-right: spacing("base");
+
+    @include breakpoint("large") {
+        clear: right;
+        float: right;
+        width: grid-calc(6, $total-columns);
+    }
+}
+
+.productView-ratingSummary {
+    overflow: hidden;
+    margin: 0;
+
+    > strong,
+    > span {
+        line-height: 42px; // Match the height of the "Write a Review" button next to it
+        vertical-align: middle;
+        display: inline-block;
+        float: left;
+    }
+
+    > strong {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    > span {
+        position: relative;
+        top: -2px;
+        font-size: 18px;
+        padding-left: 5px;
+    }
+
+    @media (max-width: 767px) {
+        display: block;
+        text-align: center;
+        width: 100%;
+
+        > strong,
+        > span {
+            float: none;
+            line-height: inherit;
+            margin-bottom: 15px;
+        }
+    }
+}
+
+.productView-reviewLinkContainer {
+    text-align: right;
+
+    @media (max-width: 767px) {
+        text-align: center;
+    }
+}
+.fc-title{
+    width:100%;
+    text-align:center;
+    font-size:26px;
+    padding:20px;
+}
+.fc-sub{
+    width:100%;
+    text-align:center;
+    font-size:16px;
+}
+#fc-more, #fc-less{
+    width:100%;
+    text-align:center;
+    margin:20px 0;
+    color:#ff4341;
+    font-size:26px;
+}
+
+.desktop-only{
+    display:block;
+    @media (max-width: 767px) {
+        display:none;
+    }
+}
+.mobile-only{
+    display:none;
+    text-align:center;
+    @media (max-width: 767px) {
+        display:block;
+    }
+}

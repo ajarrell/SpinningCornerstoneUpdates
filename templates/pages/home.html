@@ -1,0 +1,49 @@
+---
+products:
+    new:
+        limit: {{theme_settings.homepage_new_products_count}}
+    featured:
+        limit: {{theme_settings.homepage_featured_products_count}}
+    top_sellers:
+        limit: {{theme_settings.homepage_top_products_count}}
+carousel: {{theme_settings.homepage_show_carousel}}
+blog:
+    recent_posts:
+        limit: {{theme_settings.homepage_blog_posts_count}}
+---
+
+{{#partial "page"}}
+    <div class="section" id="explore">
+        {{> components/home/explore}}
+    </div>
+    
+    <div class="section" id="shop-spinning">
+        {{> components/home/shop-spinning}}
+    </div>
+
+    <div class="section grey" id="as-seen-in">
+        {{> components/home/as-seen-in}}
+    </div>
+
+    <div class="section grey" id="the-spinning-difference">
+        {{> components/home/spinning-difference}}
+    </div>
+
+    <div class="section" id="our-fans">
+        {{> components/home/our-fans}}
+    </div>
+
+    <div class="section grey" id="spin-history">
+        <div class="container">
+            <p class="section-description" style="font-size:0.9em;">In 1991, cyclist and entrepreneur John Baudhuin and South African ultra-distance cyclist Johnny “Johnny G” Goldberg introduced the world to indoor cycling. Working out of a garage in Santa Monica, California they created Spinning® by uniting innovation in indoor stationary bike technology with an unprecedented cycling experience. 25 years later, the Spinning program and our line of Spinner® bikes define the indoor cycling category—reaching millions of riders worldwide.  We design and build the world’s best performing indoor cycling bikes and accessories, creating the perfect bike for every type of rider. Always moving forward, we continue to strategically integrate the latest technology into select models, including computer systems that allow riders to benefit from real-time feedback and monitor their progress over time.  The Spinning® program is not just about exercise. Spinning classes offer a variety of rides, movements, coaching and motivation that keep riders safe, excited and engaged. With over 20 years of experience, Spinning has cultivated a program and global community that delivers the highest level of group indoor cycling.  Providing high quality education for Spinning instructors is one of our priorities and fundamental for the future of Spinning. Our international team of 150+ Master Instructors help deliver the world’s most respected and recognized indoor cycling certification and continuing education programs.  Official Spinning® Facilities are where Spinning comes to life. For more than 20 years, Spinning® has been supplying clubs and studios with the highest quality commercial exercise equipment. Our Spinner® bikes are known worldwide for their superior design, durability and functionality. Providing unmatched quality has always been our highest priority when crafting our Spinner® bikes. Our manufacturing partners at Precor®, producers of the world’s finest fitness equipment, share that vision. Together we are producing the next evolution in indoor cycling bikes with Generation Q Spinner® bikes.  From quick post-work training sessions to epic charity rides, facilities provide the environment and atmosphere in which we deliver Spinning® every day around the globe.</p>
+        </div>
+    </div>
+    
+    <script>
+        var google_tag_params = { 
+            ecomm_pagetype: 'home'
+        };
+    </script>
+
+{{/partial}}
+{{> layout/base}}

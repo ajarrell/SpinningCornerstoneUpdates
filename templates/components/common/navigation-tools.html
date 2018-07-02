@@ -1,0 +1,19 @@
+<ul class="navTools">
+    <li class="navTools-item">
+        <a class="navUser-action navUser-action--quickSearch" href="#" data-search="quickSearch" aria-controls="quickSearch" aria-expanded="false" data-prevent-quick-search-close="true">
+            <i class="fa fa-search"></i>
+            <div class="dropdown dropdown--quickSearch quickSearch" aria-hidden="true" tabindex="-1" data-prevent-quick-search-close>
+                {{> components/common/quick-search}}
+            </div>
+        </a>
+    </li>
+    <li class="navTools-item">
+        <a class="navUser-action" data-cart-preview data-dropdown="cart-preview-dropdown" data-options="align:right" href="{{urls.cart}}">
+            <i class="fa fa-shopping-cart"></i>
+            <span class="countPill{{#if cart.items}} countPill--positive{{/if}} cart-quantity">
+                {{cart.quantity}}
+            </span>
+        </a>
+        <!--<div class="dropdown-menu" id="cart-preview-dropdown{{#if duplicate}}&#45;&#45;duplicate{{/if}}" data-dropdown-content aria-hidden="true"></div>-->
+    </li>
+</ul>

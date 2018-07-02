@@ -1,0 +1,99 @@
+---
+category:
+    shop_by_price: true
+    products:
+---
+
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject 'category' category}}
+{{inject 'context' 'category'}}
+
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+{{#partial "page"}}
+
+    <div id="category-description" style="display: none;">{{{category.description}}}</div>
+
+    <div class="page category-page">
+        <main class="page-content" id="product-listing-container">
+            <div class="section category-description-mobile">
+                <div class="container">
+                    <p class="content-description">Built to the highest quality standards in the industry to withstand the most demanding facility and studio environment, the commercial line of Spinner® bikes is designed to withstand the rigors of thousands of classes over several years.  Precor®, the world-wide leader in quality personalized fitness solutions, is the exclusive manufacturer of the Commercial Series of Spin® bikes.</p>
+                </div> 
+            </div>
+            <div class="container text-center" style="padding-bottom: 40px;">
+                {{#if category.products}}
+                    {{> components/category/product-listing}}
+                {{else}}
+                    <p class="nomargin">There are no products listed in this subcategory.</p>
+                {{/if}}
+            </div>
+            <section id="categorySlider" class="heroCarousel categoryCarousel"
+                data-slick='{
+                    "dots": false,
+                    "mobileFirst": true,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "autoplay": true,
+                    "arrows": true,
+                    "autoplaySpeed": {{carousel.swap_frequency}},
+                    "adaptiveHeight": true
+                }'
+            >
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="{{cdn '/assets/img/rally_2.jpg'}}" alt=""/>
+                        <div class="copy-wrapper">
+                            <p class="quote">“Our manufacturer partner, Precor®, builds the highest quality Spin® bikes that we’ve ever designed. With Precor®, we’re also ensuring that Spinning® customers worldwide receive the industry’s best service.”</p>
+                            <span class="name">John Baudhuin</span>
+                            <span class="title">Founder and CEO, Mad Dogg Athletics, Inc.</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="{{cdn '/assets/img/ride.jpg'}}" alt=""/>
+                        <div class="copy-wrapper">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Spinner® Ride</span>
+                            <span class="author">Posted by Barbara on Jan 25th 2017</span>
+                            <p class="review">I love my new Spinner® Ride. I replaced my nearly 20 year old Johnny G Spinner, which was fine but old, with this sleek new ride. It was super easy to put together. All in all it is a super sturdy and smooth ride. I look forward to spending a lot of time with it over the next 20 years!!</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <div class="section no-bottom-padding slim-top-padding">
+                {{>
+                    components/common/promotion-box
+
+                    image1="assets/img/promotion-box/promo1.jpg"
+                    title1="Ride in Style"
+                    link1="/bella-spin-bike/"
+                    cta1="Shop Now"
+
+                    image2="assets/img/promotion-box/promo2.jpg"
+                    title2="November Sale"
+                    link2="/home-bikes/active-series/"
+                    cta2="Shop Now"
+                }}
+            </div>
+            <div id="category-bottom-content-block"></div>
+        </main>
+    </div>
+
+    <script>
+        var google_tag_params = { 
+            ecomm_pagetype: 'category'
+        };
+    </script>
+{{/partial}}
+
+{{> layout/base}}

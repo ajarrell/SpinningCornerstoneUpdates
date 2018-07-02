@@ -1,0 +1,414 @@
+// Page Navigation
+// -----------------------------------------------------------------------------
+//
+// Purpose: Contains the styles for the page navigation, deals with 2 viewsdue to
+// responsive layout of that navigation
+//
+// 1. It's not exactly a grid row, as it's a little further down the DOM tree, but
+// I use it here to grab the max width centering.
+// 2. Prevent document scrolling by clipping its body
+// 3. Prevent inertia scrolling of document
+//
+// -----------------------------------------------------------------------------
+
+
+//
+// Shared styles for sub page navigation
+// -----------------------------------------------------------------------------
+
+%navPage-childList {
+    border-left: 1px solid $navPage-childList-borderColor;
+    margin: spacing("quarter") spacing("half");
+    padding-left: spacing("half");
+}
+
+//
+// When navPages is open
+// -----------------------------------------------------------------------------
+
+.has-activeNavPages {
+    // scss-lint:disable VendorPrefix
+    overflow-x: hidden; // 2
+    -webkit-overflow-scrolling: auto; // 3
+}
+
+//
+// Top level Pages navigation container
+// -----------------------------------------------------------------------------
+
+
+
+.navPages-container {
+    // scss-lint:disable VendorPrefix
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+    display: none;
+    height: 48px;
+    @media (min-width: 1200px) {
+        display: block;
+    }
+
+    @media (max-width: 1199px) {
+        padding: 0 !important;
+        height: 85vh !important;
+    }
+
+    &.is-open {
+        -webkit-animation-timing-function: ease;
+        -moz-animation-timing-function: ease;
+        animation-timing-function: ease;
+        -webkit-animation-name: fadeIn;
+        -moz-animation-name: fadeIn;
+        animation-name: fadeIn;
+        -webkit-animation-duration: .5s;
+        -moz-animation-duration: .5s;
+        animation-duration: .5s;
+        display: block;
+    }
+}
+
+//
+// Top level Pages navigation list styles
+// -----------------------------------------------------------------------------
+
+.navPages {
+    background-color: transparent;
+    height: 100%;
+    overflow-y: auto;
+    padding: 0;
+
+    &.search-open {
+        .navPages-list {
+            padding-right: 177px;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        @include grid-row(); // 1
+        @include nav($style: "navBar", $wrapper: "nav");
+        overflow-y: visible;
+    }
+
+    @media (max-width: 1199px) {
+        border-radius: 5px !important;
+        background: #fff !important;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    .navPage-subMenu-list {
+        @extend %navPage-childList;
+
+        @media (min-width: 1200px) {
+            @include grid-row();
+            border-left: 0;
+            margin: auto;
+            padding-left: 0;
+        }
+    }
+}
+
+.navPages-list {
+    @media (min-width: 1200px) {
+        display: inline-block;
+        float: right;
+    }
+
+    + .navPages-list {
+        border-top: 1px solid $navPages-list--user-borderColor;
+        margin-top: spacing("half");
+        padding-top: spacing("half");
+    }
+
+    @media (max-width: 1199px) {
+        margin: 0;
+    }
+}
+
+.navPages-item {
+    position: relative;
+
+    &.has-child-menu.hovered {
+        > span:after {
+            content: '\f0d8';
+            font-family: FontAwesome;
+            left: 40%;
+            bottom: -25px;
+            position: absolute;
+            font-size: 30px !important;
+            color: #ff4341;
+        }
+    }
+
+    .second-level {
+        display: none;
+    }
+    &.mobile-only {
+        display: none;
+    }
+    @media (max-width: 1199px) {
+        float: none;
+        &.mobile-only {
+            display: block;
+        }
+    }
+}
+
+.navPages-action {
+    color: stencilColor("navPages-color");
+    display: block;
+    font-size: fontSize("smaller");
+    font-weight: fontWeight("bold");
+    padding: 0 15px;
+    text-decoration: none;
+    text-transform: uppercase;
+    position: relative;
+    transition: color 0.15s ease;
+    cursor: pointer;
+    .fa-angle-down,
+    .fa-angle-up {
+        display: none;
+        float: right;
+        color: #333;
+        cursor: pointer;
+        font-size: 28px;
+        position: absolute;
+        top: 7px;
+        right: 15px;
+        width: 95%;
+        text-align: right;
+    }
+
+    .fa-angle-down {
+        @media (max-width: 1199px) {
+            display: block;
+        }
+    }
+
+    @media (min-width: 1200px) {
+        display: inline-block;
+        padding: 10px 25px;
+
+        &.is-open {
+            background-color: stencilColor("navPages-subMenu-backgroundColor");
+
+            // scss-lint:disable NestingDepth
+            svg {
+                fill: stencilColor("navPages-color-hover");
+                stroke: stencilColor("navPages-color-hover");
+            }
+        }
+        .search-open &{
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+
+    @media (max-width: 1199px) {
+        padding: 10px 15px;
+    }
+
+    @media (max-width: 1199px) {
+        color: #333 !important;
+    }
+
+    &:hover {
+        color: #ff4341;
+
+        // scss-lint:disable NestingDepth
+        svg {
+            fill: stencilColor("navPages-color-hover");
+            stroke: stencilColor("navPages-color-hover");
+        }
+    }
+
+    svg {
+        fill: stencilColor("navPages-color");
+        stroke: stencilColor("navPages-color");
+        transition: all 0.15s ease;
+    }
+}
+
+.navPages-action--storeCredit {
+    color: stencilColor("color-textSecondary");
+}
+
+.navPages-action--compare {
+    display: none;
+
+    &.show {
+        display: block;
+    }
+}
+
+.navPages-action-moreIcon {
+    @include square(8px);
+    margin-left: spacing("quarter");
+    transform: rotate(-90deg);
+
+    @media (min-width: 1200px) {
+        transform: none;
+    }
+
+    .has-subMenu.is-open & {
+        transform: rotate(0);
+    }
+}
+
+
+// Sub page navigation and children of sub pages
+// -----------------------------------------------------------------------------
+
+.navPage-childList {
+    @extend %navPage-childList;
+    display: none;
+
+    @media (min-width: 1200px) {
+        border: 0;
+    }
+
+    &.is-open {
+        display: block;
+    }
+}
+
+
+// Sub menu, first level down from top level categories
+// -----------------------------------------------------------------------------
+//
+// 1. navBar mixin has lots of decendant child selectors to deal with
+//
+// -----------------------------------------------------------------------------
+
+.navPage-subMenu {
+    display: none;
+    outline: 0;
+
+    @media (min-width: 1200px) {
+        // scss-lint:disable ImportantRule
+        background-color: stencilColor("navPages-subMenu-backgroundColor");
+        padding: spacing("single") spacing("single") (spacing("single") + spacing("half")) !important;
+        position: absolute;
+        text-align: left;
+
+        &.is-open {
+            display: block;
+            left: 0;
+            width: 100%;
+        }
+
+        .navPages-action-moreIcon {
+            display: none;
+        }
+    }
+
+    &.is-open {
+        display: block;
+    }
+}
+
+.navPage-subMenu-item {
+    @media (min-width: 1200px) {
+        // scss-lint:disable ImportantRule
+        @include grid-column(3);
+        padding: 0 0.75rem !important; // 1
+
+        .navPages-action {
+            text-transform: none;
+            width: 100%;
+        }
+
+        > .navPage-subMenu-action {
+            border-bottom: 1px solid stencilColor("navPages-subMenu-separatorColor");
+            margin-bottom: spacing("half") + spacing("quarter");
+        }
+    }
+}
+
+.navPage-subMenu-action {
+    padding: spacing("half") 0;
+
+    @media (min-width: 1200px) {
+        padding: spacing("half") 0 (spacing("half") + spacing("quarter"));
+    }
+}
+
+
+//
+// Child pages of sub pages navigation lists
+// -----------------------------------------------------------------------------
+
+.navPage-childList-item {
+    @media (min-width: 1200px) {
+    }
+}
+
+.navPage-childList-action {
+    font-weight: fontWeight("normal");
+    padding: 0 0 spacing("quarter");
+}
+
+
+//
+// Quick search inside the mobile nav
+// -----------------------------------------------------------------------------
+
+.navPages-quickSearch {
+    border-bottom: container("border");
+    margin-bottom: spacing("half");
+
+    @media (min-width: 1200px) {
+        display: none;
+    }
+
+    > .container {
+        padding: 0;
+    }
+
+    .form {
+        margin: 0;
+    }
+
+    .form-field {
+        margin-bottom: 0;
+    }
+}
+
+
+//
+// NavPages user section for mobile nav panel
+// -----------------------------------------------------------------------------
+
+.navPages-list--user {
+    @media (min-width: 1200px) {
+        display: none;
+    }
+
+    @media (max-width: 1199px) {
+        display: none;
+    }
+
+    // scss-lint:disable SelectorDepth, NestingDepth, IdSelector
+    #currencySelection2 {
+        background-color: color("whites", "bright");
+        border: container("border");
+
+        .dropdown-menu-item {
+            padding: 0;
+
+            // scss-lint:disable NestingDepth
+            &:not(:last-child) {
+                border-bottom: container("border");
+            }
+        }
+
+        a {
+            padding: spacing("half") spacing("single");
+        }
+    }
+}

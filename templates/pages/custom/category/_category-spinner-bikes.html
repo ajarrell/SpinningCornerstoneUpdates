@@ -1,0 +1,252 @@
+---
+category:
+    shop_by_price: true
+    products:
+---
+
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject 'category' category}}
+{{inject 'context' 'category'}}
+
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+{{#partial "page"}}
+
+    <div id="category-description" style="display: none;">{{{category.description}}}</div>
+    <style type="text/css">
+    	@media (max-width: 767px){
+    		.heroCarousel .slick-next, .heroCarousel .slick-prev{
+    			display:none!important;
+    		}
+    		.cta-description{ display:none; }
+    	}
+    </style>
+    <div class="page category-page">
+        <main class="page-content" id="product-listing-container">
+            <div class="section category-description-mobile">
+                <div class="container">
+                    <p class="content-description">We created the indoor cycling category and the first Spinner® bike, setting the fitness industry standard with the world’s best Spin® bikes for the past 25 years. For a limited time only, get up to 40% off when you shop select models from our Lifestyle Series and Performance Series Spinner® Bikes.</p>
+                </div>
+            </div>
+            <!--<div class="section spinner-bikes">
+                <div class="choose-spinner-bike">
+                    <h2 class="section-header">Choose the Right Spinner<span class="reg"></span> Bike for You</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/lifestyle-series/"><img src="https://maddogg-assets.s3.amazonaws.com/1b962854bd5c16828077aaa1eddbac0bbef6d4f849d77d6aba5b36644fa969f3.jpg" alt=""></a></div>
+                                <span class="bike-title">Lifestyle Series Spin® Bikes</span>
+                                <span class="tagline">Get Started with Home Spinning®</span>
+                                <p>Enjoy the convenience of Spinning® with a home Spin® bike at an affordable price.</p>
+                                <span class="price-range">
+                                    $299-$699
+                                </span>
+                                <a href="/spin-bikes/lifestyle-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/active-series/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/active-series.jpg" alt=""></a></div>
+                                <span class="bike-title">Active Series Spin® Bikes</span>
+                                <span class="tagline">For the Spinning® Enthusiast</span>
+                                <p>Enjoy a Spinner® bike with a smoother ride, a heavier flywheel and cycling shoe compatibility.  Great for indoor cycling training.</p>
+                                <span class="price-range">
+                                    $999-$1,099
+                                </span>
+                                <a href="/spin-bikes/active-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/performance-series/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/performance-series.jpg" alt=""></a></div>
+                                <span class="bike-title">Performance Series Spin® Bikes</span>
+                                <span class="tagline">For Discerning Riders & Athletes</span>
+                                <p>Experience the true road-bike feel with a heavier flywheel, SPD pedals, and highly adjustable ergonomics. The highest quality home Spin® bikes available! </p>
+                                <span class="price-range">
+                                    $749-$949
+                                </span>
+                                <a href="/spin-bikes/performance-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/commercial-spin-bikes/"><img src="https://maddogg-assets.s3.amazonaws.com/c8a3ba6b9ed1eecb493b7e27d160b0164d917ad2af0295d974088d6f106468f9.jpg" alt=""></a></div>
+                                <span class="bike-title">Commercial Series - Manufactured by Precor</span>
+                                <span class="tagline">The Ultimate Ride</span>
+                                <p>Featured in tens of thousands of studios around the world, the Spinner® Commercial Series has set the standard for studio cycling bikes in quality, ride feel, and ergonomics.</p>
+                                <span class="price-range">
+                                    $1,395-$2,395
+                                </span>
+                                <a href="/commercial-spin-bikes/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+            <div class="section spinner-bikes">
+                <div class="choose-spinner-bike">
+                    <h2 class="section-header">Choose the Right Spinner&reg; Bike for You</h2>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/lifestyle-series/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/optimized-lifestyle.jpg" alt=""></a></div>
+                                <span class="bike-title">Lifestyle Series Spin&reg; Bikes</span>
+                                <span class="tagline">For Beginners on a Budget</span>
+                                <p>Big quality at a small price so riders of all types and experience levels can get fit from the comfort of home. </p>
+                                <span class="price-range">
+                                    $299-$699
+                                </span>
+                                <a href="/spin-bikes/lifestyle-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/active-series/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-actives.jpg" alt=""></a></div>
+                                <!-- <div class="img-wrapper"><a href="/spin-bikes/active-series/"><img src="https://cdn6.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/sp-1280x1280-newyear-a3-v03.jpg" alt=""></a></div>-->
+                                <span class="bike-title">Active Series Spin&reg; Bikes</span>
+                                <span class="tagline">For the Spinning Enthusiast</span>
+                                <p>The perfect way for Spinning&reg; enthusiasts to supplement the studio schedule at home and take fitness to the next level.</p>
+                                <span class="price-range">
+                                    $849-$1,099
+                                </span>
+                                <a href="/spin-bikes/active-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/spin-bikes/performance-series/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-performance.jpg" alt=""></a></div>
+                                <!-- <div class="img-wrapper"><a href="/spin-bikes/performance-series/"><img src="https://cdn6.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/sp-1280x1280-newyear-p3-v03.jpg" alt=""></a></div> -->
+                                <span class="bike-title">Performance Series Spin&reg; Bikes</span>
+                                <span class="tagline">For Discerning Riders & Athletes</span>
+                                <p>The strength of our commercial bikes for the dedicated athlete so that even when the weather doesn't accommodate training, we do. </p>
+                                <span class="price-range">
+                                    $1,199-$1,399
+                                </span>
+                                <a href="/spin-bikes/performance-series/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                            <div class="col-md-3 col-sm-6">
+                                <div class="img-wrapper"><a href="/commercial-spin-bikes/"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-chrono-commercial.jpg" alt=""></a></div>
+                                <span class="bike-title">Commercial Series - Manufactured by Precor&reg;</span>
+                                <span class="tagline">The Ultimate Ride</span>
+                                <p>Spinner&reg; bikes designed for the rigors of the studio, manufactured exclusively by Precor&reg;, the worldwide leader in personalized fitness solutions. </p>
+                                <span class="price-range">
+                                    $1,395-$2,895
+                                </span>
+                                <a href="/commercial-spin-bikes/" class="btn btn-red btn-rounded-corners">Shop Now</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <section id="categorySlider" class="heroCarousel categoryCarousel"
+                data-slick='{
+                    "dots": false,
+                    "mobileFirst": true,
+                    "slidesToShow": 1,
+                    "slidesToScroll": 1,
+                    "autoplay": true,
+                    "arrows": true,
+                    "autoplaySpeed": {{carousel.swap_frequency}},
+                    "adaptiveHeight": true
+                }'
+            >
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-sp-1903x664-testimonial-03-v01.jpg" alt=""/>
+                        <div class="copy-wrapper" style="left:10%">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Active</span>
+                            <span class="author">Posted by Kelly on Aug 30, 2017</span>
+                            <p class="review">Great-feeling bike for home use. Smooth gears, solid feel.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-sp-1903x664-testimonial-02-v01.jpg" alt=""/>
+                        <div class="copy-wrapper" style="left:10%">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Performance Series</span>
+                            <span class="author">Posted by Amy on August 25, 2017</span>
+                            <p class="review">…The bike felt extremely stable…Overall a really nice, easy bike to ride.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-sp-1903x664-testimonial-04-v01.jpg" alt=""/>
+                        <div class="copy-wrapper" style="left:10%">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Active Series</span>
+                            <span class="author">Posted by Camille on August 9, 2017</span>
+                            <p class="review">Love the position of the water bottle holder and the smoothness of the ride…</p>
+                        </div>
+                    </div>
+                </div>
+                <!--
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://maddogg-assets.s3.amazonaws.com/31ad0e7e8ca84e7606c30908a64e695837406d8333659909a1408042165d397a.jpg" alt=""/>
+                        <div class="copy-wrapper">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">S3 SPIN® Bike</span>
+                            <span class="author">Posted by Edwin on Feb 7th 2017</span>
+                            <p class="review">Since I was getting bored of my treadmill, a new toy was needed. So Spinning® was the best step. I wanted to buy something not too expensive to see how it goes. So far I am really enjoying the experience and this bike runs very well.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://maddogg-assets.s3.amazonaws.com/8fa4cf478d973b36289c12086f7de0090738747620fcfc310b7b94dfc213ee6f.jpg" alt=""/>
+                        <div class="copy-wrapper">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Spinner® Sprint</span>
+                            <span class="author">Posted by a Spinning.com Customer on Jan 10th 2017</span>
+                            <p class="review">I love my new Spinner® Sprint! It's well-made, durable, and rides like my road bike. The workout CDs included are also fantastic! There's no question I'll be able to maintain my fitness level throughout the winter until the roads are cleared for biking outside. The purchase was definitely worth it and I look forward to many years of spinning. Thanks you guys!</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="heroCarousel-slide">
+                    <div class="slide-wrapper">
+                        <img src="https://maddogg-assets.s3.amazonaws.com/616774a5ecdd86d67104b3ce9a389b534af62ad37108ba14260038f8de448b71.jpg" alt=""/>
+                        <div class="copy-wrapper">
+                            <img src="{{cdn '/assets/img/banners/banner-five-stars.png'}}" alt="">
+                            <span class="product">Spinner Shift</span>
+                            <span class="author">Posted by Steve on Feb 18th 2017</span>
+                            <p class="review">The Shift has met all my needs and after using it for a month I can tell that it will outlast me and will be something that I can pass along to my children...One of the best features of the Shift for me is the adjustability of both the seat and handlebars which make it easy for other family members to set to their height and comfort…It doesn't sway and is solid and stable...Overall, I'm very pleased with the Shift.</p>
+                        </div>
+                    </div>
+                </div> -->
+            </section>
+
+            <div class="section no-bottom-padding slim-top-padding">
+                {{>
+                    components/common/promotion-box
+
+                    image1="assets/img/promotion-box/promo1.jpg"
+                    title1="Ride in Style"
+                    link1="/bella-spin-bike/"
+                    cta1="Shop Now"
+
+                    image2="assets/img/promotion-box/promo2.jpg"
+                    title2="November Sale"
+                    link2="/home-bikes/active-series/"
+                    cta2="Shop Now"
+                }}
+            </div>
+            <div id="category-bottom-content-block"></div>
+            <section class="newsletter-subscription">
+                <div class="container">
+                    <p class="section-description" style="text-align:center;">
+                        25 years ago, we founded Spinning® and inspired the global indoor cycling phenomenon. Every year since, we've delivered expert innovative engineering and education to studios, instructors, and riders around the world, and continued to raise the fitness industry standard. Whether you're a high-end studio or just looking for a great ride at home, we have the world's best bikes for you. Say hello to the next generation of our legacy. It isn't indoor cycling, it's Spinning®.
+                    </p>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        var google_tag_params = { 
+            ecomm_pagetype: 'category'
+        };
+    </script>
+{{/partial}}
+
+{{> layout/base}}

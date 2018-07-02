@@ -1,0 +1,75 @@
+---
+category:
+    shop_by_price: true
+    products:
+        limit: 4
+        add_to_cart_url:
+---
+
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+{{inject 'category' category}}
+{{inject 'context' 'subcategory'}}
+
+{{#partial "page"}}
+
+    <div id="currency-code" style="display: none;">{{currency_selector.active_currency_code}}</div>
+    {{#if category.products}}
+        <div class="gradient fromOrange toRed subcategoryActionBar">
+            <div class="row">
+                <div class="col-sm-12">
+                    {{> components/products/filter sort=pagination.category.sort}}
+                </div>
+                <!-- 
+                <div class="col-sm-3">
+                    {{#if pagination}}
+                        { { > components/common/gradient-paginator pagination.category } }
+                    {{/if}}
+                </div>
+                -->
+            </div>
+        </div>
+    {{/if}}
+
+    <div id="category-description" style="display: none;">{{{category.description}}}</div>
+    
+    <div class="page category-page category-page--subcategory">
+        <main class="page-content" id="product-listing-container">
+            <div class="section category-description-mobile">
+                <div class="container">
+                    <p class="content-description"></p>
+                </div>
+            </div>
+            <div class="container text-center" style="padding-bottom: 40px;">
+                {{#if category.products}}
+                    {{> components/category/product-listing}}
+                {{else}}
+                    <p class="nomargin">There are no products listed in this subcategory.</p>
+                {{/if}}
+            </div>
+            
+            {{#if pagination}}
+            <div class="lower-pagination container">
+                    {{> components/common/paginator pagination.category}}
+            </div>
+            {{/if}}
+
+
+            <div class="section grey" id="why-spinning-wrapper">
+                <!--components/category/why-spinning-bikes}}-->
+            </div>
+            <div id="category-bottom-content-block"></div>
+        </main>
+    </div>
+{{/partial}}
+
+{{> layout/base}}

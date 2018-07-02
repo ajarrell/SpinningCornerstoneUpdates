@@ -1,0 +1,134 @@
+<div class="bn-desktop-hidden" style="margin: 15px 0;">
+{{!-- This is the dropdown nav, no longer used.
+    <select id="bn-select" class="form-select" onchange="location = this.options[this.selectedIndex].value;">
+        <option value="/spinlife/" class="navPages-action">Spin&reg; Life</option>
+        <option value="/spinlife/tag/health" class="navPages-action">Health</option>
+        <option value="/spinlife/tag/in%20the%20kitchen" class="navPages-item--lvl2-title">-- In the Kitchen</option>
+        <option value="/spinlife/tag/heart%20health" class="navPages-item--lvl2-title">-- Heart Health</option>
+        <option value="/spinlife/tag/weight%20loss" class="navPages-item--lvl2-title">-- Weight Loss</option>
+        <option value="/spinlife/tag/training%20tips" class="navPages-action">Training Tips</option>
+        <option value="/spinlife/tag/spinning" class="navPages-item--lvl2-title">-- Spinning&reg;</option>
+        <option value="/spinlife/tag/cross-training" class="navPages-item--lvl2-title">-- Cross-Training</option>
+        <option value="/spinlife/tag/stretching%20&%20recovery" class="navPages-item--lvl2-title">-- Stretching &amp; Recovery</option>
+        <option value="/spinlife/tag/community" class="navPages-action">Community</option>
+        <option value="/spinlife/tag/global%20events" class="navPages-item--lvl2-title">-- Global Events</option>
+        <option value="/spinlife/tag/success%20stories" class="navPages-item--lvl2-title">-- Success Stories</option>
+        <option value="/spinlife/tag/mastier%20instructors" class="navPages-item--lvl2-title">-- Master Instructors</option>
+        <option value="/spinlife/tag/bikes%20&%20gear" class="navPages-action">Bikes &amp; Gear</option>
+        <option value="/spinlife/tag/bikes" class="navPages-item--lvl2-title">-- Bikes</option>
+        <option value="/spinlife/tag/gear%20&%20accessories" class="navPages-item--lvl2-title">-- Gear &amp; Accessories</option>
+        <option value="/spinlife/tag/music%20&%20media" class="navPages-item--lvl2-title">-- Music &amp; Media</option>
+        <option value="/spinlife/tag/pro%20blog" class="navPages-action">Pro Blog</option>
+        <option value="/spinlife/tag/class%20prep" class="navPages-item--lvl2-title">-- Class Prep</option>
+        <option value="/spinlife/tag/cec%20quizzes" class="navPages-item--lvl2-title">-- CEC Quizzes</option>
+    </select>
+--}}    
+    
+    <button onclick="toggleBlogMenu(this)" style="float:left;">
+        <div class="bn-bar1"></div>
+        <div class="bn-bar2"></div>
+        <div class="bn-bar3"></div>
+    </button>
+    <div style="width:100%;"><a href="/spinlife/" class="mobile-blog-title">SPIN&reg;&nbsp;Life&nbsp;Blog</a></div>
+    <div class="mobile-blog-menu">
+        <ul>
+            <li>
+                <a href="/spinlife/tag/health" class="navPages-action">Health</a>
+                <ul>
+                    <li><a href="/spinlife/tag/in%20the%20kitchen" class="navPages-item--lvl2-title">In the Kitchen</a></li>
+                    <li><a href="/spinlife/tag/heart%20health" class="navPages-item--lvl2-title">Heart Health</a></li>
+                    <li><a href="/spinlife/tag/weight%20loss" class="navPages-item--lvl2-title">Weight Loss</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/spinlife/tag/training%20tips" class="navPages-action">Training Tips</a>
+                <ul>
+                    <li><a href="/spinlife/tag/spinning" class="navPages-item--lvl2-title">Spinning&reg;</a></li>
+                    <li><a href="/spinlife/tag/cross-training" class="navPages-item--lvl2-title">Cross-Training</a></li>
+                    <li><a href="/spinlife/tag/stretching%20&%20recovery" class="navPages-item--lvl2-title">Stretching &amp; Recovery</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/spinlife/tag/community" class="navPages-action">Community</a>
+                <ul>
+                    <li><a href="/spinlife/tag/global%20events" class="navPages-item--lvl2-title">Global Events</a></li>
+                    <li><a href="/spinlife/tag/success%20stories" class="navPages-item--lvl2-title">Success Stories</a></li>
+                    <li><a href="/spinlife/tag/mastier%20instructors" class="navPages-item--lvl2-title">Master Instructors</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/spinlife/tag/bikes%20&%20gear" class="navPages-action">Bikes &amp; Gear</a>
+                <ul>
+                    <li><a href="/spinlife/tag/bikes" class="navPages-item--lvl2-title">Bikes</a></li>
+                    <li><a href="/spinlife/tag/gear%20&%20accessories" class="navPages-item--lvl2-title">Gear &amp; Accessories</a></li>
+                    <li><a href="/spinlife/tag/music%20&%20media" class="navPages-item--lvl2-title">Music &amp; Media</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="/spinlife/tag/pro%20blog" class="navPages-action">Pro Blog</a>
+                <ul>
+                    <li><a href="/spinlife/tag/class%20prep" class="navPages-item--lvl2-title">Class Prep</a></li>
+                    <li><a href="/spinlife/tag/cec%20quizzes" class="navPages-item--lvl2-title">CEC Quizzes</a></li>
+                    {{!-- <li><a href="/spinlife/tag/featured" class="navPages-item--lvl2-title">Featured</a></li> --}}
+                </ul>
+            </li>
+        </ul>
+    </div>
+</div>
+<div class="bn-mobile-hidden row">
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/"><button class="sl-dropbtn">SPIN&reg; Life</button></a>
+    </div>
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/tag/health"><button class="sl-dropbtn">Health</button></a>
+      <div class="sl-dropdown-content">
+        <a href="/spinlife/tag/in%20the%20kitchen">In the Kitchen</a>
+        <a href="/spinlife/tag/heart%20health">Heart Health</a>
+        <a href="/spinlife/tag/weight%20loss">Weight Loss</a>
+      </div>
+    </div>
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/tag/training%20tips"><button class="sl-dropbtn">Training Tips</button></a>
+      <div class="sl-dropdown-content">
+        <a href="/spinlife/tag/spinning®">Spinning&reg;</a>
+        <a href="/spinlife/tag/cross-training">Cross-Training</a>
+        <a href="/spinlife/tag/stretching%20&%20recovery">Stretching &amp; Recovery</a>
+      </div>
+    </div>
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/tag/community"><button class="sl-dropbtn">Community</button></a>
+      <div class="sl-dropdown-content">
+        <a href="/spinlife/tag/global%20events">Global Events</a>
+        <a href="/spinlife/tag/success%20stories">Success Stories</a>
+        <a href="/spinlife/tag/master%20instructors">Master Instructors</a>
+      </div>
+    </div>
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/tag/bikes%20&%20gear"><button class="sl-dropbtn">Bikes &amp; Gear</button></a>
+      <div class="sl-dropdown-content">
+        <a href="/spinlife/tag/bikes">Bikes</a>
+        <a href="/spinlife/tag/gear%20&%20accessories">Gear &amp; Accessories</a>
+        <a href="/spinlife/tag/music%20&%20media">Music &amp; Media</a>
+      </div>
+    </div>
+    <div class="sl-dropdown col-sm-2">
+      <a href="/spinlife/tag/pro%20blog"><button class="sl-dropbtn">Pro Blog</button></a>
+      <div class="sl-dropdown-content">
+        <a href="/spinlife/tag/class%20prep">Class Prep</a>
+        <a href="/spinlife/tag/cec%20quizzes">CEC Quizzes</a>
+        {{!-- <a href="/spinlife/tag/featured">Featured</a> --}}
+      </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+function toggleBlogMenu(x) {
+    x.classList.toggle("bnOpen");
+    $('.mobile-blog-menu').toggle("bnOpen");
+}
+
+$(document).ready(function(){
+    var blogUrl = location.pathname;
+    $("#bn-select").val(blogUrl);
+});
+</script>

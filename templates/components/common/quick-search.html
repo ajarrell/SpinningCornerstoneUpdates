@@ -1,0 +1,11 @@
+{{{ snippet "forms_search"}}}
+<form class="form" action="{{urls.search}}">
+    <fieldset class="form-fieldset">
+        <div class="form-field">
+            <label class="is-srOnly" for="search_query">{{lang "search.quick_search.input_label"}}</label>
+            <input class="form-input search_query" data-search-quick name="search_query" data-error-message="{{lang 'search.error.empty_field'}}" placeholder="{{lang 'search.quick_search.input_placeholder'}}" autocomplete="off">
+            <button type="submit" class="btn-search"><i class="fa fa-search" aria-hidden="true"></i></button>
+        </div>
+    </fieldset>
+</form>
+<section class="quickSearchResults" data-bind="html: results"></section>

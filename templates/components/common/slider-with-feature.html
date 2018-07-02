@@ -1,0 +1,65 @@
+<div class="slider-with-feature">
+    <h2 class="section-header">{{{title}}}</h2>
+    <p class="section-description">{{{description}}}</p>
+
+    <div class="slider-with-feature--inner">
+        <div class="gradient fromOrange toRed">
+            <div class="row">
+                <div class="col-sm-6">
+                    <img class="slider-with-feature--featured-image" src="{{cdn slider_1_image}}">
+                </div>
+                <div class="col-sm-6">
+                    <div class="slider-with-feature--content">
+                        <h3 class="slider-with-feature--featured-title">
+                            {{{slider_1_title}}}
+                        </h3>
+                        <p class="slider-with-feature--featured-description">
+                            {{{slider_1_description}}}
+                        </p>
+                        <div class="slider-with-feature--featured-link">
+                            {{>
+                                components/common/cta-arrow
+                                link=slider_1_link
+                                text_color='#fff'
+                                white_arrow=true
+                                border_top_color='#fff'
+                            }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6"></div>
+            <div class="col-md-6">
+                <ul class="slider-with-feature--slider noselect">
+                    <i class="fa fa-arrow-circle-left"></i>
+                    <li>
+                        <img class="active"
+                             src="{{cdn slider_1_image}}"
+                             data-featured-title="{{slider_1_title}}"
+                             data-featured-description="{{slider_1_description}}"
+                             data-featured-link="{{slider_1_link}}"
+                             width="50">
+                    </li>
+                    <li>
+                        <img src="{{cdn slider_2_image}}"
+                             data-featured-title="{{slider_2_title}}"
+                             data-featured-description="{{slider_2_description}}"
+                             data-featured-link="{{slider_2_link}}"
+                             width="50">
+                    </li>
+                    <li>
+                        <img src="{{cdn slider_3_image}}"
+                             data-featured-title="{{slider_3_title}}"
+                             data-featured-description="{{slider_3_description}}"
+                             data-featured-link="{{slider_3_link}}"
+                             width="50">
+                    </li>
+                    <i class="fa fa-arrow-circle-right"></i>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

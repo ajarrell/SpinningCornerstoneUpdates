@@ -1,0 +1,152 @@
+{{#partial "page"}}
+
+<main class="page">
+
+    <!--
+    {{#if page.sub_pages}}
+    <nav class="navBar navBar--sub">
+        <ul class="navBar-section account-navigation">
+        {{#each page.sub_pages}}
+            <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
+        {{/each}}
+        </ul>
+    </nav>
+    {{/if}}
+    -->
+
+    <div class="page-content page-content--centered {{page.title}}">
+        {{#replace '%%Syndicate%%' page.content}}
+            {{> components/page/rss_feed}}
+        {{else}}
+            <div class="shop-promo-wrapper" id="promo-wrapper">
+                <div class="shop-promo">
+                    <div class="slide">
+                        <span class="headline">0% FINANCING</span>
+                        <span class="details">Get 0% Financing with PayPal Credit</span>
+                    </div>
+                    <div class="slide">
+                        <span class="headline">$40 SHIPPING ON BIKES</span>
+                        <span class="details"><a href="/spin-bikes/">SHOP NOW</a></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="shop-spinning" class="section">
+                {{> components/home/shop-spinning}}
+                {{!-- <div class="shop-spinning">
+                    <h2 class="section-header">Shop Spinning<span class="reg"></span></h2>
+                    <p class="section-description">From bikes to apparel to education to accessories, we have anything you need to make great Spinning® classes even better.</p>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/spin-bikes/">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_Rally.jpg'}}" alt=""></div>
+                                    <span class="category-title">Spinner® Bikes</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/cycling-clothing/womens/">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/opt-sp-homepage-womensproducttile-400x400.jpg'}}" alt=""></div>
+                                    <span class="category-title">Women’s Apparel</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/cycling-clothing/mens/">
+                                    <div class="img-wrapper"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-sp-homepage-womensproducttile-400x400.jpg" alt=""></div>
+                                    <span class="category-title">Men’s Apparel</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/cycling-shoes">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_Cycling-Shoes.png'}}" alt=""></div>
+                                    <span class="category-title">Cycling Shoes</span>
+                                </a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/fitness-trackers">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_HRMonitors.png'}}" alt=""></div>
+                                    <span class="category-title">HR Monitors & Computers</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/cycling-accessories-parts/">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_Accessories.png'}}" alt=""></div>
+                                    <span class="category-title">Accessories</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/music-dvds/">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_DVDsMusic.png'}}" alt=""></div>
+                                    <span class="category-title">DVDs & Music</span>
+                                </a>
+                            </div>
+                            <div class="col-md-3 col-sm-6 col-xs-6">
+                                <a href="/training-equipment/">
+                                    <div class="img-wrapper"><img src="{{cdn 'assets/img/SP_Training.png'}}" alt=""></div>
+                                    <span class="category-title">Training Equipment</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+            </div>
+        {{/replace}}
+        {{{page.content}}}
+        {{!--
+        <div class="section no-bottom-padding" id="promo-boxes">
+            <div class="promotion-boxes">
+                <a href="/spinner-rally/" class="promotion-box">
+                    <img src="https://maddogg-assets.s3.amazonaws.com/0c7d922fcc1657929dec318d3201239a93b9a514b66af9848021bf14d9614e6a.jpg" class="promotion-box--image">
+                    <div class="promotion-box--inner">
+                        <div class="promotion-box--title">
+                            Rally Sale
+                        </div>
+                        <div style="font-size: 20px;margin-top: -23px;margin-left: 1px;margin-bottom: 22px;">30% off the Spinner® Rally</div>
+                            <div class="promotion-box--btn btn btn-lg btn-rounded-corners">SHOP NOW</div>
+                    </div>
+                </a>
+                <a href="/home-bikes/lifestyle-series/" class="promotion-box">
+                    <img src="https://maddogg-assets.s3.amazonaws.com/08b857584d84192873ab24350ed16c339d8f2ba43b6120aa823eab2dd334e9e0.jpg" class="promotion-box--image">
+                    <div class="promotion-box--inner">
+                        <div class="promotion-box--title">
+                            Bike Sale
+                        </div>
+                         <div style="font-size: 20px;margin-top: -23px;margin-left: 24px;margin-bottom: 22px;">Save up to 25% off<br>Lifestyle Series Bikes</div>
+                        <div class="promotion-box--btn btn btn-lg btn-rounded-corners">
+                            Shop Now
+                        </div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        --}}
+    </div>
+
+    {{#if page.feed}}
+        <ul>
+            {{#each page.feed}}
+                <li>
+                    <h6><a href="{{url}}" target="_blank">{{title}}</a></h6>
+                    <p>{{content}}</p>
+                </li>
+            {{/each}}
+        </ul>
+    {{/if}}
+</main>
+
+<script>
+    var google_tag_params = { 
+            ecomm_pagetype: 'other'
+        };
+</script>
+<script>
+    $(document).ready(function(){
+        $('.padded-content #mc_embed_signup select').select2();
+    })
+</script>
+
+{{/partial}}
+
+{{> layout/base}}

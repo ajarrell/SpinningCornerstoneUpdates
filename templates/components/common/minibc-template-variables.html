@@ -1,0 +1,25 @@
+<!-- MiniBC Template Variables -->
+<script type="text/javascript">
+    window.BC_TPL_VARS = {
+        customer: {
+            'id':           '{{customer.id}}',
+            'email':   '{{customer.email}}',
+            'first_name':	'{{customer.shipping_address.first_name}}',
+            'last_name':	'{{customer.shipping_address.last_name}}',
+            'group': {
+                'id':  '{{customer.customer_group_id}}',
+                'name': '{{customer.customer_group_name}}'
+            }
+        },
+        
+        category: {
+            id: (!isNaN(parseInt('{{category.id}}'))) ? parseInt('{{category.id}}') : false,
+            url: '{{category.url}}'
+        },
+        product: {
+            id: (!isNaN(parseInt('{{ product.id }}'))) ? parseInt('{{product.id}}') : false,
+            name: "{{product.title}}",
+            sku: "{{product.sku}}"
+        }
+    };
+</script>

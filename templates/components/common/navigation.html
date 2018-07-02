@@ -1,0 +1,20 @@
+<nav class="navUser">
+    <ul class="navUser-section navUser-section--alt">
+        <li class="navUser-item">
+            <a class="navUser-action" href="/find-a-class">Find a Class</a>
+        </li>
+        <li class="navUser-item">
+            <a class="navUser-action" href="/instructors">Become an instructor</a>
+        </li>
+        {{#if settings.account_creation_enabled}}
+            <li class="navUser-item navUser-item--account">
+                {{#if customer}}
+                    <a class="navUser-action" href="{{urls.account.index}}">{{lang 'common.account'}}</a>
+                    <a class="navUser-action" href="{{urls.auth.logout}}">{{lang 'common.logout'}}</a>
+                {{else}}
+                    <a class="navUser-action" href="{{urls.auth.login}}">{{lang 'common.login'}}</a> <span class="navUser-or">{{lang 'common.or'}}</span> <a class="navUser-action" href="{{urls.auth.create_account}}">{{lang 'common.sign_up'}}</a>
+                {{/if}}
+            </li>
+        {{/if}}
+    </ul>
+</nav>

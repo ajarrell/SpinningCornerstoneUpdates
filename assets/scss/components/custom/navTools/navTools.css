@@ -1,0 +1,33 @@
+.navTools {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+  text-align: right; }
+  .navTools .navTools-item {
+    display: inline-block;
+    position: relative; }
+  .navTools .navTools-item:first-child:after {
+    content: "|";
+    position: absolute;
+    color: #fff !important;
+    top: -1px;
+    font-size: 30px; }
+  .navTools .fa-search {
+    font-size: 18px; }
+  .navTools .fa-shopping-cart {
+    font-size: 20px; }
+  @media (max-width: 1199px) {
+    .navTools .navUser-action {
+      padding: 10px 5px; } }
+  @media (max-width: 1199px) {
+    .navTools {
+      padding-top: 22px; } }
+  @media (max-width: 1199px) {
+    .navTools {
+      padding-top: 34px; } }
+  @media (max-width: 1199px) {
+    .navTools {
+      padding-top: 6px; } }
+
+/*# sourceMappingURL=navTools.css.map */

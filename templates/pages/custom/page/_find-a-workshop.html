@@ -1,0 +1,160 @@
+{{#partial "page"}}
+
+<main class="page">
+
+    {{#if page.sub_pages}}
+    <nav class="navBar navBar--sub">
+        <ul class="navBar-section account-navigation">
+        {{#each page.sub_pages}}
+            <li class="navBar-item"><a class="navBar-action" href="{{url}}">{{title}}</a></li>
+        {{/each}}
+        </ul>
+    </nav>
+    {{/if}}
+
+
+    <div class="page-content page-content--centered">
+        <div class="padded-content">
+            <h1>Find Instructor Trainings</h1>
+            <p class="light">With over 250,000 Certified Spinning® Instructors across 80 countries, Spinning® is the world’s most widely recognized indoor cycling education program. Whether you’re interested in getting started with your initial Spinning® Instructor Certification or you’re an experienced pro who wants to advance your knowledge and skills, we can help.</p>
+
+            <div class="refine-heading">Find Instructor Trainings</div>
+            <div class="refine-results">
+                
+                <form action="" id="workshop-search">
+                    <select name="workshop-type" id="workshop-type" style="width: 21%; height: 41px;">
+                        <option value="76">Instructor Certification</option>
+                        <option value="77">Continuing Education</option>
+                        <option value="78">Online Learning</option>
+                    </select>
+                    <input type="text" placeholder="Enter city, state, zip, or country for nearby results." name="location-value" id="location-value" class="location-value">
+                    <input type="submit" value="Find Now" class="btn btn-red btn-rounded-corners">
+                </form>
+            </div>
+            <div class="workshop-results">
+                <ul></ul>
+            </div>
+            <div class="request-course row" style="display:none;">
+                <p style="text-align:center;"><strong>Can't find a training? </strong>Get certified online or request a training in your area.</p>
+                <div class="col-md-2"></div>
+                <div class="col-md-4 col-sm-6">
+                    <a href="/instructors/instructor-certifications/online-certification/?utm_source=Spinning&utm_campaign=findTraining" class="btn btn-red btn-rounded-corners cta-button" style="max-width:300px;margin:0 auto 10px;">Online Certification</a>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <a href="#" class="btn btn-red btn-rounded-corners cta-button trigger-popup" style="max-width:300px;margin:0 auto;">Request a Training</a>
+                </div>
+                <div class="col-md-2"></div>
+            </div>
+            <script src="//www.powr.io/powr.js?external-type=bigcommerce"></script> 
+            <div class="powr-popup" id="7b5cefac_1520455052"></div>
+        </div>
+    </div>
+</main>
+<script type="text/javascript">
+
+    $('#workshop-search').on('submit', function(e){
+        e.preventDefault();
+        getWorkshopList();
+    });
+
+    function getWorkshopList() {
+
+        $('.workshop-results ul li').remove();
+
+        var loopId = 0;
+
+        if ($('#workshop-type').val == "78") {
+            var user = {
+                category: $('#workshop-type').val(),
+                site: "spinning",
+            }
+        } else {
+
+            var user = {
+                category : $('#workshop-type').val(),
+                location : $('#location-value').val().replace(/\s+/g, ''),
+                site: "spinning",
+            }
+
+        }
+        
+        $.ajax({
+            url: 'https://mddg-workshops.herokuapp.com/search',
+            headers: {'Content-Type':'application/json'},
+            method: 'POST',
+            dataType: 'jsonp',
+            data: user,
+            success: function(data){
+                console.log('success: '+data);
+
+                printObject(data);
+                $('.workshop-results li').each(function(){
+                    $('.no-results').remove();
+                    if ($(this).text() == "") {
+                        $(this).remove();
+                    }
+                })
+                if (data == 0) {
+                    console.log("nutz");
+                    $('.workshop-results').prepend('<p class="no-results">No results found</p>');
+                }
+            },
+            fail: function(error) {
+                console.log(error);
+            }
+        });
+
+        function isObject(val) {
+            return (typeof val === 'object');
+        }
+
+        function printObject(obj) {
+            $('.workshop-results ul').append('<li id="workshop-'+loopId+'" data-workshop-result="'+loopId+'"><div class="wrapper"></div></li>');
+            for(var key in obj) {
+                if(isObject(obj[key])) { loopId++; printObject(obj[key]);}
+                else {
+                    console.log('key: ' + key + '\n' + 'value: ' + obj[key]);
+                    var workshopId = "#workshop-" + loopId + ' .wrapper';
+                    if (key == "name") {
+                        $(workshopId).append('<span class="workshop-title">'+obj[key]+'</span>');
+                    }
+                    if (key == "price") {
+                        $(workshopId).append('<span class="workshop-price">$'+obj[key]+'</span>');
+                    }
+                    if (key == "date") {
+                        var titleSelector = workshopId + ' .workshop-title';
+                        $('<span class="workshop-date-location-wrapper">'+obj[key]+'</span>').insertAfter(titleSelector);
+                    }
+                    if (key == "city") {
+                        var dateSelector = workshopId + ' .workshop-date-location-wrapper';
+                        $(dateSelector).append('<span class="workshop-city">'+obj[key]+', </span>');
+                    }
+                    if (key == "state") {
+                        var dateSelector = workshopId + ' .workshop-date-location-wrapper';
+                        $(dateSelector).append('<span class="workshop-state">'+obj[key]+'</span>');
+                    }
+                    if (key == "produrl") {
+                        $(workshopId).append('<a href="'+obj[key]+'" class="btn btn-red btn-rounded-corners">Register Now</a>');
+                    }
+                    if (key == "prodimg") {
+                        $(workshopId).prepend('<img src="'+obj[key]+'"/>');
+                    }
+                    if (key =="coursefull") {
+                        if (obj[key] == 1) {
+                            $(workshopId).find('a').first().remove();
+                            $(workshopId).css({"pointer-events": "none"});
+                            $(workshopId).append('<a href="#" class="btn btn-red btn-rounded-corners" style="background-color: #d1d1d1 !important; border-color: #d1d1d1 !important;">Fully Booked</a>');
+                        }
+                    }
+                    //$("#result").append(key: ' + key + '\n' + 'value: ' + obj[key]'+'<br>');
+                }
+            }
+            console.log("=======================");
+            $(".request-course").css("display", "block");
+        }
+    }
+</script>
+
+{{/partial}}
+
+{{> layout/base}}

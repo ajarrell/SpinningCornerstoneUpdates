@@ -1,0 +1,96 @@
+---
+customer:
+---
+
+{{#partial "page"}}
+
+<div class="container">
+    <h1 class="page-heading" style="margin-top: 24px;">My Courses</h1>
+    {{> components/account/navigation}}
+    
+    <main class="account account--fixed">
+        <div class="account-head">
+            {{#if customer.store_credit.value '>' 0}}
+                <div class="alertBox alertBox--storeCredit">
+                    {{{lang 'common.store_credit' store_credit=customer.store_credit.formatted}}}
+                </div>
+            {{/if}}
+        </div>
+        <div class="account-body">
+            <section class="account-content">
+                <h2>Incomplete</h2>
+                <ul id="my-courses-incomplete">
+                </ul>
+                <h2>Complete</h2>
+                <ul id="my-courses-complete">
+                </ul>
+            </section>
+        </div>
+        {{{snippet 'account'}}}
+    </main>
+</div>
+
+<style>
+    .navBar-item:nth-of-type(3) {
+        display: none;
+    }
+</style>
+
+<script type="text/javascript">
+    $('#course-list').addClass('is-active');
+
+    var customerEmail = $('#customer-email').text();
+    var courseLoopId = 0;
+    var user = {
+        email : customerEmail,
+        site : "spinning"
+    }
+    
+    $.ajax({
+        url: 'https://mddg-litmos.herokuapp.com',
+        headers: {'Content-Type':'application/json'},
+        method: 'POST',
+        dataType: 'jsonp',
+        data: user,
+        success: function(data){
+            console.log('success: '+data);
+            printObject(data);
+      
+        },
+        fail: function(error) {
+            console.log(error);
+        }
+    });
+
+    function isObject(val) {
+        return (typeof val === 'object');
+    }
+
+    function printObject(obj) {
+        $('.account-content #my-courses-complete').append('<li id="course-'+courseLoopId+'"></li>');
+        for(var key in obj) {
+            if(isObject(obj[key])) { courseLoopId++; printObject(obj[key])}
+            else {
+                console.log('key: ' + key + '\n' + 'value: ' + obj[key]);
+                var loopId = "#course-" + courseLoopId;
+                if (key == "name") {
+                    $(loopId).append('<a href="">'+obj[key]+'</a>');
+                }
+                if (key == "url") {
+                    $(loopId).find('a').attr('href', obj[key]);
+                }
+                if (key == "completed") {
+                    if (obj[key] == false) {
+                        $('#my-courses-incomplete').append($(loopId));
+                    }
+                }
+                //$("#result").append(key: ' + key + '\n' + 'value: ' + obj[key]'+'<br>');
+            }
+        }
+        console.log("=======================");
+        courseLoopId++;
+    }
+</script>
+
+{{/partial}}
+{{> layout/base}}

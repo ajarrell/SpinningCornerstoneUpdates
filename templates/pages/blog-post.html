@@ -1,0 +1,25 @@
+{{#partial "page"}}
+<script>
+	dataLayer.push({'pageCategory': 'blog'});
+</script>
+	<main class="page">
+		<img class="blog-tag-banner" src="https://cdn8.bigcommerce.com/s-nmzp0auf4w/product_images/uploaded_images/blog-cat-header.jpg">
+		<div class="blog-atf">
+            <div class="blog-title-container">
+                <h1>Spin<span class="reg">&reg;</span> Life Blog</h1>
+            </div>
+        </div>
+		<div class="blog page-content page-content--centered">
+			<div class="padded-content">
+			    <div class="row">
+			        {{> components/blog/nav}}
+			    </div>
+			    <div class="row">
+			        {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			    </div>
+				{{> components/blog/post post=blog.post show_tags=true}}
+			</div>
+		</div>
+	</main>
+{{/partial}}
+{{> layout/base}}

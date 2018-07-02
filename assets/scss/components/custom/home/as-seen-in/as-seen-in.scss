@@ -1,0 +1,23 @@
+.as-seen-in {
+  ul.list-inline {
+    text-align: center;
+
+    li {
+      margin: 0;
+      padding: 25px 35px 0;
+
+      img {
+        margin: 0;
+        padding: 0;
+      }
+
+      @media (max-width: 991px) {
+        width: 30%;
+      }
+
+      @media (max-width: 767px) {
+        width: 100%;
+      }
+    }
+  }
+}

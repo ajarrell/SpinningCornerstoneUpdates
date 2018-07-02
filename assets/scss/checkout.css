@@ -1,0 +1,79 @@
+#Header {
+  background: #ff4341; }
+
+* {
+  font-family: 'proxima-nova', sans-serif !important;
+  color: #444444; }
+
+.btn {
+  background: #ff4341;
+  color: #fff !important;
+  border: 1px solid #ff4341;
+  width: auto;
+  max-width: none;
+  max-height: none;
+  padding: 12px 18px;
+  text-align: center;
+  display: block;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  line-height: normal;
+  font-size: 16px !important;
+  line-height: 15px;
+  text-decoration: none !important;
+  font-weight: 600;
+  -webkit-transition: all .15s ease;
+  -moz-transition: all .15s ease;
+  transition: all .15s ease; }
+  .btn:hover {
+    background: #da0200;
+    border-color: #da0200;
+    color: #fff; }
+  .btn:active {
+    box-shadow: 0 0 0 5px #ffc1c1; }
+  .btn:focus {
+    outline: -webkit-focus-ring-color auto 5px; }
+
+.ExpressCheckoutBlock {
+  padding: 65px 36px; }
+
+.ExpressCheckoutBlock .step {
+  color: #ff4341;
+  background: transparent;
+  font-size: 25px;
+  font-weight: 600;
+  left: -45px; }
+  .ExpressCheckoutBlock .step:after {
+    content: ')'; }
+
+.ExpressCheckoutBlockCompleted a.ChangeLink {
+  color: #ff4341;
+  right: 0; }
+  .ExpressCheckoutBlockCompleted a.ChangeLink:hover {
+    color: #ff4341; }
+
+.ExpressCheckoutTitle {
+  font-size: 25px; }
+
+#CheckoutStepAccountDetails {
+  position: relative;
+  margin-top: 65px;
+  padding-top: 75px; }
+  #CheckoutStepAccountDetails:before {
+    font-size: 40px;
+    font-weight: 400;
+    content: 'Checkout';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    border-bottom: 1px solid #d1d1d1;
+    line-height: 40px;
+    padding-bottom: 8px; }
+
+div.checker span, div.radio span, div.button, div.button span {
+  background-image: url("https://cdn6.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/icon-sprite.png?t=1479330820&_ga=1.28397684.939408387.1479161373");
+  background-repeat: no-repeat;
+  -webkit-font-smoothing: antialiased; }
+
+/*# sourceMappingURL=checkout.css.map */

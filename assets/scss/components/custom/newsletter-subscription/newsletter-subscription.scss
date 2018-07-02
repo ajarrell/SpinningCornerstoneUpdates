@@ -1,0 +1,158 @@
+.newsletter-subscription {
+  background-color: #f9f9f9;
+  padding: 25px 0;
+  border-top: 1px solid #e8e8e8;
+
+  .social-section {
+    h5, .fa {
+      display: inline-block;
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+      h5 {
+        display: none;
+      }
+    }
+
+    h5 {
+      text-transform: none;
+      color: #333;
+      margin: 0;
+      padding: 0;
+      margin-right: 25px;
+      position: relative;
+      top: -3px;
+      font-size: 16px;
+      font-weight: 500;
+    }
+
+    .fa {
+      -webkit-border-radius: 50px;
+      -moz-border-radius: 50px;
+      border-radius: 50px;
+      -webkit-transition: all .15s ease;
+      -moz-transition: all .15s ease;
+      transition: all .15s ease;
+      font-size: 20px;
+      border: 1px solid #777;
+      color: #777;
+      padding: 10px;
+      width: 45px;
+      text-align: center;
+      cursor: pointer;
+      margin-right: 10px;
+
+      &:hover {
+        &.fa-facebook {
+          color: #3b5998;
+          border-color: #3b5998;
+        }
+        &.fa-twitter {
+          color: #4099ff;
+          border-color: #4099ff;
+        }
+        &.fa-instagram {
+          color: #4c68d7;
+          border-color: #4c68d7;
+        }
+        &.fa-youtube-play {
+          color: #cd201f;
+          border-color: #cd201f;
+        }
+      }
+    }
+
+    @media (max-width: 991px) {
+      .fa {
+        font-size: 16px;
+        width: 40px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      display: block;
+      text-align: center;
+      padding-bottom: 10px;
+
+      h5 {
+        display: none;
+      }
+
+      .fa {
+        display: inline-block;
+        text-align: center;
+        font-size: 26px;
+        border: none;
+        border-radius: 0;
+        width: auto;
+      }
+    }
+  }
+
+  .subscribe-section {
+    .subscribe-section--title,
+    .subscribe-section--form {
+      width: 50%;
+      padding: 0;
+      margin: 0;
+      display: inline-block;
+      vertical-align: middle;
+      form {
+        margin-bottom: 0;
+
+        ::-webkit-input-placeholder {
+          text-transform: uppercase;
+        }
+        ::-moz-placeholder {
+          text-transform: uppercase;
+        }
+        :-moz-placeholder {
+          text-transform: uppercase;
+        }
+        :-ms-input-placeholder {
+          text-transform: uppercase;
+        }
+      }
+
+      input:not([type="submit"]) {
+        border-top-right-radius: 0;
+        border-bottom-right-radius: 0;
+      }
+
+      input[type="submit"] {
+        margin: 0;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+        font-size: 30px;
+        color: transparent;
+        padding: 0 10px;
+        background-image: url('../img/icons/cta-arrow-white.png');
+        background-repeat: no-repeat;
+        background-position: center;
+      }
+    }
+
+    .subscribe-section--title {
+      font-weight: 600;
+      width: 49%;
+      color: #999;
+      @media (min-width: 992px) {
+        padding-left: 50px;
+        padding-right: 12px;
+      }
+      @media (max-width: 991px) {
+        padding-right: 15px;
+      }
+    }
+
+    @media (max-width: 767px) {
+      .subscribe-section--title,
+      .subscribe-section--form {
+        display: block;
+        width: 100%;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+    }
+  }
+}

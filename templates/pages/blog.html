@@ -1,0 +1,59 @@
+---
+blog:
+    posts:
+        limit: 12
+        pages: 3
+        summary: 200
+---
+{{#partial "page"}}
+<script>
+	dataLayer.push({'pageCategory': 'blog'});
+</script>
+<main class="page">
+    <img class="blog-home-banner" src="https://cdn8.bigcommerce.com/s-nmzp0auf4w/product_images/uploaded_images/blog-hp-header.jpg">
+    <img class="blog-tag-banner bn-mobile-hidden" src="https://cdn8.bigcommerce.com/s-nmzp0auf4w/product_images/uploaded_images/blog-cat-header.jpg">
+    <div class="blog-atf">
+        <div class="blog-title-container">
+            <h1>Spin<span class="reg">&reg;</span> Life Blog</h1>
+        </div>
+    </div>
+
+	<div class="blog page-content page-content--centered">
+		<div class="padded-content">
+		    <div class="row">
+    			{{> components/blog/nav}}
+	        </div>
+			<div class="row">
+			    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+			</div>
+		    {{!-- <h1 class="page-heading blog-name mobile-hidden">Spin<sup>&reg;</sup> Life Blog</h1> --}}
+		    {{#any breadcrumbs name='featured'}}
+		        <div id="fp">
+		        	{{#if blog.posts}}
+	    		    	<div id="post-slider">
+	    		    		{{#each blog.posts}}
+	    		    			{{> components/blog/slide post=this settings=../setting}}
+	    		    		{{/each}}
+	    		    	</div>
+	    		    {{/if}}
+		        </div>
+		    {{else}}
+		    	{{#if breadcrumbs.length '===' 2}}
+			    	{{> components/blog/featured-posts}}
+			    {{/if}}
+			    <div class="row">
+				    {{#each blog.posts}}
+				        {{> components/blog/card post=this settings=../settings}}
+				    {{/each}}
+				</div>
+				{{> components/common/paginator pagination.blog}}
+				{{#if breadcrumbs.length '!==' 2}}
+			    	{{> components/blog/featured-posts}}
+			    {{/if}}
+			{{/any}}
+		</div>
+	</div>
+</main>
+
+{{/partial}}
+{{> layout/base}}

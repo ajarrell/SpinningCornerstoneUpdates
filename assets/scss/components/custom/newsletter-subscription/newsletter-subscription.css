@@ -1,0 +1,121 @@
+.newsletter-subscription {
+  background-color: #f9f9f9;
+  padding: 25px 0;
+  border-top: 1px solid #e8e8e8; }
+  .newsletter-subscription .social-section h5, .newsletter-subscription .social-section .fa {
+    display: inline-block; }
+  @media (min-width: 768px) and (max-width: 1199px) {
+    .newsletter-subscription .social-section h5 {
+      display: none; } }
+  .newsletter-subscription .social-section h5 {
+    text-transform: none;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    margin-right: 25px;
+    position: relative;
+    top: -3px;
+    font-size: 16px;
+    font-weight: 500; }
+  .newsletter-subscription .social-section .fa {
+    -webkit-border-radius: 50px;
+    -moz-border-radius: 50px;
+    border-radius: 50px;
+    -webkit-transition: all .15s ease;
+    -moz-transition: all .15s ease;
+    transition: all .15s ease;
+    font-size: 20px;
+    border: 1px solid #777;
+    color: #777;
+    padding: 10px;
+    width: 45px;
+    text-align: center;
+    cursor: pointer;
+    margin-right: 10px; }
+    .newsletter-subscription .social-section .fa:hover.fa-facebook {
+      color: #3b5998;
+      border-color: #3b5998; }
+    .newsletter-subscription .social-section .fa:hover.fa-twitter {
+      color: #4099ff;
+      border-color: #4099ff; }
+    .newsletter-subscription .social-section .fa:hover.fa-instagram {
+      color: #4c68d7;
+      border-color: #4c68d7; }
+    .newsletter-subscription .social-section .fa:hover.fa-youtube-play {
+      color: #cd201f;
+      border-color: #cd201f; }
+  @media (max-width: 991px) {
+    .newsletter-subscription .social-section .fa {
+      font-size: 16px;
+      width: 40px; } }
+  @media (max-width: 767px) {
+    .newsletter-subscription .social-section {
+      display: block;
+      text-align: center;
+      padding-bottom: 10px; }
+      .newsletter-subscription .social-section h5 {
+        display: none; }
+      .newsletter-subscription .social-section .fa {
+        display: inline-block;
+        text-align: center;
+        font-size: 26px;
+        border: none;
+        border-radius: 0;
+        width: auto; } }
+  .newsletter-subscription .subscribe-section .subscribe-section--title,
+  .newsletter-subscription .subscribe-section .subscribe-section--form {
+    width: 50%;
+    padding: 0;
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle; }
+    .newsletter-subscription .subscribe-section .subscribe-section--title form,
+    .newsletter-subscription .subscribe-section .subscribe-section--form form {
+      margin-bottom: 0; }
+      .newsletter-subscription .subscribe-section .subscribe-section--title form ::-webkit-input-placeholder,
+      .newsletter-subscription .subscribe-section .subscribe-section--form form ::-webkit-input-placeholder {
+        text-transform: uppercase; }
+      .newsletter-subscription .subscribe-section .subscribe-section--title form ::-moz-placeholder,
+      .newsletter-subscription .subscribe-section .subscribe-section--form form ::-moz-placeholder {
+        text-transform: uppercase; }
+      .newsletter-subscription .subscribe-section .subscribe-section--title form :-moz-placeholder,
+      .newsletter-subscription .subscribe-section .subscribe-section--form form :-moz-placeholder {
+        text-transform: uppercase; }
+      .newsletter-subscription .subscribe-section .subscribe-section--title form :-ms-input-placeholder,
+      .newsletter-subscription .subscribe-section .subscribe-section--form form :-ms-input-placeholder {
+        text-transform: uppercase; }
+    .newsletter-subscription .subscribe-section .subscribe-section--title input:not([type="submit"]),
+    .newsletter-subscription .subscribe-section .subscribe-section--form input:not([type="submit"]) {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0; }
+    .newsletter-subscription .subscribe-section .subscribe-section--title input[type="submit"],
+    .newsletter-subscription .subscribe-section .subscribe-section--form input[type="submit"] {
+      margin: 0;
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+      font-size: 30px;
+      color: transparent;
+      padding: 0 10px;
+      background-image: url("../img/icons/cta-arrow-white.png");
+      background-repeat: no-repeat;
+      background-position: center; }
+  .newsletter-subscription .subscribe-section .subscribe-section--title {
+    font-weight: 600;
+    width: 49%;
+    color: #999; }
+    @media (min-width: 992px) {
+      .newsletter-subscription .subscribe-section .subscribe-section--title {
+        padding-left: 50px;
+        padding-right: 12px; } }
+    @media (max-width: 991px) {
+      .newsletter-subscription .subscribe-section .subscribe-section--title {
+        padding-right: 15px; } }
+  @media (max-width: 767px) {
+    .newsletter-subscription .subscribe-section .subscribe-section--title,
+    .newsletter-subscription .subscribe-section .subscribe-section--form {
+      display: block;
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: center; } }
+
+/*# sourceMappingURL=newsletter-subscription.css.map */

@@ -1,0 +1,88 @@
+---
+product:
+    videos:
+        limit: {{theme_settings.productpage_videos_count}}
+    reviews:
+        limit: {{theme_settings.productpage_reviews_count}}
+    related_products:
+        limit: {{theme_settings.productpage_related_products_count}}
+products:
+    featured:
+        limit: {{theme_settings.homepage_featured_products_count}}
+---
+{{inject 'product' product}}
+{{#partial "page"}}
+    <div class="container workshop-detail">
+        {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
+        <h1>Training Details</h1>
+
+        <div class="training-heading">Spinning Instructor Certification</div>
+        <div class="training-details {{#each product.custom_fields}}{{#if name 'enrollStatus'}}{{#if value 'true'}}gray{{/if}}{{/if}}{{/each}}">
+            <div class="location-block">
+                <span class="training-title">WSC - Georgetown</span>
+                <p class="address">3222 M Street NW<br/>Washington, DC 20007<br/>United States</p>
+                <span class="date-formatted">11/12/2016</span>
+                <span class="time">9:00 am – 6:00 pm</span>
+                <span class="timezone">EST</span>
+                <p class="contact-info">Contact:<br/>212.246.6700</p>
+            </div>
+            <div class="benefits-block">
+                <span class="benefits-heading">Your registration includes:</span>
+                <span class="benefit">Spinning Instructor Manual (2nd edition)</span>
+                <span class="benefit">Digital preparatory study guide</span>
+                <span class="benefit">Certification online assessment</span>
+                <span class="benefit">Certification of Attendance</span>
+                <span class="benefit">SPIN Membership trial for 30 days</span>
+                <span class="benefit">ACE 0.8 CECs</span>
+                <span class="benefit">NASM 0.8 CEUs</span>
+                <span class="benefit">AFAA 8.0 CEUs</span>
+            </div>
+            <div class="price-block">
+                <span class="fee-title">Registration Fee:</span>
+                <span class="item">Spinning Instructor Manual - US</span>
+                <span class="price">{{> components/products/price price=product.price schema_org=schema}}</span>
+                {{#if product.can_purchase}}
+                {{#each product.custom_fields}}
+                {{#if name 'enrollStatus'}}
+                {{#if value 'false'}}
+                <form class="form" method="post" action="{{../../../product.cart_url}}" enctype="multipart/form-data"
+                  data-cart-item-add>
+                    <input type="hidden" name="action" value="add">
+                    <input type="hidden" name="product_id" value="{{../../../product.id}}"/>
+                    <input id="form-action-addToCart" data-wait-message="{{lang 'products.adding_to_cart'}}" class="btn btn-red btn-rounded-corners" type="submit"
+                                   value="Register Now">
+                </form>
+                {{/if}}
+                {{/if}}
+                {{/each}}
+                {{/if}}
+            </div>
+        </div>
+
+        <div class="body-content">
+            <div class="description">{{{product.description}}}</div>
+            <div class="map">
+                <iframe
+                    width="300"
+                    height="300"
+                    frameborder="0" style="border:0"
+                    src="https://www.google.com/maps/embed/v1/place?key=AIzaSyD5JpUddD2-esTr59CVEZN5j4XexqhFb0w&q=Space+Needle,Seattle+WA" allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+
+        <div id="productJSON" style="display:none;">
+            {{product.warranty}}
+        </div>
+    </div>
+    
+    <script type="text/javascript">
+    $(document).ready(function(){
+        var target = ' and a 30-Day SPIN<span style="font-size:10px">®</span>\n Membership';
+        if($(".description").html().indexOf(target) > -1){$(".description").html($(".description").html().replace(target, ''));}
+    });
+    </script>
+
+{{/partial}}
+{{> layout/base}}

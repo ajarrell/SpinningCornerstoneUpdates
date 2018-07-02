@@ -1,0 +1,24 @@
+<ul class="tabs tabs--simple" data-tab role="tablist">
+    {{#if products.featured}}
+        <!--<li class="tab is-active" role="presentational">
+            <a class="tab-title" href="#tab-featured" role="tab" tabindex="0" aria-selected="true" controls="tab-featured">You'll Train Better With</a>
+        </li>-->
+    {{/if}}
+    {{#if product.related_products}}
+        <li class="tab{{#unless product.featured}} is-active{{/unless}}" role="presentational">
+            <a class="tab-title" href="#tab-related" role="tab" tabindex="0" aria-selected="false" controls="tab-related">You Might Also Like</a>
+        </li>
+    {{/if}}
+</ul>
+
+<div class="tabs-contents">
+{{#if products.featured}}
+
+{{/if}}
+
+{{#if product.related_products}}
+    <div role="tabpanel" aria-hidden="true" class="tab-content has-jsContent{{#unless product.featured}} is-active{{/unless}}" id="tab-related">
+        {{> components/products/carousel products=product.related_products columns=5}}
+    </div>
+{{/if}}
+</div>

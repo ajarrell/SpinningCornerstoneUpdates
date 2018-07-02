@@ -1,0 +1,484 @@
+<div class="productView">
+    {{#each product.reviews.messages}}
+        {{#if error}}
+            {{>components/common/alert-error error}}
+        {{/if}}
+        {{#if success}}
+            {{>components/common/alert-success success}}
+        {{/if}}
+    {{/each}}
+    
+    <style type="text/css">.desktop{@media()}.carousel{position:relative}.carousel-inner{position:relative;overflow:hidden;width:100%}.carousel-inner>.item{display:none;position:relative;-webkit-transition:.6s ease-in-out left;transition:.6s ease-in-out left}.carousel-inner>.item>a>img,.carousel-inner>.item>img{line-height:1}.carousel-inner>.active,.carousel-inner>.next,.carousel-inner>.prev{display:block}.carousel-inner>.active{left:0}.carousel-inner>.next,.carousel-inner>.prev{position:absolute;top:0;width:100%}.carousel-inner>.next{left:100%}.carousel-inner>.prev{left:-100%}.carousel-inner>.next.left,.carousel-inner>.prev.right{left:0}.carousel-inner>.active.left{left:-100%}.carousel-inner>.active.right{left:100%}.carousel-control{position:absolute;top:0;left:0;bottom:0;width:15%;opacity:.5;filter:alpha(opacity=50);font-size:20px;color:#fff;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.6)}.carousel-control.left{background-image:-webkit-linear-gradient(left,color-stop(rgba(0,0,0,.5)0),color-stop(rgba(0,0,0,.0001)100%));background-image:linear-gradient(to right,rgba(0,0,0,.5)0,rgba(0,0,0,.0001)100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#80000000', endColorstr='#00000000', GradientType=1)}.carousel-control.right{left:auto;right:0;background-image:-webkit-linear-gradient(left,color-stop(rgba(0,0,0,.0001)0),color-stop(rgba(0,0,0,.5)100%));background-image:linear-gradient(to right,rgba(0,0,0,.0001)0,rgba(0,0,0,.5)100%);background-repeat:repeat-x;filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#00000000', endColorstr='#80000000', GradientType=1)}.carousel-control:focus,.carousel-control:hover{outline:0;color:#fff;text-decoration:none;opacity:.9;filter:alpha(opacity=90)}.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right,.carousel-control .icon-next,.carousel-control .icon-prev{position:absolute;top:50%;z-index:5;display:inline-block}.carousel-control .glyphicon-chevron-left,.carousel-control .icon-prev{left:50%}.carousel-control .glyphicon-chevron-right,.carousel-control .icon-next{right:50%}.carousel-control .icon-next,.carousel-control .icon-prev{width:20px;height:20px;margin-top:-10px;margin-left:-10px;font-family:serif}.carousel-control .icon-prev:before{content:'\2039'}.carousel-control .icon-next:before{content:'\203a'}.carousel-indicators{position:absolute;bottom:10px;left:50%;z-index:15;width:60%;margin-left:-30%;padding-left:0;list-style:none;text-align:center}.carousel-indicators li{display:inline-block;width:10px;height:10px;margin:1px;text-indent:-999px;border:1px solid #fff;border-radius:10px;cursor:pointer;background-color:#000 \9;background-color:rgba(0,0,0,0)}.carousel-indicators .active{margin:0;width:12px;height:12px;background-color:#fff}.carousel-caption{position:absolute;left:15%;right:15%;bottom:20px;z-index:10;padding-top:20px;padding-bottom:20px;color:#fff;text-align:center;text-shadow:0 1px 2px rgba(0,0,0,.6)}.carousel-caption .btn{text-shadow:none}@media screen and (min-width:768px){.carousel-control .glyphicon-chevron-left,.carousel-control .glyphicon-chevron-right,.carousel-control .icon-next,.carousel-control .icon-prev{width:30px;height:30px;margin-top:-15px;margin-left:-15px;font-size:30px}.carousel-caption{left:20%;right:20%;padding-bottom:30px}.carousel-indicators{bottom:20px}}</style>
+    
+    
+    <section class="productView-details">
+        <div class="productView-product">
+            <h1 class="productView-title" {{#if schema}}itemprop="name"{{/if}}>{{product.title}}</h1>
+            <div id="product-id" style="display: none;">{{product.id}}</div>
+            <div class="row">
+                <div class="col-xs-8">
+                    <div class="productView-rating"{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}>
+                        {{#if settings.show_product_rating}}
+                            {{#if product.num_reviews '>' 0}}
+                                {{#if schema}}
+                                    <meta itemprop="ratingValue" content="{{product.rating}}">
+                                    <meta itemprop="ratingCount" content="{{product.num_reviews}}">
+                                    <meta itemprop="reviewCount" content="{{product.num_reviews}}">
+                                {{/if}}
+                            {{/if}}
+                            {{> components/products/ratings rating=product.rating}}
+                        {{/if}}
+                    </div>
+                </div>
+                <div class="col-xs-4" style="text-align: right">
+                    <a href="#" class="productView-share" {{#unless is_ajax}}data-reveal-id="modal-share-product"{{/unless}}>
+                        <i class="fa fa-share-square-o"></i><span>Share</span>
+                    </a>
+                    {{> components/products/modals/share-product}}
+                </div>
+            </div>
+
+            <div class="productView-divider"></div>
+
+            <!--<h2 class="productView-brand"{{#if schema}} itemprop="brand" itemscope itemtype="http://schema.org/Brand"{{/if}}>
+                <a href="{{product.brand.url}}"{{#if schema}} itemprop="url"{{/if}}><span{{#if schema}} itemprop="name"{{/if}}>{{product.brand.name}}</span></a>
+            </h2>-->
+            {{#if product.call_for_price}}
+                <p class="productView-price {{#each product.custom_fields}}{{#if name 'on_sale'}}{{#if value 'true'}}sale-price{{/if}}{{/if}}{{/each}}">
+                    <span>{{product.call_for_price}}</span>
+                </p>
+            {{/if}}
+            {{#if product.price}}
+                <div class="productView-price {{#each product.custom_fields}}{{#if name 'on_sale'}}{{#if value 'true'}}sale-price{{/if}}{{/if}}{{/each}}">
+                    {{> components/products/price price=product.price schema_org=schema}}
+                </div>
+            {{/if}}
+            {{product.detail_messages}}
+        </div>
+    </section>
+
+    <section class="productView-images" data-image-gallery>
+        <ul class="productView-thumbnails">
+            {{#each product.images}}
+                <li class="productView-thumbnail">
+                    <a
+                            class="productView-thumbnail-link"
+                            href="{{getImage this 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                            data-image-gallery-item
+                            data-image-gallery-new-image-url="{{getImage this 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                            data-image-gallery-zoom-image-url="{{getImage this 'zoom_size' (cdn ../theme_settings.default_image_product)}}">
+                        <img src="{{getImage this 'productthumb_size' (cdn ../theme_settings.default_image_product)}}" alt="{{this.alt}}">
+                    </a>
+                </li>
+            {{/each}}
+        </ul>
+        <figure class="productView-image"
+                data-image-gallery-main
+                data-zoom-image="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}"
+                >
+            <a href="{{getImage product.main_image 'zoom_size' (cdn theme_settings.default_image_product)}}">
+                <img class="productView-image--default"
+                     src="{{getImage product.main_image 'product_size' (cdn theme_settings.default_image_product)}}"
+                     alt="{{product.main_image.alt}}" data-main-image>
+            </a>
+        </figure>
+    </section>
+
+    <section class="productView-details noMargin">
+        <div class="productView-options">
+            {{#if product.release_date }}
+                <p>{{product.release_date}}</p>
+            {{/if}}
+
+            <form class="form" method="post" action="{{product.cart_url}}" enctype="multipart/form-data"
+                  data-cart-item-add>
+                <input type="hidden" name="action" value="add">
+                <input type="hidden" name="product_id" value="{{product.id}}"/>
+
+                    {{#each product.customizations}}
+                        {{{dynamicComponent 'components/products/customizations'}}}
+                    {{/each}}
+                <div data-product-option-change style="display:none;">
+                    <div class="row">
+                        {{#each product.options}}
+                            <div class="col-sm-6">
+                                {{{dynamicComponent 'components/products/options'}}}
+                            </div>
+                        {{/each}}
+                    </div>
+                </div>
+
+                {{#if product.event_date}}
+                    <div class="form-field">
+                        <label class="form-label form-label--alternate form-label--inlineSmall">
+                        {{product.event_date.name}}:
+                        <small>{{lang 'common.required'}}</small>
+                        </label>
+                        <select class="form-select form-select--date" name="EventDate[Mth]" required>
+                            <option value="">{{lang 'common.month'}}</option>
+                            {{#enumerate 1 12}}
+                                <option value="{{this}}">{{getShortMonth this}}</option>
+                            {{/enumerate}}
+                        </select>
+                        <select class="form-select form-select--date" name="EventDate[Day]" required>
+                            <option value="">{{lang 'common.day'}}</option>
+                            {{#enumerate 1 31}}
+                                <option value="{{this}}">{{this}}</option>
+                            {{/enumerate}}
+                        </select>
+                        <select class="form-select form-select--date" name="EventDate[Yr]" required>
+                            <option value="">{{lang 'common.year'}}</option>
+                            {{#enumerate product.event_date.earliest_year product.event_date.latest_year}}
+                                <option value="{{this}}" >{{this}}</option>
+                            {{/enumerate}}
+                        </select>
+                    </div>
+                {{/if}}
+
+                <div class="form-field form-field--stock{{#unless product.stock_level}} u-hiddenVisually{{/unless}}">
+                    <label class="form-label form-label--alternate">
+                        {{lang 'products.current_stock'}}
+                        <span data-product-stock>{{product.stock_level}}</span>
+                    </label>
+
+                </div>
+
+                {{#if product.can_purchase}}
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="alertBox productAttributes-message" style="display:none">
+                            <div class="alertBox-column alertBox-icon">
+                                <icon glyph="ic-success" class="icon" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z"></path></svg></icon>
+                            </div>
+                            <p class="alertBox-column alertBox-message"></p>
+                        </div>
+                    </div>
+                    <div class="col-xs-3 u-hiddenVisually">
+                        <div class="form-field form-field--increments" style="margin-bottom: 0">
+                            <div class="form-increment" data-quantity-change>
+                                <input class="form-input form-input--incrementTotal"
+                                       id="qty[]"
+                                       name="qty[]"
+                                       type="tel"
+                                       value="{{#if product.min_purchase_quantity}}{{product.min_purchase_quantity}}{{else}}1{{/if}}"
+                                       data-quantity-min="{{product.min_purchase_quantity}}"
+                                       data-quantity-max="{{product.max_purchase_quantity}}"
+                                       min="1"
+                                       pattern="[0-9]*"
+                                       aria-live="polite">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-action" style="margin-top: 0; width: 100%">
+                            <input id="form-action-addToCart" data-wait-message="{{lang 'products.adding_to_cart'}}" class="btn btn-red btn-fluid btn-rounded-corners" type="submit"
+                                   value="{{#if product.pre_order}}{{lang 'products.pre_order'}}{{else}}{{lang 'products.add_to_cart'}}{{/if}}">
+                        </div>
+                        {{{snippet 'product_addtocart'}}}
+                    </div>
+                </div>
+
+                {{/if}}
+                {{#if product.out_of_stock}}
+                    {{#if product.out_of_stock_message}}
+                        {{>components/common/alert-error product.out_of_stock_message}}
+                    {{else}}
+                        {{>components/common/alert-error (lang 'products.sold_out')}}
+                    {{/if}}
+                {{/if}}
+            </form>
+        </div>
+        {{{snippet 'product_details'}}}
+    </section>
+
+    <section class="productView-details noMargin">
+        <div class="productView-etc">
+            {{#if product.custom_fields}}
+                <div class="check-row">
+                    {{#each product.custom_fields}}
+                        <div class="check-item">
+                            {{#if name '===' 'free_shipping'}}
+                                {{#if value '===' 'true'}}
+                                    <img src="{{cdn '/assets/img/icons/ship.png'}}" alt="">
+                                    <span>$40 Shipping</span>
+                                {{/if}}
+                            {{/if}}
+                            {{#if name '===' 'zero_financing'}}
+                                {{#if value '===' 'true'}}
+                                    <div class="paypal-credit-zf" data-reveal-id="modal-financing">
+                                        <img src="{{cdn '/assets/img/icons/shield.png'}}" alt="">
+                                        <span>0% Financing</span>
+                                    </div>
+                                    <div id="modal-financing" class="modal" data-reveal>
+                                        <a href="#" class="modal-close" aria-label="{{lang 'common.close'}}" role="button">
+                                            <span aria-hidden="true">&#215;</span>
+                                        </a>
+                                        <div class="modal-body">
+                                            <script type="text/javascript" data-pp-payerid="VZ7FHNXYU9DBW" data-pp-placementtype="300x250" data-pp-style="BLUWHTYMED">(function (d, t) {"use strict";var s = d.getElementsByTagName(t)[0], n = d.createElement(t);n.src = "//www.paypalobjects.com/upstream/bizcomponents/js/merchant.js";s.parentNode.insertBefore(n, s);}(document, "script"));</script>
+                                        </div>
+                                    </div>
+                                {{/if}}
+                            {{/if}}
+                            {{#if name '===' 'spinning_dvds'}}
+                                {{#if value '===' 'true'}}
+                                    <img src="{{cdn '/assets/img/icons/dvd.png'}}" alt="">
+                                    <span>Spinning DVDs</span>
+                                {{/if}}
+                            {{/if}}
+                            {{#if name '===' 'one_year_warranty'}}
+                                {{#if value '===' 'true'}}
+                                    <img src="{{cdn '/assets/img/icons/shield.png'}}" alt="">
+                                    <span>1 year warranty</span>
+                                {{/if}}
+                            {{/if}}
+                        </div>
+                    {{/each}}
+                </div>
+            {{/if}}
+
+            <div class="description">
+                {{{product.description}}}
+            </div>
+
+            {{> components/common/cta-arrow text='Product Details' scroll_to='productView-description' }}
+        </div>
+    </section>
+
+    <section class="productView-other-products" style="padding:0!important;">
+        <div class="fc-title">About Your Free Online Course</div>
+        <div class="fc-sub">With your SPIN&reg; Membership you receive a free online course of up to 5 CECs (up to a $70 value). Learn more about the eligible courses below.</div>
+        
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script type="text/javascript">        
+            $(".carousel").on("touchstart", function(event){
+                var xClick = event.originalEvent.touches[0].pageX;
+                $(this).one("touchmove", function(event){
+                    var xMove = event.originalEvent.touches[0].pageX;
+                    if( Math.floor(xClick - xMove) > 5 ){$(this).carousel('next');}
+                    else if( Math.floor(xClick - xMove) < -5 ){$(this).carousel('prev');}
+                });
+                $(".carousel").on("touchend", function(){$(this).off("touchmove");});
+            });
+        </script>
+        <div id="fc-carousel-mob" class="carousel slide mobile-only" data-ride="carousel" data-interval="false" style="min-height:400px;">
+            <ol class="carousel-indicators" style="bottom:0;display:none;">
+                <li data-target="#fc-carousel-mob" data-slide-to="0" class="active" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="1" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="2" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="3" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="4" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="5" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="6" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="7" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="8" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="9" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="10" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel-mob" data-slide-to="11" style="border-color:rgba(0,0,0,.6);"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Cadence, Heart Rate, and Class Design</h3>
+                        <p>Understanding the relationship between cadence, resistance, and intensity (heart rate) is key to coaching classes that meet students' training goals. Whether you use a cadence monitor on the Spinner&reg; bike or cadence counting methods, this couse, co-developed by Mad Dogg Athletics with cycling expert Joe Friel, will help you correctly use cadence and resistance as training variables.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Breathing Techniques</h3>
+                        <p>Learn how to channel one of the most important functions of your body into creating more efficiency in your workout! Use the concepts in this class to teach your clients proper breathing techniques to enhance performance and reduce exercise stress.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Mental Training</h3>
+                        <p style="margin-bottom:0;">Mastery of the mind leads to a more peaceful, productive, and creative way of living. This course guides you in your own personal quest for peak performance and health through the use of mental training techniques that can be applied to your Spinning&reg; classes. Believe in the power of your mind!</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Periodization for Peak Performance</h3>
+                        <p>Attract more participants to your class by integrating the concepts of periodization. This is the concept of dividing the calendar year into periods characterized by different forms of training—this course explains how to correctly partition the year and include applicable factors such as goal setting, Spinning&reg; Energy Zones&trade;, anaerobic training, monitoring heart rate, and training time. Review sample annual periodization schedules for both new and experienced clients, as well as competitive athletes.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Principles for Effective Weight Loss</h3>
+                        <p>Teach your clients how to not only lose weight, but keep it off. Weight loss can be a tricky goal to tackle, even for trained fitness professionals. The Spinning&reg; program is one aspect of a well-rounded weight loss plan, and this course describes the remaining factors: nutrition, healthy habits, how to avoid misconceptions, heart rate training, Energy Zones&trade;, an exercise schedule and ways to measure success.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Exercise Physiology</h3>
+                        <p>Exercise physiology is the study of the body's function during activity. As a Certified Spinning&reg; Instructor, becoming familiar with the normal changes that take place during exercise will help you become a more effective, knowledgeable coach. This online course is to familiarize you with basic exercise physiology concepts and to give you an idea of how to apply them in your Spinning&reg; classes.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">  
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Resistance Training for Spinning&reg;</h3>
+                        <p>As a Spinning&reg; instructor, you always need additional education off the bike to improve your classes on the bike. A major component of Spinning&reg; is establishing a solid foundation of muscular fitness, and this course focuses on identifying the variables that contribute to safe and effective program design for resistance training, as well has how they can enhance your Spinning&reg; class. Learn the aspects of a fulfilling program, the way to actively goal-set and motivate, as well as resistance training off the bike with light equipment and machine weights.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Spinning&reg; Energy Zones</h3>
+                        <p>This online course provides an in-depth examination of training and instruction concepts for each Spinning&reg; Energy Zone, written by five different authors with specialized expertise in their Energy Zone&trade; field. These five rides are the foundation of the Spinning&reg; program and the main reason why Spinning&reg; has achieved a higher level of sophistication than other group exercise programs that fail to recognize the importance of heart rate parameters and specificity of training. This course will also give you a thorough knowledge of how to present training sessions in each Energy Zone&trade;, and enable your students to experience the benefits of a well-rounded training system.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Aerobic Exercise</h3>
+                        <p>You know that aerobic exercise is important. But do your clients? This course stresses the importance of emphasizing aerobic exercise, as it can be the most overlooked component of a well-rounded fitness routine. Learn how to educate your clients on the concept of conducting training sessions at comfortable heart rates, and how it ensures long-term fitness progress and optimum health. We will review the principles of aerobic exercise, aerobic heart rate training, how it applies in the Spinning&reg; Energy Zones&trade; program and the importance of a proper warm-up and cool-down.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Fitness Assessments for Spinning&reg;</h3>
+                        <p>The fitness assessment is a foundation from which to grow your clients' exercise programs, a critical tool in sowing the seeds of long-term health and fitness. This course addresses how to administer a complete fitness assessment, including how to make practical sense of the data it provides.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Special Populations</h3>
+                        <p>As exercise is widely considered an advantage in helping special populations cope with any afflictions, the benefits of the Spinning&reg; program fit right in. This course will discuss the varied special populations among Spinning&reg; participants and considerations for clients with asthma, COPD, chronic low back pain, diabetes, high blood pressure, obesity, osteoarthritis and pregnancy, as well as seniors. We will identify each special population, then delve into the different aspects of training as it pertains to the specific needs of each client, including the necessary frequency of exercise, specialized contraindications you need to be aware of and Spinning&reg;-specific guidelines.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Spinning&reg; for Active Older Adults</h3>
+                        <p>This course reflects one of the fundamental principles of the Spinning&reg; program-addressing the individuality of each participant. Active older adults comprise the fastest growing segment of the fitness population and have distinct and different exercise needs and goals from younger fitness enthusiasts. Spinning&reg; for Active Older Adults will discuss the physical and emotional needs of senior Spinning&reg; participants, giving you additional expertise in training these riders. This text covers safety concerns for older riders, physiological benefits of exercise, heart rate considerations and recovery techniques to prevent fatigue and burnout.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#fc-carousel-mob" role="button" data-slide="prev" style="background:none;width:5%;">
+                <span class="fa fa-2x fa-angle-left" aria-hidden="true" style="color:#000;position:absolute;top:50%;left:50%"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#fc-carousel-mob" role="button" data-slide="next" style="background:none;width:5%;">
+                <span class="fa fa-2x fa-angle-right" aria-hidden="true" style="color:#000;position:absolute;top:50%;right:50%"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+        <div id="fc-carousel" class="carousel slide desktop-only" data-ride="carousel" data-interval="false" style="min-height:400px;">
+            <ol class="carousel-indicators" style="bottom:0;">
+                <li data-target="#fc-carousel" data-slide-to="0" class="active" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel" data-slide-to="1" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel" data-slide-to="2" style="border-color:rgba(0,0,0,.6);"></li>
+                <li data-target="#fc-carousel" data-slide-to="3" style="border-color:rgba(0,0,0,.6);"></li>
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                <div class="item active" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Cadence, Heart Rate, and Class Design</h3>
+                        <p>Understanding the relationship between cadence, resistance, and intensity (heart rate) is key to coaching classes that meet students' training goals. Whether you use a cadence monitor on the Spinner&reg; bike or cadence counting methods, this couse, co-developed by Mad Dogg Athletics with cycling expert Joe Friel, will help you correctly use cadence and resistance as training variables.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Breathing Techniques</h3>
+                        <p>Learn how to channel one of the most important functions of your body into creating more efficiency in your workout! Use the concepts in this class to teach your clients proper breathing techniques to enhance performance and reduce exercise stress.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Mental Training</h3>
+                        <p style="margin-bottom:0;">Mastery of the mind leads to a more peaceful, productive, and creative way of living. This course guides you in your own personal quest for peak performance and health through the use of mental training techniques that can be applied to your Spinning&reg; classes. Believe in the power of your mind!</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Periodization for Peak Performance</h3>
+                        <p>Attract more participants to your class by integrating the concepts of periodization. This is the concept of dividing the calendar year into periods characterized by different forms of training—this course explains how to correctly partition the year and include applicable factors such as goal setting, Spinning&reg; Energy Zones&trade;, anaerobic training, monitoring heart rate, and training time. Review sample annual periodization schedules for both new and experienced clients, as well as competitive athletes.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Principles for Effective Weight Loss</h3>
+                        <p>Teach your clients how to not only lose weight, but keep it off. Weight loss can be a tricky goal to tackle, even for trained fitness professionals. The Spinning&reg; program is one aspect of a well-rounded weight loss plan, and this course describes the remaining factors: nutrition, healthy habits, how to avoid misconceptions, heart rate training, Energy Zones&trade;, an exercise schedule and ways to measure success.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Exercise Physiology</h3>
+                        <p>Exercise physiology is the study of the body's function during activity. As a Certified Spinning&reg; Instructor, becoming familiar with the normal changes that take place during exercise will help you become a more effective, knowledgeable coach. This online course is to familiarize you with basic exercise physiology concepts and to give you an idea of how to apply them in your Spinning&reg; classes.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">  
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Resistance Training for Spinning&reg;</h3>
+                        <p>As a Spinning&reg; instructor, you always need additional education off the bike to improve your classes on the bike. A major component of Spinning&reg; is establishing a solid foundation of muscular fitness, and this course focuses on identifying the variables that contribute to safe and effective program design for resistance training, as well has how they can enhance your Spinning&reg; class. Learn the aspects of a fulfilling program, the way to actively goal-set and motivate, as well as resistance training off the bike with light equipment and machine weights.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Spinning&reg; Energy Zones</h3>
+                        <p>This online course provides an in-depth examination of training and instruction concepts for each Spinning&reg; Energy Zone, written by five different authors with specialized expertise in their Energy Zone&trade; field. These five rides are the foundation of the Spinning&reg; program and the main reason why Spinning&reg; has achieved a higher level of sophistication than other group exercise programs that fail to recognize the importance of heart rate parameters and specificity of training. This course will also give you a thorough knowledge of how to present training sessions in each Energy Zone&trade;, and enable your students to experience the benefits of a well-rounded training system.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Aerobic Exercise</h3>
+                        <p>You know that aerobic exercise is important. But do your clients? This course stresses the importance of emphasizing aerobic exercise, as it can be the most overlooked component of a well-rounded fitness routine. Learn how to educate your clients on the concept of conducting training sessions at comfortable heart rates, and how it ensures long-term fitness progress and optimum health. We will review the principles of aerobic exercise, aerobic heart rate training, how it applies in the Spinning&reg; Energy Zones&trade; program and the importance of a proper warm-up and cool-down.</p>
+                    </div>
+                </div>
+                <div class="item" style="margin:0 5%;width:90%;">
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Fitness Assessments for Spinning&reg;</h3>
+                        <p>The fitness assessment is a foundation from which to grow your clients' exercise programs, a critical tool in sowing the seeds of long-term health and fitness. This course addresses how to administer a complete fitness assessment, including how to make practical sense of the data it provides.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Special Populations</h3>
+                        <p>As exercise is widely considered an advantage in helping special populations cope with any afflictions, the benefits of the Spinning&reg; program fit right in. This course will discuss the varied special populations among Spinning&reg; participants and considerations for clients with asthma, COPD, chronic low back pain, diabetes, high blood pressure, obesity, osteoarthritis and pregnancy, as well as seniors. We will identify each special population, then delve into the different aspects of training as it pertains to the specific needs of each client, including the necessary frequency of exercise, specialized contraindications you need to be aware of and Spinning&reg;-specific guidelines.</p>
+                    </div>
+                    <div class="col-lg-4 col-md-4" style="margin-bottom:20px;">
+                        <h3>Spinning&reg; for Active Older Adults</h3>
+                        <p>This course reflects one of the fundamental principles of the Spinning&reg; program-addressing the individuality of each participant. Active older adults comprise the fastest growing segment of the fitness population and have distinct and different exercise needs and goals from younger fitness enthusiasts. Spinning&reg; for Active Older Adults will discuss the physical and emotional needs of senior Spinning&reg; participants, giving you additional expertise in training these riders. This text covers safety concerns for older riders, physiological benefits of exercise, heart rate considerations and recovery techniques to prevent fatigue and burnout.</p>
+                    </div>
+                </div>
+            </div>
+            <a class="left carousel-control" href="#fc-carousel" role="button" data-slide="prev" style="background:none;width:5%;">
+                <span class="fa fa-2x fa-angle-left" aria-hidden="true" style="color:#000;position:absolute;top:50%;left:50%"></span>
+                <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#fc-carousel" role="button" data-slide="next" style="background:none;width:5%;">
+                <span class="fa fa-2x fa-angle-right" aria-hidden="true" style="color:#000;position:absolute;top:50%;right:50%"></span>
+                <span class="sr-only">Next</span>
+            </a>
+        </div>
+    </section>
+
+    <article id="productView-description" class="warranty productView-description"{{#if schema}} itemprop="description"{{/if}}>
+        <div class="long-tabs">
+            <div class="long-tabs--wrapper">
+                <div class="long-tabs--tab review-tab-title">
+                    <i class="fa fa-times-circle-o"></i>
+                    <span>Reviews</span>
+                </div>
+                <div class="long-tabs--content">
+                    {{#if settings.show_product_reviews}}
+                        <div class="row productView-ratingTop">
+                            <div class="col-sm-6">
+                                <p class="productView-ratingSummary">
+                                    <strong>Score: {{product.rating}} of 5</strong>
+                                    <span><small>(Based on {{product.num_reviews}} ratings)</small></span>
+                                </p>
+                            </div>
+                            <div class="col-sm-6 productView-reviewLinkContainer">
+                                <span class="productView-reviewLink">
+                                    <a href="#{{#if is_ajax}}writeReview{{/if}}"
+                                       class="btn btn-rounded-corners btn-lg"
+                                       {{#unless is_ajax }}data-reveal-id="modal-review-form"{{/unless}}>
+                                       {{lang 'products.reviews.new'}}
+                                    </a>
+                                </span>
+                                {{> components/products/modals/writeReview}}
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                {{> components/products/reviews reviews=product.reviews}}
+                            </div>
+                        </div>
+                    {{/if}}
+                </div>
+            </div>
+        </div>
+    </article>
+</div>
+
+<div id="previewModal" class="modal modal--large" data-reveal>
+    <a href="#" class="modal-close" aria-label="{{lang 'common.close'}}" role="button">
+        <span aria-hidden="true">&#215;</span>
+    </a>
+    <div class="modal-content"></div>
+    <div class="loadingOverlay"></div>
+</div>

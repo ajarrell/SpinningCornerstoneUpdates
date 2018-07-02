@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html class="no-js">
+    <head>
+    {{#if template_file 'pages/home'}}
+        {{!--<meta name="google-site-verification" content="rL7-Hqa-f-VQnlIzap0eQh0HQMn5FlR7deqT5qb4eOs" /> --}}
+        <meta name="google-site-verification" content="uqhCpxII-bZgxcJaXV699DUQaIxCYQ_W2zV86yOsxa8" />
+    {{/if}}
+    <!-- GEOIP -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="//js.maxmind.com/js/apis/geoip2/v2.1/geoip2.js" type="text/javascript"></script>
+    
+<script type="text/javascript">
+    jQuery(document).ready(function(){
+            var redirect = (function () {
+
+            var currUrl = window.location; console.log(currUrl);
+            var arrPath = currUrl.pathname.split('/');
+            var paths = new Array();
+            for(i = 0; i < arrPath.length; i++ ) {
+                if(arrPath[i].trim() != "") {
+                    paths.push(arrPath[i]);  
+                }
+            }
+            console.log(paths);
+
+            var language = navigator.language || navigator.userLanguage;
+            language = language.substring(0,2);
+
+            /* This implements the actual redirection. */
+            var redirectBrowser = function (site) {
+                // REMOVE COMMENT BELOW 2 LINES WHEN SITE GOES LIVE
+                window.location = site;
+            };
+
+            var regions = new Array("NA","SA","OC","AS");
+            var countries = new Array("US","CA","BR","MX","CL","AR","CU","AU","NZ");
+            var spanish  = new Array("BR","MX","CL","AR","CU");
+            var spanishRegions = new Array("SA"); 
+
+            var blackList = new Array("cz","de","dk","es","fr","hu","it","nl","no","pl","po","ro","zh","sa", "kw");
+
+            var prefix = "https://";
+            var CurrentPage = location.pathname+location.search.substr(0);
+            var internationalSite = "https://en1.spinning.com"+CurrentPage;
+            
+            var onSuccess = function (geoipResponse) {
+                /* There's no guarantee that a successful response object
+                 * has any particular property, so we need to code defensively. */
+                if (!geoipResponse.country.iso_code) {
+                    return;
+                }
+
+                /* ISO country codes are in upper case. */
+                var region = geoipResponse.continent.code.toUpperCase();
+                var country = geoipResponse.country.iso_code.toUpperCase();
+                console.log(country + "   " + region);
+                if(countries.indexOf(country) == -1 && regions.indexOf(region) == -1) {
+                    redirectBrowser(internationalSite);
+                } else {
+                    if(paths.length > 0 && blackList.indexOf(paths[0].toLowerCase()) > -1) {
+                        redirectBrowser(prefix+currUrl.hostname);
+                console.log("redirecting to us-spanish site "+prefix+currUrl.hostname);
+                    }else{
+						var site = window.location.hostname;
+						if(country == 'IL' || country == 'AE' || country == 'BH' || country == 'SA'){
+						    console.log('Ok! Redirect. Country: '+country);
+							redirectBrowser(internationalSite);
+						}
+					}
+                    /*if(paths.length == 0 && language == 'es' && (spanish.indexOf(country) > -1 || spanishRegions.indexOf(region) > -1)) {
+                redirectBrowser(prefix+currUrl.hostname+"/es/");
+                console.log("redirecting to us-spanish site "+prefix+currUrl.hostname+"/es/");
+            }*/
+                }
+            };
+
+            /* We don't really care what the error is, we'll send them
+             * to the default site. */
+            var onError = function (error) {
+                return;
+            };
+
+            return function () {
+                geoip2.country( onSuccess, onError );
+            };
+        }());
+
+        var injectGeoValues = (function() {
+
+            var cont_code, cont_name, country_iso_code, country_name;
+            var onSuccess = function(location){
+                console.log(
+                  "Lookup successful:\n\n"
+                  + JSON.stringify(location, undefined, 4)
+                );
+                cont_code = location.continent.code;
+                cont_name = location.continent.names.en;
+                country_iso_code = location.country.iso_code;
+                country_name = location.country.names.en;
+                
+                jQuery("#mce-MMERGE14").val(cont_code);
+                jQuery("#mce-MMERGE18").val(cont_name);
+                jQuery("#mce-MMERGE12").val(country_iso_code);
+                //jQuery("input:hidden[name=CNTRY_NAME]").val(country_name);
+                //jQuery("#mce-MMERGE12").val(country_name);
+
+                jQuery("select#mce-ADDRESS-country option").each(function() {
+                    //console.log(this.text + "  " + country_name);
+                    if(this.text === 'United States of America' && country_name === 'United States') {
+                        this.selected = (this.text === country_name);
+                    } else {
+                        this.selected = (this.text === country_name);
+                    }
+                });
+            };
+             
+            var onError = function(error){
+                console.log(
+                  "Error:\n\n"
+                  + JSON.stringify(error, undefined, 4)
+                );
+            };
+             
+             return function () {
+                geoip2.country( onSuccess, onError );
+            };
+        }());
+
+        /**
+         *  SITE REDIRECT
+         *  @USA/CANADA         Keep user in USA site
+         *   cz,de,dk,es...     redirect to USA english site
+         *
+         *  @NON USA/CANADA     Redirect to international site
+         *
+         */
+        redirect();
+
+
+        /**
+         *  If a sign up form is visible, inject geo info
+         */
+        if(jQuery("input:hidden[name=CNTRY_ISO]").length) { 
+            injectGeoValues();
+        }
+    });
+</script>
+
+        <title>{{ head.title }}</title>
+        {{{ head.meta_tags }}}
+        {{{ head.config }}}
+        {{#block "head"}} {{/block}}
+        <link href="{{ head.favicon }}" rel="shortcut icon">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <script src="https://use.typekit.net/sxs6zjn.js"></script>
+        <script>try{Typekit.load({ async: true });}catch(e){}</script>
+        {{{stylesheet '/assets/css/theme.css'}}}
+
+        <script src="{{cdn '/assets/modernizr-custom.js'}}"></script>
+        <script src="https://use.fontawesome.com/c38cab200c.js"></script>
+        <style type="text/css" media="screen, print">
+           @font-face {
+               font-family: "Selima";
+               src: url("{{cdn 'webdav:Selima .otf'}}");
+           }
+        </style>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+
+
+
+        {{{head.scripts}}}
+        {{{head.rsslinks}}}
+
+        {{inject 'themeSettings' theme_settings}}
+        {{inject 'genericError' (lang 'common.generic_error')}}
+        {{inject 'maintenanceMode' settings.maintenance}}
+        {{inject 'urls' urls}}
+
+        {{{snippet 'htmlhead'}}}
+        
+        <!--GTA--> 
+        <script>
+            (function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-TL7J7N');
+        // dataLayer = [{'pageCategory': 'blog'}];
+        </script> 
+
+{{!--VWO Code--}}
+<script type='text/javascript'>
+var _vwo_code=(function(){
+var account_id=350425,
+settings_tolerance=5000,
+library_tolerance=5000,
+use_existing_jquery=false,
+/* DO NOT EDIT BELOW THIS LINE */
+f=false,d=document;return{use_existing_jquery:function(){return use_existing_jquery;},library_tolerance:function(){return library_tolerance;},finish:function(){if(!f){f=true;var a=d.getElementById('_vis_opt_path_hides');if(a)a.parentNode.removeChild(a);}},finished:function(){return f;},load:function(a){var b=d.createElement('script');b.src=a;b.type='text/javascript';b.innerText;b.onerror=function(){_vwo_code.finish();};d.getElementsByTagName('head')[0].appendChild(b);},init:function(){settings_timer=setTimeout('_vwo_code.finish()',settings_tolerance);var a=d.createElement('style'),b='body{opacity:0 !important;filter:alpha(opacity=0) !important;background:none !important;}',h=d.getElementsByTagName('head')[0];a.setAttribute('id','_vis_opt_path_hides');a.setAttribute('type','text/css');if(a.styleSheet)a.styleSheet.cssText=b;else a.appendChild(d.createTextNode(b));h.appendChild(a);this.load('//dev.visualwebsiteoptimizer.com/j.php?a='+account_id+'&u='+encodeURIComponent(d.URL)+'&r='+Math.random());return settings_timer;}};}());_vwo_settings_timer=_vwo_code.init();
+</script>
+{{!--END VWO Code--}}
+
+    <!-- Pinterest Tag -->
+    <script>
+    !function(e){if(!window.pintrk){window.pintrk = function () {
+    window.pintrk.queue.push(Array.prototype.slice.call(arguments))};var
+          n=window.pintrk;n.queue=[],n.version="3.0";var
+          t=document.createElement("script");t.async=!0,t.src=e;var
+          r=document.getElementsByTagName("script")[0];
+          r.parentNode.insertBefore(t,r)}}("https://s.pinimg.com/ct/core.js");
+        pintrk('load', '2615065662396', {em: '{{customer.email}}'});
+        pintrk('page');
+    </script>
+    <noscript>
+        <img height="1" width="1" style="display:none;" alt="" src="https://ct.pinterest.com/v3/?tid=2615065662396&pd[em]={{customer.email}}&noscript=1" />
+    </noscript>
+    <!-- end Pinterest Tag -->
+       <!--Optimize  Page Flicker-->
+<style>.async-hide { opacity: 0 !important} </style>
+<script>(function(a,s,y,n,c,h,i,d,e){s.className+=' '+y;h.start=1*new Date;
+h.end=i=function(){s.className=s.className.replace(RegExp(' ?'+y),'')};
+(a[n]=a[n]||[]).hide=h;setTimeout(function(){i();h.end=null},c);h.timeout=c;
+})(window,document.documentElement,'async-hide','dataLayer',4000,
+{'GTM-TL7J7N':true});</script> 
+<!--End Optimize  Page Flicker-->
+   
+    </head>
+    <body class="windowIsLoading">
+      
+        <!-- Google Tag Manager -->
+        
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-TL7J7N"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
+<!-- End Google Tag Manager -->
+        {{{snippet 'header'}}}
+        <div class="icons-svg-sprite">{{> components/common/icons/icon-defs }}</div>
+
+        {{#if settings.privacy_cookie}}
+            {{> components/common/cookie}}
+        {{/if}}
+
+        {{> components/common/header }}
+        {{> components/common/body }}
+        {{> components/common/footer }}
+
+        {{> components/common/minibc-template-variables}}
+
+        <script src="{{cdn '/assets/js/bundle.js'}}"></script>
+        <script>
+            // Exported in app.js
+            window.stencilBootstrap("{{template_file}}", {{jsContext}}).load();
+        </script>
+
+        {{{footer.scripts}}}
+        {{{snippet 'footer'}}}
+    </body>
+</html>

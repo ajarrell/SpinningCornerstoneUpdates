@@ -1,0 +1,128 @@
+.our-fans .quote-box {
+  background: #fafafa;
+  border: 1px solid #f0f0f0;
+  border-radius: 0.3571428571em;
+  padding: 2.8571428571em;
+  max-width: 35.714285714em;
+  position: relative;
+  z-index: 15;
+  font-size: 14px; }
+  @media (max-width: 1199px) {
+    .our-fans .quote-box {
+      margin-top: 80px;
+      left: -50px;
+      padding: 20px; } }
+  @media (max-width: 1051px) {
+    .our-fans .quote-box {
+      margin-top: 50px; } }
+  @media (max-width: 991px) {
+    .our-fans .quote-box {
+      left: -25px;
+      margin-top: 25px; } }
+  @media (max-width: 767px) {
+    .our-fans .quote-box {
+      width: 80%;
+      max-width: 80%;
+      display: block;
+      margin-top: 25px;
+      margin-left: auto;
+      margin-right: auto;
+      left: 0; } }
+  @media (min-width: 1200px) {
+    .our-fans .quote-box {
+      left: -3.5714285714em;
+      margin-top: 7.1428571429em; } }
+  @media (min-width: 1440px) {
+    .our-fans .quote-box {
+      font-size: 16px; }
+      .our-fans .quote-box .quote-left {
+        top: -80px !important; }
+      .our-fans .quote-box .quote-right {
+        bottom: -160px !important; } }
+  @media (min-width: 1500px) {
+    .our-fans .quote-box {
+      left: -7.1428571429em;
+      margin-top: 10.714285714em; } }
+  @media (min-width: 1650px) {
+    .our-fans .quote-box {
+      font-size: 18px; }
+      .our-fans .quote-box .quote-left {
+        top: -90px !important; }
+      .our-fans .quote-box .quote-right {
+        bottom: -180px !important; } }
+  @media (min-width: 1920px) {
+    .our-fans .quote-box {
+      font-size: 19px; }
+      .our-fans .quote-box .quote-left {
+        top: -100px !important; }
+      .our-fans .quote-box .quote-right {
+        bottom: -200px !important; } }
+  .our-fans .quote-box .quote-left {
+    top: -70px;
+    left: -35px;
+    position: absolute;
+    color: #ff4341;
+    font-size: 10em;
+    font-style: normal; }
+  .our-fans .quote-box .quote-right {
+    bottom: -140px;
+    right: -35px;
+    position: absolute;
+    color: #ff4341;
+    font-size: 10em;
+    font-style: normal; }
+  @media (max-width: 1199px) {
+    .our-fans .quote-box {
+      font-size: 30px; }
+      .our-fans .quote-box .quote-left {
+        top: -70px;
+        left: -35px;
+        font-size: 10rem; }
+      .our-fans .quote-box .quote-right {
+        bottom: -140px;
+        right: -35px;
+        font-size: 10rem; } }
+  @media (max-width: 767px) {
+    .our-fans .quote-box {
+      margin-bottom: 30px; }
+      .our-fans .quote-box .quote-left {
+        top: -70px;
+        left: -30px; }
+      .our-fans .quote-box .quote-right {
+        bottom: -150px;
+        right: -35px; } }
+  .our-fans .quote-box comment,
+  .our-fans .quote-box author {
+    display: block;
+    width: 100%; }
+  .our-fans .quote-box comment {
+    padding-bottom: 1.7857142857em;
+    font-size: 1.2857142857em;
+    font-weight: 400; }
+    .our-fans .quote-box comment:before, .our-fans .quote-box comment:after {
+      content: "\""; }
+    @media (max-width: 1199px) {
+      .our-fans .quote-box comment {
+        font-size: 16px;
+        padding-bottom: 10px; } }
+  .our-fans .quote-box author {
+    border-top: 1px solid #ff4341;
+    padding-top: 0.7142857143em; }
+    .our-fans .quote-box author name,
+    .our-fans .quote-box author certification {
+      display: block;
+      width: 100%; }
+    .our-fans .quote-box author name {
+      text-transform: uppercase;
+      font-weight: bold;
+      font-size: 1.1428571429em; }
+    .our-fans .quote-box author certification {
+      text-transform: uppercase;
+      font-size: 1em; }
+    @media (max-width: 1199px) {
+      .our-fans .quote-box author name {
+        font-size: 14px; }
+      .our-fans .quote-box author certification {
+        font-size: 12px; } }
+
+/*# sourceMappingURL=our-fans.css.map */

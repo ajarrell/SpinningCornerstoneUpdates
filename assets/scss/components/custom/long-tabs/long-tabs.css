@@ -1,0 +1,78 @@
+.long-tabs {
+  width: 100%;
+  display: block;
+  text-align: left;
+  margin-top: 25px;
+  margin-bottom: 25px; }
+
+.long-tabs--wrapper {
+  width: 100%;
+  display: block; }
+
+.long-tabs--tab:not(:first-of-type) {
+  margin-top: 4px; }
+
+.long-tabs--tab {
+  border: 1px solid #eee;
+  background: #f9f9f9 !important;
+  width: 100% !important;
+  cursor: pointer;
+  padding: 7px 14px 7px 18px; }
+  .long-tabs--tab .fa-times-circle-o {
+    color: #ff4341;
+    font-size: 22px;
+    position: relative;
+    top: 2px;
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+    float: left; }
+  .long-tabs--tab span {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    padding-left: 10px; }
+  .long-tabs--tab.is-active {
+    border-left: 5px solid #ff4341 !important;
+    padding: 7px 14px 7px 14px; }
+    .long-tabs--tab.is-active .fa-times-circle-o {
+      -webkit-transform: rotate(0deg);
+      -moz-transform: rotate(0deg);
+      transform: rotate(0deg); }
+
+.long-tabs--content {
+  display: none;
+  background: #fff;
+  width: 100%;
+  padding: 15px 25px;
+  border-left: 1px solid #eee;
+  border-right: 1px solid #eee;
+  border-bottom: 1px solid #eee;
+  font-size: 16px;
+  font-weight: 500;
+  overflow: hidden; }
+  .long-tabs--content h1, .long-tabs--content h2, .long-tabs--content h3, .long-tabs--content h4, .long-tabs--content h5, .long-tabs--content h6, .long-tabs--content .h1, .long-tabs--content .h2, .long-tabs--content .h3, .long-tabs--content .h4, .long-tabs--content .h5, .long-tabs--content .h6 {
+    color: #ff4341 !important; }
+    .long-tabs--content h1.benefits-header, .long-tabs--content h2.benefits-header, .long-tabs--content h3.benefits-header, .long-tabs--content h4.benefits-header, .long-tabs--content h5.benefits-header, .long-tabs--content h6.benefits-header, .long-tabs--content .h1.benefits-header, .long-tabs--content .h2.benefits-header, .long-tabs--content .h3.benefits-header, .long-tabs--content .h4.benefits-header, .long-tabs--content .h5.benefits-header, .long-tabs--content .h6.benefits-header {
+      color: #333 !important;
+      text-align: center; }
+  .long-tabs--content #warranty-benefits > img.mobile-only {
+    display: none; }
+  @media (max-width: 767px) {
+    .long-tabs--content #warranty-benefits > img {
+      display: none; }
+    .long-tabs--content #warranty-benefits > img.mobile-only {
+      display: block; } }
+  .long-tabs--content #warranty-benefits .col-md-3 img {
+    margin-bottom: 0.75rem; }
+  .long-tabs--content #warranty-benefits .title {
+    font-size: remCalc(14px);
+    font-weight: 600;
+    display: block;
+    margin-bottom: 0.25rem; }
+  .long-tabs--content #warranty-benefits .details {
+    font-size: remCalc(12px); }
+  .long-tabs--content.is-active {
+    display: block; }
+
+/*# sourceMappingURL=long-tabs.css.map */

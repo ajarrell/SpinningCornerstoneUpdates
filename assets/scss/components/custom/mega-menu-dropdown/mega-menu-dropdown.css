@@ -1,0 +1,133 @@
+:not(.dropdown--megaMenu) .navPages-list--lvl2 .col-sm-6 {
+  padding: 0; }
+:not(.dropdown--megaMenu) .navPages-item--lvl2-title + ul {
+  margin: 0 !important;
+  padding: 0 !important;
+  list-style-type: none !important; }
+:not(.dropdown--megaMenu) .navPages-item--lvl2-link {
+  color: #999;
+  text-decoration: none; }
+@media (max-width: 1199px) {
+  :not(.dropdown--megaMenu) .featured-product {
+    display: none !important; }
+  :not(.dropdown--megaMenu) .navPages-item--lvl2-link {
+    font-size: 18px; }
+  :not(.dropdown--megaMenu) .navPages-item--lvl2-title {
+    display: block;
+    color: #333;
+    font-size: 18px; } }
+
+.dropdown--megaMenu {
+  border-top: 3px solid #ff4341;
+  background: #fff;
+  padding: 25px 0;
+  -webkit-box-shadow: 0 0.5em 0.71429em rgba(0, 0, 0, 0.09);
+  -moz-box-shadow: 0 0.5em 0.71429em rgba(0, 0, 0, 0.09);
+  box-shadow: 0 0.5em 0.71429em rgba(0, 0, 0, 0.09);
+  z-index: 999;
+  position: absolute; }
+  @media (min-width: 1400px) {
+    .dropdown--megaMenu {
+      font-size: 16px; } }
+  @media (min-width: 1680px) {
+    .dropdown--megaMenu {
+      font-size: 18px; } }
+  @media (min-width: 1920px) {
+    .dropdown--megaMenu {
+      font-size: 20px; } }
+  .dropdown--megaMenu a {
+    text-decoration: none; }
+    .dropdown--megaMenu a:hover {
+      color: #ff4341 !important; }
+  .dropdown--megaMenu.is-open {
+    left: 0 !important;
+    outline: none;
+    right: 0 !important;
+    width: 100% !important;
+    z-index: zIndex("high"); }
+  .dropdown--megaMenu ul, .dropdown--megaMenu li {
+    list-style-type: none;
+    margin: 0;
+    padding: 0; }
+  .dropdown--megaMenu .navPages-list--lvl2 {
+    width: 100%; }
+    .dropdown--megaMenu .navPages-list--lvl2 .col-sm-6 {
+      padding: 0 35px; }
+  .dropdown--megaMenu .container > .row {
+    display: flex;
+    align-content: center; }
+    .dropdown--megaMenu .container > .row > .col-sm-6 {
+      display: flex;
+      align-items: center; }
+      .dropdown--megaMenu .container > .row > .col-sm-6 #featured-product-wrapper {
+        border-right: 1px solid black; }
+      .dropdown--megaMenu .container > .row > .col-sm-6 #featured-instructor-wrapper {
+        border-left: 1px solid black; }
+      .dropdown--megaMenu .container > .row > .col-sm-6.align-top {
+        align-items: flex-start; }
+  .dropdown--megaMenu .navPages-item--lvl2-title {
+    text-transform: uppercase;
+    padding-bottom: 5px;
+    color: #333;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.2857142857em;
+    display: block;
+    width: 100%;
+    line-height: 1.1;
+    margin-top: 15px;
+    margin-bottom: 10px; }
+    .dropdown--megaMenu .navPages-item--lvl2-title.has-menu {
+      border-bottom: 1px solid #333; }
+    @media (max-width: 1199px) {
+      .dropdown--megaMenu .navPages-item--lvl2-title {
+        font-size: 14px; } }
+    @media (max-width: 767px) {
+      .dropdown--megaMenu .navPages-item--lvl2-title {
+        display: none; } }
+  .dropdown--megaMenu .navPages-item--lvl2-link {
+    font-size: 1.1428571429em;
+    color: #777 !important; }
+    @media (max-width: 1199px) {
+      .dropdown--megaMenu .navPages-item--lvl2-link {
+        font-size: 12px; } }
+    @media (max-width: 767px) {
+      .dropdown--megaMenu .navPages-item--lvl2-link {
+        text-decoration: none; } }
+  .dropdown--megaMenu .featured-product {
+    padding-top: 15px; }
+    @media (max-width: 1199px) {
+      .dropdown--megaMenu .featured-product {
+        display: none; } }
+    .dropdown--megaMenu .featured-product img {
+      display: block;
+      width: 100%;
+      margin-bottom: 10px; }
+    .dropdown--megaMenu .featured-product p {
+      font-size: 1.2857142857em;
+      text-transform: uppercase;
+      font-weight: lighter;
+      margin: 0;
+      padding: 0; }
+      .dropdown--megaMenu .featured-product p span {
+        font-size: 1.2857142857em;
+        color: #333;
+        text-transform: capitalize; }
+      @media (max-width: 1199px) {
+        .dropdown--megaMenu .featured-product p {
+          font-size: 14px; }
+          .dropdown--megaMenu .featured-product p span {
+            font-size: 14px; } }
+    .dropdown--megaMenu .featured-product a {
+      font-size: 1.2857142857em;
+      text-transform: uppercase;
+      color: #ff4341 !important; }
+      @media (max-width: 1199px) {
+        .dropdown--megaMenu .featured-product a {
+          font-size: 12px; } }
+
+@media (max-width: 1199px) {
+  .mobile-hidden {
+    display: none; } }
+
+/*# sourceMappingURL=mega-menu-dropdown.css.map */

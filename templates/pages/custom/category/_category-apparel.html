@@ -1,0 +1,96 @@
+---
+category:
+    shop_by_price: true
+    products:
+        limit: {{theme_settings.categorypage_products_per_page}}
+---
+
+{{inject "categoryProductsPerPage" theme_settings.categorypage_products_per_page}}
+{{inject 'category' category}}
+{{inject 'context' 'category-apparel'}}
+
+{{#partial "head"}}
+    {{#if pagination.category.previous}}
+        <link rel="prev" href="{{pagination.category.previous}}">
+    {{/if}}
+    {{#if pagination.category.next}}
+        <link rel="next" href="{{pagination.category.next}}">
+    {{/if}}
+{{/partial}}
+
+{{#partial "page"}}
+    <div class="gradient category-gradient fromOrange toRed">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-3">
+                    Are Home Bikes Right for You?
+                </div>
+                <div class="col-sm-3">
+                    <span>Want to upgrade an old bike for home use?</span>
+                    <img src="{{cdn 'assets/img/icons/upgrade-icon.png'}}">
+                </div>
+                <div class="col-sm-3">
+                    <span>Want to compliment your gym membership?</span>
+                    <img src="{{cdn 'assets/img/icons/gym-icon.png'}}">
+                </div>
+                <div class="col-sm-3">
+                    <span>Looking for an affordable commercial bike?</span>
+                    <img src="{{cdn 'assets/img/icons/search-affordable-icon.png'}}">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="page category-page">
+        <main class="page-content" id="product-listing-container">
+            <div class="section category-description-mobile">
+                <div class="container">
+                    <p class="content-description"></p>
+                </div>
+            </div>
+            <div class="section" id="why-spinning-wrapper">
+                <!--components/category/choose-right-gear}}-->
+            </div>
+
+            {{#if category.products}}
+                <div class="section grey"">
+                    <div class="container">
+                        <h2 class="section-header">Ready to Ride?</h2>
+                        <p class="section-description">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque deserunt odio suscipit?</p>
+
+                        <div class="subcategory-boxes">
+                            {{#each category.products}}
+                                <div class="subcategory-box">
+                                    <img src="{{getImage image}}" class="subcategory-box--image">
+                                    <div class="subcategory-box--name">{{name}}</div>
+                                    <a href="{{url}}" class="btn btn-red btn-lg btn-inverse btn-rounded-corners subcategory-box--btn">Shop Now</a>
+                                </div>
+                            {{/each}}
+                        </div>
+                    </div>
+                </div>
+            {{/if}}
+
+            <div id="category-description" style="display: none;">{{{category.description}}}</div>
+
+            <div class="section">
+                {{>
+                    components/common/promotion-box
+
+                    image1="assets/img/promotion-box/promotion-box-1.jpg"
+                    title1="Upgrade Your Ride"
+                    link1="#"
+                    cta1="Get Started"
+
+                    image2="assets/img/promotion-box/promotion-box-2.jpg"
+                    title2="Promotion Headline Two"
+                    link2="#"
+                    cta2="Shop Now"
+                }}
+            </div>
+            <div id="category-bottom-content-block"></div>
+        </main>
+    </div>
+{{/partial}}
+
+{{> layout/base}}

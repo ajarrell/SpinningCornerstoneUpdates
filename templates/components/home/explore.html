@@ -1,0 +1,106 @@
+<div class="explore">
+    <style>
+        .wistia_popover_embed, .wistia_placebo_close_button{
+		    margin-top:-60px!important;
+	    }
+	    .playtriangle {x
+            width: 74px;
+            height: 74px;
+            border-style: solid;
+            border-color: transparent transparent transparent #fff;
+            box-sizing: border-box;
+            border-width: 37px 0px 37px 74px;
+        }
+        .playcircle{
+            height: 150px;
+            width: 150px;
+            margin: -30px auto 0 auto;
+            padding: 33px 0 0 30px;
+            box-sizing: border-box;
+            border: #fff solid 5px;
+            border-radius: 50%;
+        }
+        .explore-box.hovered .playtriangle{
+            border-color: transparent transparent transparent #333;
+        }
+        .explore-box.hovered .playcircle{
+            border-color: #333;
+        }
+    </style>
+    
+    <h2 class="section-header">Explore The World of Spinning<span class="reg"></span></h2>
+    <p class="section-description">Never stop growing. Whether you’re new to Spinning® or a seasoned instructor, we invite you to continue your fitness journey&nbsp;here.</p>
+
+    <div class="row explore-boxes">
+        <div class="col-sm-4 explore-box">
+            <div class="explore-box--inner">
+               <a href="/instructors/"> <img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/opt-hp-854x904-instructor.jpg" class="explore-box--image">
+                   
+                   <div class="explore-box--overlay"></div>
+                   
+                   <div class="explore-box--text">
+                       <h2>Instructor<br/>Education</h2>
+                       <p>With over 250,000 certified instructors across 80 countries, Spinning® is the world’s most widely recognized indoor cycling education program.</p>
+                   </div></a>
+                {{> components/common/cta-arrow text_color='#fff' white_arrow=true link='/instructors/'}}
+            </div>
+        </div>
+{{!-- SPINtv tile --}}
+        <div class="col-sm-4 explore-box">
+            <div class="explore-box--inner">
+                <!-- <img src="http://cdn6.bigcommerce.com/s-nmzp0auf4w/stencil/48884ee0-9a70-0135-5492-525400970412/e/6a9819b0-aaf5-0135-769f-525400970412/img/sp_854x904_Instructor.jpg" class="explore-box--image" style="height:100%;">
+                <div class="explore-box--overlay"></div> -->
+                <a href="#wistia_as3scr08oq">
+                <div class="explore-box--image">
+                    <script src="https://fast.wistia.com/embed/medias/as3scr08oq.jsonp" async></script>
+                    <script src="https://fast.wistia.com/assets/external/E-v1.js" async></script>
+                    <div class="wistia_responsive_padding" style="padding:105.5% 0 0 0;position:relative;">
+                        <div class="wistia_responsive_wrapper" style="height:100%;left:0;position:absolute;top:0;width:100%;">
+                            <span class="wistia_embed wistia_async_as3scr08oq popover=true playButton=false popoverAnimateThumbnail=false videoFoam=true endVideoBehavior=reset playbar=true popoverPreventScroll=true stillUrl=https://cdn6.bigcommerce.com/s-nmzp0auf4w/product_images/uploaded_images/sp-854x904-spintv-v01.jpg?t=1510674288 vulcan=true" style="display:inline-block;height:100%;width:100%">&nbsp;</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="explore-box--overlay"></div>
+                <div class="explore-box--text">
+                    <h2 style="top:23%;">SPINtv&trade;</h2>
+                    <h2 style="top:34%;">
+                        <div class="playcircle">
+                            <button class="playtriangle"></button>
+                        </div>
+                    </h2>
+                    <p style="top:38%;">The power of a studio legacy boasting more than 250,000 Spinning&reg; instructors worldwide, streamed into your&nbsp;home.</p>
+                </div>
+                </a>
+                {{> components/common/cta-arrow text_color='#fff' white_arrow=true link='/spintv' text='Learn More'}}
+            </div>
+        </div>
+{{!-- 60 Days of Spinning tile         
+        <div class="col-sm-4 explore-box">
+            <div class="explore-box--inner">
+                <a href="/60-days"> <img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/sp-854x904-60days-homepagetile-v04.2.jpg" class="explore-box--image">
+                <div class="explore-box--overlay"></div>
+                <div class="explore-box--text">
+                    <h2>60 Days of Spinning<sup>&reg;</sup></h2>
+                    <p>Two months of weekly training tips, nutrition advice, and guides to all things Spinning<sup>®</sup>!</p>
+                </div>
+                </a>
+                {{> components/common/cta-arrow text_color='#fff' white_arrow=true link='/60-days' text='Learn More'}}
+            </div>
+        </div>
+--}}
+        <div class="col-sm-4 explore-box">
+            <div class="explore-box--inner">
+                <a href="/instructors/spin-membership"><img src="https://cdn8.bigcommerce.com/s-yn8q9n4bvw/product_images/uploaded_images/hp-854x904-banner-spin-min.jpg" class="explore-box--image">
+                    
+                    <div class="explore-box--overlay"></div>
+                    
+                    <div class="explore-box--text">
+                        <h2>SPIN&reg;<br/>Membership 2018</h2>
+                        <p>New year, new benefits! The new and improved SPIN&reg; Membership program provides more resources and even bigger benefits for instructors.  Join or renew&nbsp;now!</p>
+                    </div></a>
+
+                {{> components/common/cta-arrow text_color='#fff' white_arrow=true link='/instructors/spin-membership'}}
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+{{#partial "page"}}
+    <section class="section page">
+        <main class="page-content page-content--textCenter">
+            <div class="row">
+                <div class="col-sm-8 col-sm-push-2">
+                    <h1 class="page-heading" style="margin-bottom: 15px">{{lang 'create_account.created.heading'}}</h1>
+                    <p>{{{lang 'create_account.created.intro' store_name=settings.store_name email=customer.email}}}</p>
+                    <a class="btn btn-lg btn-rounded-corners btn-center" href="{{create_account.continue_url}}">{{lang 'create_account.created.continue'}}</a>
+                </div>
+            </div>
+        </main>
+    </section>
+{{/partial}}
+{{> layout/base}}

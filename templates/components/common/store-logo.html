@@ -1,0 +1,8 @@
+<a href="{{urls.home}}">
+    {{#if settings.store_logo.image}}
+        <img class="header-logo-image header-logo-white" src="{{getImage settings.store_logo.image 'logo_size'}}" alt="{{settings.store_logo.title}}">
+        <img class="header-logo-image header-logo-black" src="{{cdn 'assets/img/logos/spinning-logo-black.jpg'}}" alt="{{settings.store_logo.title}}">
+    {{else}}
+        <span class="header-logo-text">{{settings.store_logo.title}}</span>
+    {{/if}}
+</a>

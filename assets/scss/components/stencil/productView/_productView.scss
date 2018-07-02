@@ -1,0 +1,487 @@
+// =============================================================================
+// PRODUCT VIEW (CSS)
+// =============================================================================
+
+
+// Container
+// -----------------------------------------------------------------------------
+
+.productView {
+    padding-top: spacing("base");
+}
+
+
+// Images
+// -----------------------------------------------------------------------------
+
+.productView-images {
+    @media (min-width: 992px) {
+        width: 60% !important;
+    }
+}
+
+.productView-image {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+    margin: 5px 0 0 80px;
+
+    @media (min-width: 992px) {
+        min-height: 400px;
+        min-width: 400px;
+    }
+
+    img {
+        width: 100%;
+    }
+
+    .productView-image--default {
+        width: auto;
+    }
+}
+
+.productView-thumbnails {
+    @include u-listBullets("none");
+    @include grid-row($behavior: "nest");
+    margin-left: -(spacing("quarter"));
+    margin-right: -(spacing("quarter"));
+    max-width: 80px;
+    float: left;
+
+    .fa {
+        font-size: 20px;
+        color: #fff;
+        text-align: center;
+        background-color: #ddd;
+        padding: 0 4px;
+        border-radius: 50px;
+        cursor: pointer;
+        position: relative;
+
+        &.fa-angle-up {
+            top: -5px;
+            left: 41%;
+        }
+
+        &.fa-angle-down {
+            bottom: -5px;
+            left: 37%;
+        }
+
+        &:hover {
+            background: darken(#ddd, 20%);
+        }
+    }
+}
+
+.productView-thumbnail {
+    max-width: 80px;
+}
+
+.productView-thumbnail-link {
+    border: 1px solid #f1f1f1;
+    display: inline-block;
+    padding: 0 !important;
+    margin: 0 !important;
+    text-align: center;
+    width: 100%;
+
+    &:hover,
+    &.is-active {
+        border-color: color("greys", "darker");
+    }
+}
+
+// Other products
+// -----------------------------------------------------------------------------
+
+.productView-other-products {
+    width: 100% !important;
+    float: none !important;
+    display: block !important;
+    overflow: hidden !important;
+    border-top: 1px solid #e9e9e9;
+
+    @media (max-width: 767px) {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+    }
+}
+
+// Description
+// -----------------------------------------------------------------------------
+
+.productView-description {
+    width: 100% !important;
+    padding: 0 !important;
+    float: none !important;
+    display: block !important;
+    overflow: hidden !important;
+    border-top: 1px solid #e9e9e9;
+
+    @media (max-width: 767px) {
+        padding-left: 25px !important;
+        padding-right: 25px !important;
+    }
+}
+
+
+// Details
+// -----------------------------------------------------------------------------
+
+.productView-details {
+    margin-bottom: spacing("single") + spacing("third");
+
+    @media (min-width: 992px) {
+        width: 40% !important;
+    }
+
+    @media (min-width: 1200px) {
+        padding-right: 100px !important;
+    }
+}
+
+
+
+// Details - Product details
+// -----------------------------------------------------------------------------
+
+.productView-product {
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.productView-title {
+    font-size: fontSize("small");
+    margin: 0 0 5px;
+
+    @include breakpoint("large") {
+        font-size: fontSize("largest");
+    }
+}
+
+.productView-share {
+    font-size: 16px;
+    text-decoration: none;
+
+    .fa, span {
+        -webkit-transition: color .15s ease;
+        -moz-transition: color .15s ease;
+        transition: color .15s ease;
+    }
+
+    .fa {
+        font-size: 24px;
+    }
+
+    span {
+        position: relative;
+        top: -5px;
+        left: 5px;
+    }
+}
+
+.productView-divider {
+    height: 2px;
+    background: #777;
+    width: 100%;
+    display: block;
+    margin: 15px 0 0;
+    padding: 0;
+}
+
+.productView-brand {
+    color: $productView-brand-link-color;
+    font-size: fontSize("smaller");
+    margin: 0 0 spacing("half");
+
+    @include breakpoint("large") {
+        font-size: fontSize("small");
+        margin: -(spacing("eighth")) 0 spacing("base");
+    }
+
+    a {
+        color: $productView-brand-link-color;
+
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: $productView-brand-link-color--hover;
+        }
+    }
+}
+
+
+
+// Details - Etc
+// -----------------------------------------------------------------------------
+
+.productView-etc {
+    .check-row {
+        overflow: hidden;
+        border-top: 1px solid #333;
+        border-bottom: 1px solid #333;
+        padding: 10px 0 8px;
+        margin-bottom: 15px;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        .check-item {
+            width: auto;
+            display: inline-block;
+            float: left;
+
+            .fa, span {
+                color: #333;
+            }
+            .fa {
+                font-size: 16px;
+            }
+            img {
+                @media (max-width: 767px) {
+                    height: 1.5rem;
+                }
+            }
+            span {
+                font-size: 12px;
+                position: relative;
+                top: -1px;
+
+                @media (max-width: 767px) {
+                    font-size: 10px;
+                }
+            }
+        }
+    }
+}
+
+
+
+// Details - Product price
+// -----------------------------------------------------------------------------
+
+.productView-price {
+    font-size: fontSize("smaller");
+    margin-bottom: spacing("third");
+
+    @media (min-width: 992px) {
+        font-size: fontSize("larger");
+        margin-bottom: spacing("base");
+    }
+
+    .price-section--saving {
+        font-size: fontSize("smaller");
+    }
+
+    abbr {
+        border: 0;
+        color: inherit;
+        font-size: inherit;
+    }
+}
+
+.productView-reviewLink {
+    display: inline-block;
+    margin-left: spacing("half");
+    vertical-align: middle;
+
+    + .productView-reviewLink {
+        display: none;
+
+        @media (min-width: 768px) {
+            display: inline-block;
+        }
+    }
+
+    > a {
+        color: stencilColor("color-textSecondary");
+
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: stencilColor("color-textSecondary--hover");
+        }
+    }
+}
+
+
+// Details - Product Information
+// -----------------------------------------------------------------------------
+
+.productView-info {
+    @include clearfix;
+    margin-top: spacing("half");
+
+    @media (min-width: 768px) {
+        margin-top: 0;
+    }
+
+    > :first-child {
+
+        @media (min-width: 768px) {
+            margin-top: spacing("single");
+        }
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.productView-info-name,
+.productView-info-value {
+    float: left;
+
+    @media (min-width: 768px) {
+        float: none;
+    }
+}
+
+.productView-info-name {
+    clear: both;
+    margin-bottom: spacing("eighth");
+    margin-right: spacing("quarter");
+
+    @media (min-width: 768px) {
+        font-family: fontFamily("headingSans");
+        font-size: fontSize("smallest");
+        font-weight: fontWeight("normal");
+    }
+}
+
+.productView-info-value {
+    margin-bottom: spacing("quarter");
+
+    @media (min-width: 768px) {
+        margin-bottom: spacing("base");
+    }
+}
+
+
+// Details - Product options
+// -----------------------------------------------------------------------------
+//
+// 1. Align the product options list item radios vertically.
+// 2. Resetting font due to inline-block whitespace issue.
+//
+// -----------------------------------------------------------------------------
+
+.productView-options {
+    @include clearfix;
+    margin-bottom: spacing("single");
+    text-align: center;
+
+    @media (min-width: 768px) {
+        text-align: left;
+    }
+
+    .form-increment .form-input {
+        width: 100%;
+    }
+
+    .form-input[type="number"] {
+        @media (min-width: 768px) {
+            width: grid-calc(2, $total-columns);
+        }
+    }
+
+    .form {
+        display: inline;
+    }
+
+    .form-field {
+        font-size: 0; // 2
+        margin-bottom: 2rem;
+
+        // scss-lint:disable SelectorDepth, NestingDepth
+        > .form-checkbox + .form-label,
+        > .form-radio + .form-label {
+            display: inline-block;
+            margin-left: spacing("single");
+            width: auto;
+
+            @media (min-width: 768px) {
+                margin-left: 0;
+                width: 100%;
+            }
+        }
+
+        > .form-label:nth-of-type(2) {
+            margin-left: 0;
+        }
+    }
+
+    .form-action {
+
+        @media (min-width: 768px) {
+            float: left;
+            padding: 0 remCalc(10);
+            width: 50%;
+        }
+
+        @media (min-width: 992px) {
+            float: none;
+            padding: 0;
+            width: auto;
+        }
+
+        @include breakpoint("large") {
+            display: inline-block;
+            margin-top: 1rem;
+        }
+
+        // scss-lint:disable SelectorDepth, NestingDepth
+        .button {
+            width: 100%;
+
+            @include breakpoint("large") {
+                margin-right: spacing("half");
+                width: auto;
+            }
+        }
+    }
+}
+
+
+// Product list (with images)
+// -----------------------------------------------------------------------------
+
+.productOptions-list {
+    border: $productOptions-list-border;
+    list-style: none;
+    margin: 0;
+}
+
+.productOptions-list-item {
+    padding: $productOptions-list-item-padding;
+
+    + .productOptions-list-item {
+        border-top: $productOptions-list-item-borderTop;
+    }
+
+    .form-label {
+        text-align: left;
+        top: -2px; // 1
+    }
+}
+
+.productOptions-list-item-figure,
+.productOptions-list-item-content {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.productOptions-list-item-figure {
+    width: $productOptions-list-item-figure-width;
+}
+
+.productOptions-list-item-content {
+    padding-left: $productOptions-list-item-content-paddingLeft;
+}
+
+
+// Share products
+// -----------------------------------------------------------------------------
+
+.shareProduct {
+    text-align: center;
+}

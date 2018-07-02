@@ -1,0 +1,203 @@
+{{#if banners.top}}
+    <div class="banners" data-banner-location="top">
+        <div class="banner">
+            {{{limit banners.top 1}}}
+        </div>
+    </div>
+{{/if}}
+
+<div id="header-container"
+     class="
+     {{#if template_file '===' 'pages/home'}}hasAboveTheFoldContent{{/if}}
+     {{#if template_file '===' 'pages/category'}}hasAboveTheFoldContent isSubPage{{/if}}
+     {{#if template_file '===' 'pages/page'}}hasAboveTheFoldContent isSubPage isCMSPage{{/if}}
+     {{#if template_file '===' 'pages/sitemap'}}hasAboveTheFoldContent isSubPage isCMSPage{{/if}}
+     {{#if template_file '===' 'pages/custom/page/'}}hasAboveTheFoldContent isSubPage{{/if}}
+     "
+     style="background-image: url(
+     {{#if template_file '===' 'pages/errors/404'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/search'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/home'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/page'}}{{cdn 'assets/img/banners/content-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/sitemap'}}{{cdn 'assets/img/banners/content-banner.jpg'}}{{/if}}
+
+     {{#if template_file '===' 'pages/category'}}
+        {{#if category.image}}
+            {{getImage category.image 'zoom_size'}}
+        {{else}}
+            {{cdn 'assets/img/banners/category-banner.jpg'}}
+        {{/if}}
+     {{/if}}
+
+     {{#if template_file '===' 'pages/product'}}
+        {{cdn 'assets/img/banners/home-banner.jpg'}}
+     {{/if}}
+
+     {{#if template_file '===' 'pages/auth/login'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/auth/create-account'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/auth/account-created'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/auth/forgot-password'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/auth/new-password'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+
+     {{#if template_file '===' 'pages/subscribed'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     {{#if template_file '===' 'pages/unsubscribed'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+
+     {{#if template_file '===' 'pages/cart'}}{{cdn 'assets/img/banners/home-banner.jpg'}}{{/if}}
+     );">
+    
+     {{#if template_file '===' 'pages/category'}}
+        {{#if category.name '===' 'Home Bikes'}}
+        {{else}}
+            {{#if category.name '===' 'Commercial Bike'}}
+            {{else}}
+            <img src="
+            {{#if category.image}}
+                {{getImage category.image 'zoom_size'}}
+            {{else}}
+                {{cdn 'assets/img/banners/category-banner.jpg'}}
+            {{/if}}
+            " alt="" class="category-banner">
+            <div class="banner-overlay"></div>
+            {{/if}}
+        {{/if}}
+        
+        <!-- Makes "STUDIO" clickable in the banner image -->
+        {{#if category.id '===' 31}}
+            <a href="/spin-studios/spinner-bikes" class="mobile-hidden" style="
+                position: absolute;
+                width: 10%;
+                height: 10%;
+                display: block;
+                float: right;
+                bottom: 0;
+                right: 0; z-index: 999;
+            ">
+            </a>
+        {{/if}}
+        
+        
+     {{/if}}
+     
+    <header id="fixed-header-container" class="header {{#if template_file '===' 'pages/category'}}category-header{{/if}} sticky" role="banner">
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12 col-lg-3">
+                    <ul class="list-inline">
+                        <li class="pull-left">
+                            {{#if template_file '===' 'pages/home'}}
+                                <h1 class="header-logo header-logo--left">
+                                    {{> components/common/store-logo}}
+                                </h1>
+                            {{else}}
+                                <div class="header-logo header-logo--left">
+                                    {{> components/common/store-logo}}
+                                </div>
+                            {{/if}}
+                        </li>
+                        <li class="pull-right">
+                            <a href="#" class="mobileMenu-toggle" data-mobile-menu-toggle="menu">
+                                <span class="mobileMenu-toggleIcon">Toggle menu</span>
+                            </a>
+                        </li>
+                        <li class="pull-right">
+                            <div class="hidden-lg">
+                                {{> components/common/navigation-tools}}
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-xs-12 col-lg-9">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            {{> components/common/navigation}}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-xs-12 col-lg-10">
+                            <div class="navPages-container" id="menu" data-menu>
+                                {{> components/common/navigation-menu}}
+                                <div class="dropdown dropdown--quickSearch quickSearch" aria-hidden="true" tabindex="-1" data-prevent-quick-search-close>
+                                    {{> components/common/quick-search}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-lg-2 hidden-sm hidden-md">
+                            {{> components/common/navigation-tools duplicate=true}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dropdown-menu" id="cart-preview-dropdown" data-dropdown-content aria-hidden="true"></div>
+        </div>
+
+        <div class="dropdown dropdown--megaMenu" aria-hidden="true" tabindex="-1"></div>
+    </header>
+
+    {{#if template_file '===' 'pages/home'}}
+        {{> components/above-the-fold/home}}
+    {{/if}}
+    {{#if template_file '===' 'pages/category'}}
+        {{#if category.name '===' 'Home Bikes'}}
+            <div class="above-the-fold shop-spinning-page">
+                <img src="{{cdn '/assets/img/sp_spinnerbikesv2_2040x758v13.jpg'}}" alt="">
+                <div class="content-wrapper">
+                    <h1 class="content-title">Spin® Bikes</h1>
+                    <p class="content-description">We created the indoor cycling category and the first Spinner® bike, setting the fitness industry standard for the past 25 years. Whether you are a high-end studio or just looking for a great ride at home, we have the world’s best bikes for you.<!-- test --></p>
+                </div>
+            </div>
+        
+        {{else}}
+            <!-- {{> components/above-the-fold/category}} -->
+            {{#if category.name '===' 'Commercial Bike'}}
+                <div class="above-the-fold shop-spinning-page">
+                    <!-- <img src="https://maddogg-assets.s3.amazonaws.com/8369b70923852ab599389c92f2ea5d9a7989dfe0ad871db65e9dc92d7e98ccae.jpg" alt=""> -->
+                    <img src="/product_images/uploaded_images/commercial-bikes-category-promo-banner.jpg" alt="">
+                    <div class="content-wrapper">
+                        <h1 class="content-title">Commercial Bikes</h1>
+                        <p class="content-description">Built for the facility and studio environment, the commercial line of Spinner® bikes is designed to withstand the rigors of thousands of classes over several years. Precor®, the world-wide leader in personalized fitness solutions, is the exclusive manufacturer of the commercial series of bikes.</p>
+                    </div>
+                </div>
+            {{else}}
+            {{> components/above-the-fold/category}}
+            {{/if}}
+        {{/if}}
+    {{/if}}
+    {{#if template_file '===' 'pages/page'}}
+        {{#if page.title '===' 'Shop Spinning'}}
+            <div class="above-the-fold shop-spinning-page">
+            <img src="{{cdn '/assets/img/sp_shop_2040x758.jpg'}}" alt="">
+            <div class="content-wrapper">
+                <h1 class="content-title">Shop Spinning®</h1>
+                <p class="content-description">The Spinning® online store has something for everyone. From seasoned instructors to folks new to indoor cycling, we have the bikes, apparel, education and accessories that will enhance your workout and get you real results.</p>
+            </div>
+            </div>
+        {{else}}
+        <div class="above-the-fold">
+            <div class="container">
+                <div class="cta-container">
+                    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+                    <h1 class="cta-title">
+                        {{page.title}}
+                    </h1>
+                </div>
+            </div>
+        </div>
+        {{/if}}
+    {{/if}}
+    {{#if template_file '===' 'pages/sitemap'}}
+        <div class="above-the-fold">
+            <div class="container">
+                <div class="cta-container">
+                    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+                    <div class="cta-title">
+                        Sitemap
+                    </div>
+                </div>
+            </div>
+        </div>
+    {{/if}}
+    {{#if template_file '===' 'pages/custom/page/_find-a-workshop'}}
+        {{> components/above-the-fold/category}}
+    {{/if}}
+</div>

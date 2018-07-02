@@ -1,0 +1,118 @@
+// =============================================================================
+// TABS (CSS)
+// =============================================================================
+//
+// Most of these styles deliberately reset Citadel's defaults for smaller
+// screens since the styles in Stencil for smaller screens are more persistent
+// across breakpoints.
+//
+// -----------------------------------------------------------------------------
+
+.tabs--simple {
+    width: auto;
+    display: block;
+    text-align: center;
+    border: none !important;
+
+    .tab {
+        float: none;
+        display: inline-block;
+        border: none !important;
+        position: relative;
+
+        a {
+            font-size: 26px;
+            font-weight: 500 !important;
+        }
+
+        &:not(:first-of-type):before {
+            content: "|";
+            font-size: 26px;
+            position: absolute;
+            left: -5px;
+            top: 12px;
+        }
+
+        @media (max-width: 767px) {
+            &:not(:first-of-type):before {
+                display: none;
+            }
+
+            &.is-active {
+                a {
+                    text-decoration: underline;
+                }
+            }
+
+            a {
+                font-size: 16px;
+            }
+        }
+    }
+}
+
+.tab {
+    border-top: $tab-active-border;
+    float: none;
+
+    @media (min-width: 992px) {
+        border-top-color: $tab-title-border-color;
+        float: left;
+    }
+
+    &.is-active {
+        border-left-color: $tab-title-border-color;
+        border-right-color: $tab-title-border-color;
+
+        @media (min-width: 768px) {
+            margin-bottom: $tab-title-border-bottom-offset;
+        }
+
+        @media (min-width: 992px) {
+            border: $tab-active-border;
+            border-bottom: $tab-title-border;
+        }
+    }
+}
+
+.tab-title {
+    padding: spacing("half") + spacing("quarter") 0;
+    text-align: center;
+    text-decoration: $tab-title-text-decoration;
+
+    @media (min-width: 768px) {
+        text-align: left;
+    }
+
+    @media (min-width: 992px) {
+        padding: spacing("half") spacing("single");
+    }
+}
+
+
+//
+// State for when tab-content has js generated of calculated content, like carousel
+//
+// Purpose: The content being display: none, means any js calculated dimensions
+// are incorrect as the elements inside the tab-content have no dimensions to grab.
+// Carousel is a prime example. It needs widths to calculate the layout and slides
+// -----------------------------------------------------------------------------
+
+.tab-content {
+    padding-top: 0 !important;
+}
+
+.tab-content.has-jsContent {
+    display: block;
+    height: 0;
+    overflow: hidden;
+    padding: 0;
+    visibility: hidden;
+
+    &.is-active {
+        height: auto;
+        overflow: visible;
+        padding: $tabs-content-padding;
+        visibility: visible;
+    }
+}

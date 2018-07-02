@@ -1,0 +1,57 @@
+<article class="card {{#if alternate}}card--alternate{{/if}}">
+    <div class="product-id" style="display: none;">{{id}}</div>
+    <div class="product-id" style="display: none;">{{brand.name}}</div>
+    <figure class="card-figure">
+        <a href="{{url}}">
+            <img class="card-image" src="{{getImage image 'productgallery_size' (cdn theme_settings.default_image_product)}}" alt="{{image.alt}}">
+        </a>
+        <figcaption class="card-figcaption">
+            <div class="card-figcaption-body">
+            </div>
+        </figcaption>
+    </figure>
+    <div class="card-body">
+        <h4 class="card-title">
+            <a href="{{url}}">{{name}}</a>
+        </h4>
+
+        <div class="row">
+            <div class="col-sm-5">
+                <div class="card-text {{#each custom_fields}}{{#if name 'on_sale'}}{{#if value 'true'}}sale-price{{/if}}{{/if}}{{/each}}" data-test-info-type="price">
+                    {{> components/products/price price=price }}
+                </div>
+            </div>
+            <div class="col-sm-7">
+                <div class="productView-rating"{{#if schema}} itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating"{{/if}}>
+                    {{#if product.num_reviews '>' 0}}
+                        {{#if schema}}
+                            <meta itemprop="ratingValue" content="{{product.rating}}">
+                            <meta itemprop="ratingCount" content="{{product.num_reviews}}">
+                            <meta itemprop="reviewCount" content="{{product.num_reviews}}">
+                        {{/if}}
+                    {{/if}}
+                    {{> components/products/ratings rating=rating}}
+                </div>
+            </div>
+        </div>
+    
+        {{#if show_cart_action}}
+        <div class="row">
+            <div class="col-sm-12">
+            {{#if add_to_cart_url }}
+                <a href="{{add_to_cart_url}}" class="card-btn btn btn-red btn-xs btn-fluid btn-rounded-corners">Add to cart</a>
+            {{/if}}
+            {{#if out_of_stock_message }}
+                <a href="{{url}}" class="card-btn btn btn-red btn-xs btn-fluid btn-rounded-corners card-lbl lbl-outofstock">Notify Me</a>
+            {{/if}}
+            {{#if has_options}}
+                <a href="{{url}}" class="card-btn btn btn-red btn-xs btn-fluid btn-rounded-corners">Choose Options</a>
+            {{/if}}
+            {{#if pre_order}}
+                <a href="{{url}}" class="card-btn btn btn-red btn-xs btn-fluid btn-rounded-corners" >{{lang 'products.pre_order'}}</a>
+            {{/if}}
+            </div>
+        </div>
+        {{/if}}
+    </div>
+</article>

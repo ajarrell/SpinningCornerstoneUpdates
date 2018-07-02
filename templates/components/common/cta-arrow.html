@@ -1,0 +1,24 @@
+<a href="{{#if link}}{{link}}{{else}}#{{/if}}"
+   class="cta-arrow{{#if border_top_color}} showTopBorder{{/if}}"
+   style="border-top-color: {{#if border_top_color}}{{border_top_color}}{{else}}#fff{{/if}}"
+   {{#if scroll_to}}data-scroll-to="{{scroll_to}}"{{/if}}>
+    <span class="cta-arrow--featured-link-text"
+          style="color:{{#if text_color}}{{text_color}}{{else}}#333{{/if}}">
+        {{#if text}}
+            {{text}}
+        {{else}}
+            Learn More
+        {{/if}}
+    </span>
+    <span class="cta-arrow--featured-link-arrow">
+        {{#if arrow}}
+            {{{arrow}}}
+        {{else}}
+            {{#if white_arrow}}
+                <img src="{{cdn 'assets/img/icons/cta-arrow-white.png'}}">
+            {{else}}
+                <img src="{{cdn 'assets/img/icons/cta-arrow.png'}}">
+            {{/if}}
+        {{/if}}
+    </span>
+</a>

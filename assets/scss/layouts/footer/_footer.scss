@@ -1,0 +1,235 @@
+// =============================================================================
+// FOOTER (CSS)
+// =============================================================================
+
+
+// Layout and columns
+// -----------------------------------------------------------------------------
+//
+// 1. To enable the grid's display: inline-block; to work properly, we need to
+//    remove the white-space that it creates between columns with font-size: 0;
+// 2. Re-set the font-size that was reduced to 0 in point 1 for children.
+//
+// -----------------------------------------------------------------------------
+
+.footer {
+    background-color: #f9f9f9;
+    border-top: container("border");
+    padding: 25px 0;
+}
+
+.footer-info {
+    @include grid-row($behavior: nest);
+    font-size: 0; // 1
+}
+
+.footer-info-col {
+    @include grid-column(12);
+    color: stencilColor("color-textSecondary");
+    display: inline-block;
+    float: none;
+    font-size: fontSize("base"); // 2
+    margin-bottom: spacing("double");
+    text-align: center;
+    vertical-align: top;
+
+    @media (max-width: 767px) {
+        margin: 0;
+    }
+
+    @media (min-width: 768px) {
+        text-align: left;
+        width: width("6/12");
+    }
+
+    @media (min-width: 768px) and (max-width: 1199px) {
+        width: width("4/12");
+    }
+
+    @media (min-width: 992px) {
+        width: width("4/12");
+    }
+
+    > :first-child {
+        margin-top: 0;
+    }
+
+    > :last-child {
+        margin-bottom: 0;
+    }
+}
+
+.footer-info-col--small {
+
+    @media (min-width: 992px) {
+        width: width("2/12");
+    }
+}
+
+
+// Content
+// -----------------------------------------------------------------------------
+
+.footer-info-heading {
+    color: $footer-heading-fontColor;
+    font-size: 15px;
+    text-transform: uppercase;
+    position: relative;
+    font-weight: 600;
+
+    .fa {
+        float: right;
+        position: relative;
+        top: 2px;
+        font-size: 20px;
+        cursor: pointer;
+        width: 100%;
+        padding: 10px;
+        position: absolute;
+        text-align: right;
+    }
+
+    @media (max-width: 767px) {
+        padding: 10px 0;
+        border-top: 1px solid #e8e8e8;
+        text-align: left;
+        margin: 0;
+
+        &:last-child {
+            border-bottom: 1px solid #e8e8e8;
+        }
+
+        .fa-minus {
+            display: none;
+        }
+
+        .fa-plus {
+            display: block;
+        }
+    }
+
+    @media (min-width: 768px) {
+        .fa {
+            display: none !important;
+        }
+    }
+}
+
+.footer-info-list {
+    list-style: none;
+    margin-left: 0;
+
+    li {
+        margin-bottom: 5px;
+    }
+
+    a {
+        color: #777;
+        text-decoration: none;
+
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: stencilColor("color-textSecondary--hover");
+        }
+        // scss-lint:enable NestingDepth
+    }
+
+    @media (max-width: 767px) {
+        display: none;
+        padding: 0 0 10px;
+
+        li {
+            text-align: left;
+        }
+
+        &.active {
+            display: block;
+        }
+    }
+
+    @media (min-width: 768px) {
+        display: block !important;
+    }
+}
+
+.footer-copyright {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    text-align: center;
+    border-top: 1px solid #e8e8e8;
+    border-bottom: 1px solid #e8e8e8;
+
+    p {
+        color: #333;
+        margin: 0;
+        padding: 0;
+        font-size: 11px;
+        font-weight: 500;
+        text-transform: uppercase;
+    }
+
+    @media (min-width: 768px) {
+        text-align: left;
+    }
+
+    > .powered-by {
+        color: stencilColor("color-textSecondary");
+        font-size: fontSize("tiny");
+        margin: 0;
+    }
+
+    a {
+        color: stencilColor("color-textSecondary");
+        text-decoration: none;
+
+        // scss-lint:disable NestingDepth
+        &:hover {
+            color: stencilColor("color-textSecondary--hover");
+        }
+        // scss-lint:enable NestingDepth
+    }
+}
+
+.footer-payment-icons {
+    height: remCalc(40);
+    margin-top: spacing("single");
+
+    @media (min-width: 992px) {
+        margin-top: spacing("double");
+    }
+
+    .footer-payment-icon {
+        height: 100%;
+        margin: spacing("quarter");
+        vertical-align: middle;
+        width: remCalc(50);
+    }
+
+    svg {
+        fill: stencilColor("icon-color");
+    }
+}
+
+#mc_embed_signup_footer {
+    position: relative;
+    label {
+        display: none;
+    }
+    #mce-EMAIL-footer {
+        width: 100%;
+        font-size: 13px;
+        font-weight: 500;
+        text-transform: uppercase;
+        padding: 16px;
+        border-radius: 4px;
+        border: solid 1px #d7d7d7;
+    }
+    #mc-embedded-subscribe-footer {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        width: 54px;
+        background-color: #a0a0a0;
+    }
+}

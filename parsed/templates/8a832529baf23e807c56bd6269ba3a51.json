@@ -1,0 +1,1 @@
+{"components/above-the-fold/down-arrow":"<div class=\"container\">\n    <div class=\"row\">\n        <div class=\"col-sm-12\">\n            <i class=\"fa fa-angle-down fa-5x down-arrow pointer\" data-scroll-to=\"{{scroll_to}}\"></i>\n        </div>\n    </div>\n</div>\n"}
