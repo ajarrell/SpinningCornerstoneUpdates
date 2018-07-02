@@ -1,6 +1,3 @@
-/*
- Import all product specific js
- */
 import $ from 'jquery';
 import utils from '@bigcommerce/stencil-utils';
 import 'foundation-sites/js/foundation/foundation';
@@ -8,27 +5,12 @@ import 'foundation-sites/js/foundation/foundation.reveal';
 import ImageGallery from '../product/image-gallery';
 import modalFactory from '../global/modal';
 import _ from 'lodash';
+import swal from 'sweetalert2';
+import Wishlist from '../wishlist';
 
-// We want to ensure that the events are bound to a single instance of the product details component
-let previewModal = null;
-let productSingleton = null;
-
-utils.hooks.on('cart-item-add', (event, form) => {
-    if (productSingleton) {
-        productSingleton.addProductToCart(event, form);
-    }
-});
-
-utils.hooks.on('product-option-change', (event, changedOption) => {
-    if (productSingleton) {
-        productSingleton.productOptionsChanged(event, changedOption);
-    }
-});
-
-export default class Product {
-    constructor($scope, context) {
-        const productAttributesData = window.BCData.product_attributes || {};
-
+export default class ProductDetails {
+    constructor($scope, context, productAttributesData = {}) {
+        this.$overlay = $('[data-cart-item-add] .loadingOverlay');
         this.$scope = $scope;
         this.context = context;
         this.imageGallery = new ImageGallery($('[data-image-gallery]', this.$scope));
@@ -36,19 +18,35 @@ export default class Product {
         this.listenQuantityChange();
         this.initRadioAttributes();
 
+        Wishlist.load(this.context);
+
         const $form = $('form[data-cart-item-add]', $scope);
         const $productOptionsElement = $('[data-product-option-change]', $form);
         const hasOptions = $productOptionsElement.html().trim().length;
+        const hasDefaultOptions = $productOptionsElement.find('[data-default]').length;
 
-        // Update product attributes. If we're in quick view and the product has options, then also update the initial view in case items are oos
-        if (_.isEmpty(productAttributesData) && hasOptions) {
+        $productOptionsElement.on('change', event => {
+            this.productOptionsChanged(event);
+        });
+
+        $form.on('submit', event => {
+            this.addProductToCart(event, $form[0]);
+        });
+
+        // Update product attributes. Also update the initial view in case items are oos
+        // or have default variant properties that change the view
+        if ((_.isEmpty(productAttributesData) || hasDefaultOptions) && hasOptions) {
             const $productId = $('[name="product_id"]', $form).val();
 
-            utils.api.productAttributes.optionChange($productId, $form.serialize(), (err, response) => {
+            utils.api.productAttributes.optionChange($productId, $form.serialize(), 'products/bulk-discount-rates', (err, response) => {
                 const attributesData = response.data || {};
-
+                const attributesContent = response.content || {};
                 this.updateProductAttributes(attributesData);
-                this.updateView(attributesData);
+                if (hasDefaultOptions) {
+                    this.updateView(attributesData, attributesContent);
+                } else {
+                    this.updateDefaultAttributesForOOS(attributesData);
+                }
             });
         } else {
             this.updateProductAttributes(productAttributesData);
@@ -56,8 +54,26 @@ export default class Product {
 
         $productOptionsElement.show();
 
-        previewModal = modalFactory('#previewModal')[0];
-        productSingleton = this;
+        this.previewModal = modalFactory('#previewModal')[0];
+    }
+
+    /**
+     * https://stackoverflow.com/questions/49672992/ajax-request-fails-when-sending-formdata-including-empty-file-input-in-safari
+     * Safari browser with jquery 3.3.1 has an issue uploading empty file parameters. This function removes any empty files from the form params
+     * @param formData: FormData object
+     * @returns FormData object
+     */
+    filterEmptyFilesFromForm(formData) {
+        try {
+            for (const [key, val] of formData) {
+                if (val instanceof File && !val.name && !val.size) {
+                    formData.delete(key);
+                }
+            }
+        } catch (e) {
+            console.error(e); // eslint-disable-line no-console
+        }
+        return formData;
     }
 
     /**
@@ -69,9 +85,33 @@ export default class Product {
     getViewModel($scope) {
         return {
             $priceWithTax: $('[data-product-price-with-tax]', $scope),
-            $rrpWithTax: $('[data-product-rrp-with-tax]', $scope),
             $priceWithoutTax: $('[data-product-price-without-tax]', $scope),
-            $rrpWithoutTax: $('[data-product-rrp-without-tax]', $scope),
+            rrpWithTax: {
+                $div: $('.rrp-price--withTax', $scope),
+                $span: $('[data-product-rrp-with-tax]', $scope),
+            },
+            rrpWithoutTax: {
+                $div: $('.rrp-price--withoutTax', $scope),
+                $span: $('[data-product-rrp-price-without-tax]', $scope),
+            },
+            nonSaleWithTax: {
+                $div: $('.non-sale-price--withTax', $scope),
+                $span: $('[data-product-non-sale-price-with-tax]', $scope),
+            },
+            nonSaleWithoutTax: {
+                $div: $('.non-sale-price--withoutTax', $scope),
+                $span: $('[data-product-non-sale-price-without-tax]', $scope),
+            },
+            priceSaved: {
+                $div: $('.price-section--saving', $scope),
+                $span: $('[data-product-price-saved]', $scope),
+            },
+            priceNowLabel: {
+                $span: $('.price-now-label', $scope),
+            },
+            priceLabel: {
+                $span: $('.price-label', $scope),
+            },
             $weight: $('.productView-info [data-product-weight]', $scope),
             $increments: $('.form-field--increments :input', $scope),
             $addToCart: $('#form-action-addToCart', $scope),
@@ -81,11 +121,25 @@ export default class Product {
                 $input: $('[data-product-stock]', $scope),
             },
             $sku: $('[data-product-sku]'),
+            $upc: $('[data-product-upc]'),
             quantity: {
                 $text: $('.incrementTotal', $scope),
                 $input: $('[name=qty\\[\\]]', $scope),
             },
+            $bulkPricing: $('.productView-info-bulkPricing', $scope),
         };
+    }
+
+    /**
+     * Checks if the current window is being run inside an iframe
+     * @returns {boolean}
+     */
+    isRunningInIframe() {
+        try {
+            return window.self !== window.top;
+        } catch (e) {
+            return true;
+        }
     }
 
     /**
@@ -93,8 +147,8 @@ export default class Product {
      * Handle product options changes
      *
      */
-    productOptionsChanged(event, changedOption) {
-        const $changedOption = $(changedOption);
+    productOptionsChanged(event) {
+        const $changedOption = $(event.target);
         const $form = $changedOption.parents('form');
         const productId = $('[name="product_id"]', $form).val();
 
@@ -103,11 +157,11 @@ export default class Product {
             return;
         }
 
-        utils.api.productAttributes.optionChange(productId, $form.serialize(), (err, response) => {
+        utils.api.productAttributes.optionChange(productId, $form.serialize(), 'products/bulk-discount-rates', (err, response) => {
             const productAttributesData = response.data || {};
-
+            const productAttributesContent = response.content || {};
             this.updateProductAttributes(productAttributesData);
-            this.updateView(productAttributesData);
+            this.updateView(productAttributesData, productAttributesContent);
         });
     }
 
@@ -115,12 +169,12 @@ export default class Product {
         if (_.isPlainObject(image)) {
             const zoomImageUrl = utils.tools.image.getSrc(
                 image.data,
-                this.context.themeSettings.zoom_size
+                this.context.themeSettings.zoom_size,
             );
 
             const mainImageUrl = utils.tools.image.getSrc(
                 image.data,
-                this.context.themeSettings.product_size
+                this.context.themeSettings.product_size,
             );
 
             this.imageGallery.setAlternateImage({
@@ -138,13 +192,13 @@ export default class Product {
      *
      */
     listenQuantityChange() {
-        this.$scope.on('click', '[data-quantity-change] button', (event) => {
+        this.$scope.on('click', '[data-quantity-change] button', event => {
             event.preventDefault();
             const $target = $(event.currentTarget);
             const viewModel = this.getViewModel(this.$scope);
             const $input = viewModel.quantity.$input;
-            const quantityMin = parseInt($input.data('quantity-min'), 10);
-            const quantityMax = parseInt($input.data('quantity-max'), 10);
+            const quantityMin = parseInt($input.data('quantityMin'), 10);
+            const quantityMax = parseInt($input.data('quantityMax'), 10);
 
             let qty = parseInt($input.val(), 10);
 
@@ -200,13 +254,17 @@ export default class Product {
             .val(waitMessage)
             .prop('disabled', true);
 
+        this.$overlay.show();
+
         // Add item to cart
-        utils.api.cart.itemAdd(new FormData(form), (err, response) => {
+        utils.api.cart.itemAdd(this.filterEmptyFilesFromForm(new FormData(form)), (err, response) => {
             const errorMessage = err || response.data.error;
 
             $addToCartBtn
                 .val(originalBtnVal)
                 .prop('disabled', false);
+
+            this.$overlay.hide();
 
             // Guard statement
             if (errorMessage) {
@@ -214,18 +272,22 @@ export default class Product {
                 const tmp = document.createElement('DIV');
                 tmp.innerHTML = errorMessage;
 
-                alert(tmp.textContent || tmp.innerText);
-
-                return;
+                return swal({
+                    text: tmp.textContent || tmp.innerText,
+                    type: 'error',
+                });
             }
 
-            this.openCartPreviewDropdown();
-            this.increaseHeaderCartProductCount();
-
             // Open preview modal and update content
-            //previewModal.open();
+            if (this.previewModal) {
+                this.previewModal.open();
 
-            //this.updateCartContent(previewModal, response.data.cart_item.hash);
+                this.updateCartContent(this.previewModal, response.data.cart_item.hash);
+            } else {
+                this.$overlay.show();
+                // if no modal, redirect to the cart page
+                this.redirectTo(response.data.cart_item.cart_url || this.context.urls.cart);
+            }
         });
     }
 
@@ -254,6 +316,19 @@ export default class Product {
     }
 
     /**
+     * Redirect to url
+     *
+     * @param {String} url
+     */
+    redirectTo(url) {
+        if (this.isRunningInIframe() && !window.iframeSdk) {
+            window.top.location = url;
+        } else {
+            window.location = url;
+        }
+    }
+
+    /**
      * Update cart content
      *
      * @param {Modal} modal
@@ -272,7 +347,7 @@ export default class Product {
             const $body = $('body');
             const $cartQuantity = $('[data-cart-quantity]', modal.$content);
             const $cartCounter = $('.navUser-action .cart-count');
-            const quantity = $cartQuantity.data('cart-quantity') || 0;
+            const quantity = $cartQuantity.data('cartQuantity') || 0;
 
             $cartCounter.addClass('cart-count--positive');
             $body.trigger('cart-quantity-update', quantity);
@@ -300,24 +375,63 @@ export default class Product {
     }
 
     /**
+     * Hide the pricing elements that will show up only when the price exists in API
+     * @param viewModel
+     */
+    clearPricingNotFound(viewModel) {
+        viewModel.rrpWithTax.$div.hide();
+        viewModel.rrpWithoutTax.$div.hide();
+        viewModel.nonSaleWithTax.$div.hide();
+        viewModel.nonSaleWithoutTax.$div.hide();
+        viewModel.priceSaved.$div.hide();
+        viewModel.priceNowLabel.$span.hide();
+        viewModel.priceLabel.$span.hide();
+    }
+
+    /**
      * Update the view of price, messages, SKU and stock options when a product option changes
      * @param  {Object} data Product attribute data
      */
     updatePriceView(viewModel, price) {
+        this.clearPricingNotFound(viewModel);
+
         if (price.with_tax) {
+            viewModel.priceLabel.$span.show();
             viewModel.$priceWithTax.html(price.with_tax.formatted);
         }
 
         if (price.without_tax) {
+            viewModel.priceLabel.$span.show();
             viewModel.$priceWithoutTax.html(price.without_tax.formatted);
         }
 
         if (price.rrp_with_tax) {
-            viewModel.$rrpWithTax.html(price.rrp_with_tax.formatted);
+            viewModel.rrpWithTax.$div.show();
+            viewModel.rrpWithTax.$span.html(price.rrp_with_tax.formatted);
         }
 
         if (price.rrp_without_tax) {
-            viewModel.$rrpWithoutTax.html(price.rrp_without_tax.formatted);
+            viewModel.rrpWithoutTax.$div.show();
+            viewModel.rrpWithoutTax.$span.html(price.rrp_without_tax.formatted);
+        }
+
+        if (price.saved) {
+            viewModel.priceSaved.$div.show();
+            viewModel.priceSaved.$span.html(price.saved.formatted);
+        }
+
+        if (price.non_sale_price_with_tax) {
+            viewModel.priceLabel.$span.hide();
+            viewModel.nonSaleWithTax.$div.show();
+            viewModel.priceNowLabel.$span.show();
+            viewModel.nonSaleWithTax.$span.html(price.non_sale_price_with_tax.formatted);
+        }
+
+        if (price.non_sale_price_without_tax) {
+            viewModel.priceLabel.$span.hide();
+            viewModel.nonSaleWithoutTax.$div.show();
+            viewModel.priceNowLabel.$span.show();
+            viewModel.nonSaleWithoutTax.$span.html(price.non_sale_price_without_tax.formatted);
         }
     }
 
@@ -325,7 +439,7 @@ export default class Product {
      * Update the view of price, messages, SKU and stock options when a product option changes
      * @param  {Object} data Product attribute data
      */
-    updateView(data) {
+    updateView(data, content = null) {
         const viewModel = this.getViewModel(this.$scope);
 
         this.showMessageBox(data.stock_message || data.purchasing_message);
@@ -348,14 +462,34 @@ export default class Product {
             viewModel.$sku.text(data.sku);
         }
 
+        // If UPC is available
+        if (data.upc) {
+            viewModel.$upc.text(data.upc);
+        }
+
         // if stock view is on (CP settings)
         if (viewModel.stock.$container.length && _.isNumber(data.stock)) {
             // if the stock container is hidden, show
             viewModel.stock.$container.removeClass('u-hiddenVisually');
 
             viewModel.stock.$input.text(data.stock);
+        } else {
+            viewModel.stock.$container.addClass('u-hiddenVisually');
+            viewModel.stock.$input.text(data.stock);
         }
 
+        this.updateDefaultAttributesForOOS(data);
+
+        // If Bulk Pricing rendered HTML is available
+        if (data.bulk_discount_rates && content) {
+            viewModel.$bulkPricing.html(content);
+        } else if (typeof (data.bulk_discount_rates) !== 'undefined') {
+            viewModel.$bulkPricing.html('');
+        }
+    }
+
+    updateDefaultAttributesForOOS(data) {
+        const viewModel = this.getViewModel(this.$scope);
         if (!data.purchasable || !data.instock) {
             viewModel.$addToCart.prop('disabled', true);
             viewModel.$increments.prop('disabled', true);
@@ -374,20 +508,6 @@ export default class Product {
         const inStockIds = data.in_stock_attributes;
         const outOfStockMessage = ` (${data.out_of_stock_message})`;
 
-        const viewModel = this.getViewModel(this.$scope);
-
-        if (!data.purchasable || !data.instock) {
-            viewModel.$addToCart.prop('disabled', true);
-            viewModel.$increments.prop('disabled', true);
-            $('[data-product-option-change]').hide();
-        } else {
-            viewModel.$addToCart.prop('disabled', false);
-            viewModel.$increments.prop('disabled', false);
-            $('[data-product-option-change]').show();
-        }
-
-        console.log(data);
-
         this.showProductImage(data.image);
 
         if (behavior !== 'hide_option' && behavior !== 'label_option') {
@@ -396,7 +516,8 @@ export default class Product {
 
         $('[data-product-attribute-value]', this.$scope).each((i, attribute) => {
             const $attribute = $(attribute);
-            const attrId = parseInt($attribute.data('product-attribute-value'), 10);
+            const attrId = parseInt($attribute.data('productAttributeValue'), 10);
+
 
             if (inStockIds.indexOf(attrId) !== -1) {
                 this.enableAttribute($attribute, behavior, outOfStockMessage);
@@ -404,7 +525,6 @@ export default class Product {
                 this.disableAttribute($attribute, behavior, outOfStockMessage);
             }
         });
-
     }
 
     disableAttribute($attribute, behavior, outOfStockMessage) {
@@ -425,7 +545,7 @@ export default class Product {
         if (behavior === 'hide_option') {
             $attribute.toggleOption(false);
             // If the attribute is the selected option in a select dropdown, select the first option (MERC-639)
-            if ($attribute.parent().val() === $attribute.attr('value')) {
+            if ($select.val() === $attribute.attr('value')) {
                 $select[0].selectedIndex = 0;
             }
         } else {
@@ -450,7 +570,7 @@ export default class Product {
         if (behavior === 'hide_option') {
             $attribute.toggleOption(true);
         } else {
-            $attribute.removeAttr('disabled');
+            $attribute.prop('disabled', false);
             $attribute.html($attribute.html().replace(outOfStockMessage, ''));
         }
     }
@@ -458,7 +578,7 @@ export default class Product {
     getAttributeType($attribute) {
         const $parent = $attribute.closest('[data-product-attribute]');
 
-        return $parent ? $parent.data('product-attribute') : null;
+        return $parent ? $parent.data('productAttribute') : null;
     }
 
     /**
@@ -470,12 +590,12 @@ export default class Product {
 
             // Only bind to click once
             if ($radio.attr('data-state') !== undefined) {
-                $radio.click(() => {
+                $radio.on('click', () => {
                     if ($radio.data('state') === true) {
                         $radio.prop('checked', false);
                         $radio.data('state', false);
 
-                        $radio.change();
+                        $radio.trigger('change');
                     } else {
                         $radio.data('state', true);
                     }
@@ -486,40 +606,5 @@ export default class Product {
 
             $radio.attr('data-state', $radio.prop('checked'));
         });
-    }
-
-    /**
-     * Open the cart preview dropdown to reflect the changes that have been
-     * made by adding the product to the cart
-     */
-    openCartPreviewDropdown() {
-        const loadingClass = 'is-loading';
-        const $cartDropdown = $('#cart-preview-dropdown');
-        const $cartLoading = $('<div class="loadingOverlay"></div>');
-        const options = {
-            template: 'common/cart-preview',
-        };
-
-        $cartDropdown
-            .addClass(loadingClass)
-            .html($cartLoading);
-        $cartLoading
-            .show();
-
-        utils.api.cart.getContent(options, (err, response) => {
-            $cartDropdown
-                .removeClass(loadingClass)
-                .addClass('is-open')
-                .addClass('f-open-dropdown')
-                .html(response);
-            $cartLoading
-                .hide();
-        });
-    }
-
-    increaseHeaderCartProductCount() {
-        let pill = $('.countPill.countPill--positive.cart-quantity');
-
-        pill.html(parseInt(pill.html()) + 1);
     }
 }

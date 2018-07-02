@@ -1,6 +1,7 @@
+@import "clear-sans";
+
 $fonts: $fontFamily-sans $fontFamily-serif $fontFamily-mono $fontFamily-headings $fontFamily-hero;
 
 @if contains($fonts, "'Clear Sans', sans-serif") {
-    @import "clear-sans";
-    @import "proxima-nova";
+    @include clear-sans;
 }

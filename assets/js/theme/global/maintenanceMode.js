@@ -7,37 +7,51 @@ import $ from 'jquery';
 export default function (maintenanceMode = {}) {
     const header = maintenanceMode.header;
     const notice = maintenanceMode.notice;
+    const password = maintenanceMode.password || false;
+    const securePath = maintenanceMode.securePath || '';
 
-    let scrollTop = 0;
+    function isInIframe() {
+        try {
+            return window.location !== window.parent.location;
+        } catch (e) {
+            return true;
+        }
+    }
 
-    if (!(header && notice)) {
+    // Return if header & notice is null or if isInIframe is false (inside theme editor)
+    if (!(header && notice) || isInIframe()) {
         return;
     }
 
-    const $element = $('<div>', {
-        id: 'maintenance-notice',
-        class: 'maintenanceNotice',
-    });
-
-    $element.html(`<p class="maintenanceNotice-header">${header}</p>${notice}`);
-
-    $('body').append($element);
-
-    $(window)
-        .bind('scroll', () => {
-            $element.css('top', `${($('body').scrollTop() + scrollTop)}px`);
-        })
-        .bind('resize', () => {
-            const menuWidth = $('#maintenance-notice').width();
-
-            if (menuWidth + $('#maintenance-notice').offset().left > $(window).width()) {
-                const newLeft = (`${$(window).width() - menuWidth - 50}px`);
-
-                $('#maintenance-notice').css('left', newLeft);
-            }
+    if (password) {
+        const $element = $('<div>', {
+            class: 'adminBar',
         });
 
-    scrollTop = $('#maintenance-notice').scrollTop() - $('body').scrollTop();
+        const url = encodeURIComponent((new URL(window.location.href).pathname + window.location.search).replace(/^\/|\/$/g, ''));
 
-    $(window).trigger('resize');
+        $element.html(`<div class="adminBar-logo">
+            <a href="${securePath}/manage/dashboard"><svg><use xlink:href="#logo-small"></use></svg></a></div>
+            <div class="adminBar-content">
+                <a href="${securePath}/manage/theme-editor?redirectIframeUrl=${url}" target="_blank">Customize Theme</a>
+                <div class="adminBar-private">
+                    <span>Your storefront is private.</span>
+                    <span class="preview">Share your site with preview code: ${password}</span>
+                </div>
+            </div>`);
+
+
+        $('body').addClass('hasAdminBar');
+        $('body').prepend($element);
+    } else {
+        const $element = $('<div>', {
+            id: 'maintenance-notice',
+            class: 'maintenanceNotice',
+        });
+
+
+        $element.html(`<p class="maintenanceNotice-header">${header}</p>${notice}`);
+
+        $('body').append($element);
+    }
 }

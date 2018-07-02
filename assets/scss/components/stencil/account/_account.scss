@@ -6,40 +6,12 @@
 // Account navigation
 // -----------------------------------------------------------------------------
 
-.greeting {
-    text-align: center;
-    margin-top: 0;
-}
-
 .navBar--account {
     display: none;
 
     @include breakpoint("medium") {
         display: block;
     }
-}
-
-#my-courses-complete, #my-courses-incomplete {
-    margin-left: 0;
-    list-style-type: none;
-    li {
-        font-size: 16px;
-        margin-bottom: 24px;
-        padding-bottom: 24px;
-        border-bottom: 1px solid #d1d1d1;
-        &:first-of-type {
-            border-top: 1px solid #d1d1d1;
-            padding-top: 24px;
-        }
-    }
-}
-
-#my-courses-complete {
-    margin-bottom: 30px;
-}
-
-#course-0 {
-    display: none;
 }
 
 
@@ -71,7 +43,9 @@
     }
 
     .account-product-image {
-        width: auto;
+        @include lazy-loaded-img;
+
+        position: relative;
     }
 }
 
@@ -100,6 +74,8 @@
     margin: 0 spacing("single") + spacing("third") 0 0;
     position: relative;
     width: 70px;
+
+    @include lazy-loaded-padding('productthumb_size');
 }
 
 .account-product-download {

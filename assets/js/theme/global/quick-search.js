@@ -6,14 +6,14 @@ import StencilDropDown from './stencil-dropdown';
 export default function () {
     const TOP_STYLING = 'top: 49px;';
     const $quickSearchResults = $('.quickSearchResults');
-    const $quickSearchDiv = $('.quickSearch');
-    const $searchQuery = $('.search_query');
+    const $quickSearchDiv = $('#quickSearch');
+    const $searchQuery = $('#search_query');
     const stencilDropDownExtendables = {
         hide: () => {
-            $searchQuery.blur();
+            $searchQuery.trigger('blur');
         },
         show: (event) => {
-            $searchQuery.focus();
+            $searchQuery.trigger('focus');
             event.stopPropagation();
         },
     };
@@ -52,7 +52,7 @@ export default function () {
     });
 
     // Catch the submission of the quick-search
-    $quickSearchDiv.on('submit', (event) => {
+    $quickSearchDiv.on('submit', event => {
         const searchQuery = $(event.currentTarget).find('input').val();
 
         if (searchQuery.length === 0) {

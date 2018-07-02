@@ -17,7 +17,7 @@
                 "breakpoint": 800,
                 "settings": {
                     "slidesToScroll": 3,
-                    "slidesToShow": 4
+                    "slidesToShow": 5
                 }
             },
             {
@@ -31,8 +31,8 @@
     }'
 >
     {{#each products}}
-        <div class="productCarousel-slide">
-            {{> components/products/card theme_settings=../theme_settings}}
-        </div>
+    <div class="productCarousel-slide">
+        {{> components/products/card theme_settings=../theme_settings customer=../customer}}
+    </div>
     {{/each}}
 </section>

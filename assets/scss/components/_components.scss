@@ -12,6 +12,9 @@
 // Pace Ajax loading progress bar
 @import "vendor/pace/component";
 
+// SweetAlert2 replacement for JavaScript alert/confirmations
+@import "vendor/sweetalert2/component";
+
 
 // Foundation components
 // -----------------------------------------------------------------------------
@@ -57,6 +60,9 @@
 
 // Alerts
 @import "foundation/alerts/component";
+
+// Lazy Load
+@import "foundation/lazyLoad/component";
 
 
 // Citadel components
@@ -177,67 +183,5 @@
 // Rating
 @import "stencil/rating/component";
 
-
-// Custom components
-// -----------------------------------------------------------------------------
-
-// Olark
-@import "custom/olark/component";
-
-// Warranty information
-@import "custom/warranty/component";
-
-// CSS3 animations
-@import "custom/animations/component";
-
-// CTA arrow
-@import "custom/cta-arrow/component";
-
-// Long tabs
-@import "custom/long-tabs/component";
-
-// Category page
-@import "custom/category-page/component";
-
-// Promotion box
-@import "custom/promotion-box/component";
-
-// Home
-    // As seen in
-    @import "custom/home/as-seen-in/component";
-
-    // Explore
-    @import "custom/home/explore/component";
-
-    // Our fans
-    @import "custom/home/our-fans/component";
-
-// Mega menu dropdowns
-@import "custom/mega-menu-dropdown/component";
-
-// Above the fold
-@import "custom/above-the-fold/component";
-
-// Tabbed z section
-@import "custom/tabbed-z/component";
-
-// Slider with feature section
-@import "custom/slider-with-feature/component";
-
-// Gradient
-@import "custom/gradient/component";
-
-// Clickable
-@import "custom/clickable/component";
-
-// Tools Navigation
-@import "custom/navTools/component";
-
-// Newsletter Subscription (top of footer)
-@import "custom/newsletter-subscription/component";
-
-// Lib components
-// -----------------------------------------------------------------------------
-
-// Slick JS
-@import "lib/slick/component";
+// Apple Pay
+@import "stencil/applePay/component";

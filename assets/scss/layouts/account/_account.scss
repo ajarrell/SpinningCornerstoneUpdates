@@ -18,15 +18,9 @@
 }
 
 .account--fixedSmall {
-    margin:0 auto;
-    width: 80vw;
     @include breakpoint("medium") {
         margin: 0 auto;
         width: grid-calc(6, $total-columns);
-    }
-
-    .page-heading {
-        margin-bottom: 15px;
     }
 }
 
@@ -50,11 +44,6 @@
 
 .account-body {
     @include grid-row($behavior: "nest");
-    .form-actions {
-        a, button, input[type="submit"] {
-            display: inline-block !important;
-        }
-    }
 }
 
 .account-content {
@@ -83,29 +72,6 @@
 
         .account-content--fixedSmall + & {
             float: right;
-        }
-    }
-}
-
-#course-list {
-    position: relative;
-    &:hover {
-        ul {
-            display: block;
-        }
-    }
-    ul {
-        display: none;
-        position: absolute;
-        background: white;
-        left: -11px;
-        z-index: 9;
-        text-align: left;
-        width: 200px;
-        max-height: 300px;
-        overflow-y: scroll;
-        li {
-            padding: 8px 11px;
         }
     }
 }

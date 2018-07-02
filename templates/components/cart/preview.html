@@ -19,11 +19,23 @@
                 {{/each}}
             </div>
 
+            {{#if cart.show_multiple_address_shipping}}
+                <div class="previewCartAction-checkoutMultiple">
+                    <a href="{{urls.checkout.multiple_address}}">
+                        {{lang 'cart.preview.checkout_multiple'}}
+                    </a>
+                </div>
+            {{/if}}
+
             <div class="previewCartCheckout-subtotal">
                 {{lang 'cart.added_to_cart.order_subtotal'}}
 
                 <strong class="previewCartCheckout-price">
-                    {{cart.sub_total.formatted}}
+                    {{#or customer (if theme_settings.restrict_to_login '!==' true)}}
+                        {{cart.sub_total.formatted}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
                 </strong>
             </div>
 
@@ -42,9 +54,14 @@
         <section class="productView">
             {{#with cart.added_item}}
                 <figure class="productView-image">
-                    <img class="productView-image--cart"
-                         src="{{getImage image 'product_size' (cdn ../theme_settings.default_image_product)}}"
-                         alt="{{image.alt}}" />
+                    <div class="productView-img-container">
+                        <img class="productView-image--cart lazyload"
+                            data-sizes="auto"
+                            src="{{cdn 'img/loading.svg'}}"
+                            data-src="{{getImage image 'product_size' (cdn ../theme_settings.default_image_product)}}"
+                            alt="{{image.alt}}"
+                            title="{{image.alt}}" />
+                    </div>
                 </figure>
 
                 <div class="productView-details">
@@ -57,7 +74,11 @@
                     </div>
 
                     <div class="productView-price">
-                        {{quantity}} &times; {{price.formatted}}
+                        {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                            {{quantity}} &times; {{price.formatted}}
+                        {{else}}
+                            {{> components/common/login-for-pricing}}
+                        {{/or}}
                     </div>
 
                     {{#each configurable_fields}}
@@ -104,6 +125,3 @@
         </section>
     {{/if}}
 </div>
-
-{{foo}}
-{{baz}}

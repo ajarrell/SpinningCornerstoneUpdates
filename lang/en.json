@@ -29,6 +29,9 @@
     "categories": {
         "no_products": "There are no products listed under this category."
     },
+    "checkout": {
+        "title": "Checkout"
+    },
     "cart": {
         "continue_shopping": "Click here to continue shopping",
         "items": "{NUM, plural, =0{(0 items)} one {(# item)} other {(# items)}}",
@@ -37,7 +40,7 @@
                 "multiple": "check out with multiple addresses",
                 "or": "or"
             },
-            "button": "Checkout",
+            "button": "Check out",
             "empty_cart": "Your cart is empty",
             "title": "Click here to proceed to checkout",
             "item": "Item",
@@ -54,7 +57,8 @@
             "update": "Update shipping cost"
         },
         "preview": {
-            "checkout_now": "Checkout Now",
+            "checkout_now": "Check out now",
+            "checkout_multiple": "or check out with multiple addresses",
             "view_cart": "View Cart"
         },
         "label": "Your Cart ({quantity, plural, one {# item} other {# items}})",
@@ -106,7 +110,7 @@
             "item_single": "Gift wrapping - {name}",
             "item_multiple": "Item {index} - {name}",
             "option_different": "I'd like to gift wrap each item separately",
-            "choose_type": "Please choose a type of giftwrapping",
+            "choose_type": "Please choose a type of gift wrapping",
             "gift_message": "Gift Message",
             "remove_confirm": "Are you sure you want to remove the gift wrapping from this item?",
             "preview": "Preview"
@@ -126,7 +130,7 @@
         "store_credit_overview": "{credit} Store Credit",
         "generic_error": "Oops! Something went wrong.",
         "currency": "Select Currency: {code}",
-        "newsletter_signup": "Sign up for our newsletter",
+        "newsletter_signup": "Register for our newsletter",
         "form_submit": "Submit",
         "no_preference": "No Preference",
         "other_details": "Other Details",
@@ -142,9 +146,9 @@
         "close": "Close",
         "or": "or",
         "compare": "Compare",
-        "sign_up": "Sign Up",
-        "login": "Login",
-        "logout": "Logout",
+        "sign_up": "Register",
+        "login": "Sign in",
+        "logout": "Sign out",
         "account": "Account",
         "cart": "Cart",
         "search": "Search",
@@ -232,7 +236,6 @@
     },
     "create_account": {
         "heading": "New Account",
-        "captcha_heading": "Security Question",
         "created": {
             "heading": "Your account has been created",
             "intro": "Thank you for creating your account at {store_name}. Your account details have been emailed to <strong>{email}</strong>",
@@ -240,10 +243,10 @@
         }
     },
     "login": {
-        "heading": "Login",
+        "heading": "Sign in",
         "field_email": "Email Address:",
         "field_password": "Password:",
-        "submit_value": "Login",
+        "submit_value": "Sign in",
         "forgot_password": "Forgot your password?",
         "new_customer": {
             "heading": "New Customer?",
@@ -252,7 +255,7 @@
             "fact2": "Save multiple shipping addresses",
             "fact3": "Access your order history",
             "fact4": "Track new orders",
-            "fact5": "Save items to your wish list",
+            "fact5": "Save items to your Wish List",
             "create_account": "Create Account"
         }
     },
@@ -396,26 +399,28 @@
             "no_items": "The items you've recently looked at on our site will appear below."
         },
         "wishlists": {
-            "heading": "Wishlists",
-            "tag_line": "Fill in the form below to create a wish list. Click the \"Save\" button when you're done.",
-            "new": "New Wishlist",
-            "you_have_none": "You have no wishlists, add one now.",
-            "empty_wishlist": "Your wish list is empty. When you add items to your wish list they will appear here.",
+            "heading": "Wish Lists",
+            "tag_line": "Fill in the form below to create a new Wish List. Click the \"Create Wish List\" button when you're done.",
+            "new": "New Wish List",
+            "you_have_none": "You have no Wish Lists, add one now.",
+            "empty_wishlist": "Your Wish List is empty. When you add items to your Wish List they will appear here.",
             "num_items": "Items",
-            "add_item": "Add to Wishlist",
+            "add_item": "Add to Wish List",
             "remove_item": "Remove Item",
-            "name": "Wishlist Name",
+            "name": "Wish List Name",
             "shared": "Shared",
             "action": "Action",
-            "add": "Add Wishlist",
+            "add": "Add Wish List",
             "delete_all": "Delete All",
-            "edit": "Edit Wishlist",
+            "edit": "Edit Wish List",
             "view_heading": "Wish List: {name}",
-            "share_intro": "Share this wishlist with friends:",
+            "share_intro": "Share this Wish List with friends:",
             "num_products": "{num_products, plural, one {1 product} other {# products}}",
-            "create": "Create Wishlist",
-            "save": "Save Wishlist",
-            "delete_alert": "Are you sure you want to delete your wish list(s)? This action cannot be undone."
+            "create": "Create Wish List",
+            "save": "Save Wish List",
+            "delete_alert": "Are you sure you want to delete your Wish List(s)? This action cannot be undone.",
+            "create_new": "Create New Wish List",
+            "add_to_default": "Add to My Wish List"
         }
     },
     "page": {
@@ -465,8 +470,6 @@
             "phone": "Phone Number",
             "order": "Order Number",
             "rma": "RMA Number",
-            "captcha": "Are you human?",
-            "captcha_desc": "Please copy the characters from the image into the text field below. Doing this helps us prevent automated submissions.",
             "question": "Comments/Questions",
             "submit": "Submit Form",
             "successful": "We've received your feedback and will respond shortly if required. <a href=\"{shopPath}\">Continue</a>."
@@ -543,8 +546,9 @@
                 "disabled": "Only Non-Featured Products"
             },
             "categories": "Categories",
-            "did_you_mean": "Did you mean: <strong>{suggestion}</strong>",
-            "no_match": "Your search for \"<strong>{query}</strong>\" did not match any products or information.",
+            "did_you_mean": "Did you mean:",
+            "your_search_for": "Your search for",
+            "no_match": "did not match any products or information.",
             "suggestions": {
                 "title": "Suggestions:",
                 "line1": "Make sure all words are spelled correctly.",
@@ -556,8 +560,50 @@
             "searchsubs": "Automatically search sub categories"
         },
         "wishlist": {
-            "name": "Wishlist Name:",
-            "public": "Share Wishlist?"
+            "name": "Wish List Name:",
+            "public": "Share Wish List?"
+        },
+        "validate": {
+            "account": {
+                "edit": {
+                    "password": "You must enter your current password.",
+                    "first_name": "You must enter a first name.",
+                    "last_name": "You must enter a last name.",
+                    "phone": "You must enter a phone number."
+                },
+                "reorder": {
+                    "select_item": "Please select one or more items to reorder."
+                },
+                "inbox": {
+                    "order": "You must select an order.",
+                    "subject": "You must enter a subject.",
+                    "message": "You must enter a message."
+                }
+            },
+            "common": {
+                "name": "You must enter your name.",
+                "password": "You must enter a password.",
+                "password_match": "Your passwords do not match.",
+                "email_address": "Please use a valid email address, such as user@example.com.",
+                "valid_email": "You must enter a valid email."
+            },
+            "contact": {
+                "email_address": "Please use a valid email address, such as user@example.com.",
+                "question": "You must enter your question."
+            },
+            "gift": {
+                "to_name": "You must enter a valid recipient name.",
+                "to_email": "You must enter a valid recipient email.",
+                "from_name": "You must enter your name.",
+                "from_email": "You must enter a valid email.",
+                "cert_theme": "You must select a gift certificate theme.",
+                "agree_terms": "You must agree to these terms."
+            },
+            "reviews": {
+                "rating": "The 'Rating' field cannot be blank.",
+                "title": "The 'Review Subject' field cannot be blank.",
+                "comment": "The 'Comments' field cannot be blank."
+            }
         }
     },
     "products": {
@@ -576,12 +622,10 @@
         "new": "New Products",
         "warranty": "Warranty Information",
         "reviews": {
-            "captcha_heading": "Security Question",
             "hide": "Hide Reviews",
             "new": "Write a Review",
             "show": "Show Reviews",
             "header": "{total, plural, =0{0 Reviews} one {# Review} other {# Reviews}}",
-            "rating": "Rating",
             "link_to_review": "({total, plural, =0{No reviews yet} one {# review} other {# reviews}})",
             "post_on_by": "Posted by { name } on { date }",
             "rating_label": "Rating",
@@ -630,17 +674,24 @@
         "choose_an_option": "Please choose an option",
         "select_one": "Please select one",
         "description": "Description",
-        "retail_price": "MSRP",
         "price_with_tax": "(Inc. {tax_label})",
         "price_without_tax": "(Ex. {tax_label})",
-        "including_tax": "Icluding Tax",
+        "including_tax": "Including Tax",
         "excluding_tax": "Excluding Tax",
         "weight": "Weight:",
-        "you_save": "(You save {amount})",
+        "width": "Width:",
+        "height": "Height:",
+        "depth": "Depth:",
+        "measurement": {
+            "metric": "cm",
+            "imperial": "in"
+        },
+        "you_save_opening_text": "(You save",
+        "you_save_closing_bracket": ")",
         "gift_wrapping": "Gift wrapping:",
         "gift_wrapping_available": "Options available",
-        "quantity_min": "The minimum purchasable quantity is {quantity}.",
-        "quantity_max": "The maximum purchasable quantity is {quantity}. Please call (800) 847-7746 for help on large orders. ",
+        "quantity_min": "The minimum purchasable quantity is {quantity}",
+        "quantity_max": "The maximum purchasable quantity is {quantity}",
         "bulk_pricing": {
             "title": "Bulk Pricing:",
             "view": "Buy in bulk and save",
@@ -676,7 +727,7 @@
         "email_placeholder": "Your email address",
         "subscribed_heading": "Thanks for Subscribing!",
         "subscribed_heading_error": "Oops...",
-        "subscribed_message": "Thanks for joining our mailing list! You'll be receiving the latest Spinning tips, news and updates shortly.",
+        "subscribed_message": "Thank you for joining our mailing list. You'll be sent the next issue of our newsletter shortly",
         "unsubscribed_heading": "Unsubscribed!",
         "unsubscribed_message": "You will no longer receive marketing emails from <b>{store_name}</b>"
     },
@@ -736,8 +787,10 @@
         "message": "Store is currently unavailable, please try again in a few minutes"
     },
     "forbidden": {
-        "page_heading": "403 Error - Forbidden",
-        "message": "You do not have permission to access this page."
+        "page_heading": "Sorry! Please sign in to continue",
+        "if_you_were_signed_in": "If you were signed in,",
+        "sign_in": "please sign back in",
+        "to_continue": ", to resume your work in a new session."
     },
     "sitemap": {
         "page_title": "Sitemap",

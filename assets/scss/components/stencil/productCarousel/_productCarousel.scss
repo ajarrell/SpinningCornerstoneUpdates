@@ -31,40 +31,5 @@
 
     .card {
         margin-bottom: 0;
-        padding: 10px;
-        background: #f9f9f9;
-        .price--rrp {
-            top: 0;
-            font-size: 14px;
-        }
-        .productView-rating {
-            text-align: right;
-        }
-        .col-sm-5, .col-sm-7 {
-            width: 50% !important;
-        }
-        .col-sm-5 {
-            padding-right: 0 !important;
-        }
-        .col-sm-7 {
-            padding-left: 0 !important;
-        }
-        .icon {
-            width: 14px !important;
-            height: 14px !important;
-        }
-        @media (max-width: 767px) {
-            .col-sm-5, .col-sm-7 {
-                width: 100% !important;
-                padding-left: 15px !important;
-                padding-right: 15px !important;
-            }
-            .productView-rating {
-                text-align: center;
-            }
-            .price-section {
-                text-align: center;
-            }
-        }
     }
 }

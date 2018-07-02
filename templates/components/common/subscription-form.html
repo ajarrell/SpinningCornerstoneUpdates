@@ -1,41 +1,20 @@
-<!--<form class="form newsletter-subscribe" action="{{urls.subscribe.action}}" method="post">
+<h5 class="footer-info-heading">{{lang 'newsletter.subscribe'}}</h5>
+<p>{{lang 'newsletter.subscribe_intro'}}</p>
+
+<form class="form" action="{{urls.subscribe.action}}" method="post">
     <fieldset class="form-fieldset">
         <input type="hidden" name="action" value="subscribe">
         <input type="hidden" name="nl_first_name" value="bc">
         <input type="hidden" name="check" value="1">
-        <div class="form-prefixPostfix wrap">
-            <input class="form-input" id="nl_email" name="nl_email" type="email" value="{{customer.email}}" placeholder="Enter email address">
-            <input class="button button--primary form-prefixPostfix-button--postfix" type="submit" value="&rarr;">
+        <div class="form-field">
+            <label class="form-label is-srOnly" for="nl_email">{{lang 'common.email_address'}}</label>
+            <div class="form-prefixPostfix wrap">
+                <input class="form-input" id="nl_email" name="nl_email" type="email" value="{{customer.email}}" placeholder="{{lang 'newsletter.email_placeholder'}}">
+                <input class="button button--primary form-prefixPostfix-button--postfix" type="submit" value="{{lang 'newsletter.subscribe_submit'}}">
+            </div>
+            {{#if settings.show_newsletter_summary }}
+                <div class="footer-newsletter-summary">{{settings.newsletter_summary}}</div>
+            {{/if}}
         </div>
     </fieldset>
 </form>
--->
-
-<!-- Begin MailChimp Signup Form -->
-<link href="//cdn-images.mailchimp.com/embedcode/horizontal-slim-10_7.css" rel="stylesheet" type="text/css">
-<style type="text/css">
-	#mc_embed_signup{background:#fff; clear:left; font:14px Helvetica,Arial,sans-serif; width:100%;}
-	/* Add your own MailChimp form style overrides in your site stylesheet or in this style block.
-	   We recommend moving this block and the preceding CSS link to the HEAD of your HTML file. */
-</style>
-<div id="mc_embed_signup_footer">
-	<input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL-footer" placeholder="email address" required>
-    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
-    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_ecfe8820b329ac59d6f0a6985_fdf9e349f3" tabindex="-1" value=""></div>
-    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe-footer" class="button"></div>
-    </div>
-</div>
-
-<!--End mc_embed_signup-->
-
-<script>
-    $('#mc-embedded-subscribe-footer').on('click', function(){
-        var emailAddress = $('#mce-EMAIL-footer').val();
-        window.location = "http://spinning.com/newsletter?email="+emailAddress;
-    })
-    $("#mce-EMAIL-footer").on('keyup', function (e) {
-    if (e.keyCode == 13) {
-        $('#mc-embedded-subscribe-footer').trigger('click');
-    }
-});
-</script>

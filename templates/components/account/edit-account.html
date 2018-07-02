@@ -1,4 +1,8 @@
 <form action="{{urls.account.update_action}}" data-edit-account-form class="form" method="post">
+    {{inject 'firstName' (lang 'forms.validate.account.edit.first_name')}}
+    {{inject 'lastName' (lang 'forms.validate.account.edit.last_name')}}
+    {{inject 'phoneNumber' (lang 'forms.validate.account.edit.phone')}}
+    {{inject 'currentPassword' (lang 'forms.validate.account.edit.password')}}
     <fieldset class="form-fieldset">
         <div class="form-row form-row--half">
             <div class="form-field">
@@ -34,13 +38,6 @@
         </div>
     </fieldset>
     <div class="form-actions">
-        <button class="btn btn-red btn-rounded-corners">{{lang 'account.settings.update_details'}}</button>
+        <button class="button button--primary">{{lang 'account.settings.update_details'}}</button>
     </div>
 </form>
-<script>
-    $(document).ready(function() {
-        $("#FormField_25").hide();
-        $("#FormField_26").hide();
-        $("#FormField_27").hide();
-    });
-</script>

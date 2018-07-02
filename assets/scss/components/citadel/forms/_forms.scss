@@ -2,11 +2,6 @@
 // FORMS (CSS)
 // =============================================================================
 
-.form-input,
-.form-select {
-    min-height: 44px;
-}
-
 
 // Form variants
 // -----------------------------------------------------------------------------
@@ -100,7 +95,7 @@
     display: block;
     text-align: center;
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         margin-top: spacing("single");
     }
 
@@ -110,7 +105,7 @@
         vertical-align: top;
         width: 100%;
 
-        @media (min-width: 768px) {
+        @include breakpoint("small") {
             margin-bottom: 0;
             width: auto;
         }
@@ -121,7 +116,7 @@
         + a {
             margin-top: spacing("half");
 
-            @media (min-width: 768px) {
+            @include breakpoint("small") {
                 margin: 0 0 0 spacing("half");
             }
         }
@@ -187,7 +182,7 @@
 .form-column {
     @include grid-column(12);
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         @include grid-column(6);
     }
 }
@@ -198,6 +193,12 @@
         flex-wrap: wrap;
     }
 
+    .form-input,
+    .button {
+        display: block;
+        width: 100%;
+    }
+
     .form-input {
         @include breakpoint("large") {
             width: auto;
@@ -205,7 +206,7 @@
     }
 
     .button {
-        @media (min-width: 992px) {
+        @include breakpoint("large") {
             width: auto;
         }
     }
@@ -234,44 +235,22 @@
 // -----------------------------------------------------------------------------
 
 .form-increment {
-    overflow: hidden;
-    display: inline-block;
-
-    .button,
-    input {
-        display: inline-block;
-    }
-
     .button {
         margin: 0;
         padding: remCalc(3px) remCalc(5px);
-        width: 20%;
-        min-height: 44px;
-        position: relative;
-
-        &:first-child {
-            left: -2.5%;
-        }
-
-        &:last-child {
-            right: -2.5%;
-        }
-    }
-
-    input {
-        width: 50%;
     }
 }
 
 .form-input--incrementTotal {
-    display: block;
+    border: 0;
+    display: inline-block;
     font-size: fontSize("smaller");
     font-weight: fontWeight("bold");
-    min-height: 44px;
+    height: auto;
     padding: 0;
     text-align: center;
     vertical-align: middle;
-    width: 100%;
+    width: remCalc(35px);
 }
 
 
@@ -280,6 +259,8 @@
 //
 // 1. Issue with FastClick JS library workaround: https://github.com/ftlabs/fastclick/issues/351
 // 2. Resetting font due to inline-block whitespace issue.
+// 3. Added for STENCIL-3384. Did not change directly on .form-option-variant to avoid 1.
+// 4. Added for STRF-4031. Breaks 3 for small screens.
 //
 
 .form-option {
@@ -317,6 +298,10 @@
     @include square(22);
     min-width: initial;
     padding: 0;
+
+    @include breakpoint('small') { // 4
+        pointer-events: inherit; // 3
+    }
 }
 
 .form-option-variant--pattern {
@@ -367,7 +352,7 @@
 // -----------------------------------------------------------------------------
 
 .form-row--half > .form-field:nth-child(odd) {
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         clear: left;
     }
 }

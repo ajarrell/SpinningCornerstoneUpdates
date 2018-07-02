@@ -9,12 +9,12 @@
     </thead>
     <tbody class="cart-list">
         {{#each cart.items}}
-            <tr class="cart-item" data-item-row data-product-id="{{product_id}}">
+            <tr class="cart-item" data-item-row>
                 <td class="cart-item-block cart-item-figure">
                     {{#if type '==' 'GiftCertificate'}}
-                        <img class="cart-item-fixed-image" src="{{cdn ../../theme_settings.default_image_gift_certificate}}" alt="GiftCertificate">
+                        <img class="cart-item-fixed-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{cdn ../../theme_settings.default_image_gift_certificate}}" alt="GiftCertificate" title="GiftCertificate">
                     {{else}}
-                        <img class="cart-item-image" src="{{getImage image 'productthumb_size' (cdn ../../theme_settings.default_image_product)}}" alt="{{image.alt}}">
+                        <img class="cart-item-image lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage image 'productthumb_size' (cdn ../../theme_settings.default_image_product)}}" alt="{{image.alt}}" title="{{image.alt}}">
                     {{/if}}
                 </td>
                 <td class="cart-item-block cart-item-title">
@@ -22,7 +22,6 @@
                         <p class="cart-item-brand">{{brand.name}}</p>
                     {{/if}}
                     <h4 class="cart-item-name"><a href="{{url}}">{{name}}</a></h4>
-                    <span class="cart-sku" style="display:none">{{sku}}</span>
                     {{#if release_date}}
                         <p>({{release_date}})</p>
                     {{/if}}
@@ -40,17 +39,6 @@
                                 </dd>
                             {{/each}}
                         </dl>
-                    {{/if}}
-                    
-                    {{#if custom_fields}}
-                        {{#each custom_fields}}
-                            {{#if name '===' 'enrollStatus'}}
-                                <div class="prod-is-training"></div>
-                            {{/if}}
-                            {{#if name '===' 'Location'}}
-                                <div class="prod-is-training"></div>
-                            {{/if}}
-                        {{/each}}
                     {{/if}}
 
                     {{#if options}}
@@ -91,10 +79,14 @@
                 </td>
                 <td class="cart-item-block cart-item-info">
                     <span class="cart-item-label">{{lang 'cart.checkout.price'}}</span>
-                    <span class="cart-item-value {{#if price_discounted}}price--discounted{{/if}}">{{price.formatted}}</span>
-                    {{#if price_discounted}}
-                        <span class="cart-item-value">{{price_discounted.formatted}}</span>
-                    {{/if}}
+                    {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                        <span class="cart-item-value {{#if price_discounted}}price--discounted{{/if}}">{{price.formatted}}</span>
+                        {{#if price_discounted}}
+                            <span class="cart-item-value">{{price_discounted.formatted}}</span>
+                        {{/if}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
                 </td>
 
                 <td class="cart-item-block cart-item-info cart-item-quantity">
@@ -131,10 +123,14 @@
 
                 <td class="cart-item-block cart-item-info">
                     <span class="cart-item-label">{{lang 'cart.checkout.total'}}</span>
-                    <strong class="cart-item-value {{#if total_discounted}}price--discounted{{/if}}">{{total.formatted}}</strong>
-                    {{#if total_discounted}}
-                        <strong class="cart-item-value">{{total_discounted.formatted}}</strong>
-                    {{/if}}
+                    {{#or ../customer (if ../theme_settings.restrict_to_login '!==' true)}}
+                        <strong class="cart-item-value {{#if total_discounted}}price--discounted{{/if}}">{{total.formatted}}</strong>
+                        {{#if total_discounted}}
+                            <strong class="cart-item-value">{{total_discounted.formatted}}</strong>
+                        {{/if}}
+                    {{else}}
+                        {{> components/common/login-for-pricing}}
+                    {{/or}}
                     {{# if can_modify}}
                         <a class="cart-remove icon" data-cart-itemid="{{id}}" href="#" data-confirm-delete="{{lang 'cart.confirm_delete'}}">
                             <svg><use xlink:href="#icon-close"></use></svg>

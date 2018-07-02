@@ -1,4 +1,4 @@
-import PageManager from '../page-manager';
+import PageManager from './page-manager';
 import stateCountry from './common/state-country';
 import $ from 'jquery';
 import nod from './common/nod';
@@ -7,8 +7,8 @@ import forms from './common/models/forms';
 import { classifyForm, Validators } from './common/form-utils';
 
 export default class Auth extends PageManager {
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
         this.formCreateSelector = 'form[data-create-account-form]';
     }
 
@@ -27,7 +27,7 @@ export default class Auth extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'Please use a valid email address, such as user@example.com.',
+                errorMessage: this.context.useValidEmail,
             },
             {
                 selector: '.login-form input[name="login_pass"]',
@@ -36,11 +36,11 @@ export default class Auth extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'You must enter a password.',
+                errorMessage: this.context.enterPass,
             },
         ]);
 
-        $loginForm.submit((event) => {
+        $loginForm.on('submit', event => {
             this.loginValidator.performCheck();
 
             if (this.loginValidator.areAll('valid')) {
@@ -64,11 +64,11 @@ export default class Auth extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'Please use a valid email address, such as user@example.com.',
+                errorMessage: this.context.useValidEmail,
             },
         ]);
 
-        $forgotPasswordForm.submit((event) => {
+        $forgotPasswordForm.on('submit', event => {
             this.forgotPasswordValidator.performCheck();
 
             if (this.forgotPasswordValidator.areAll('valid')) {
@@ -91,7 +91,7 @@ export default class Auth extends PageManager {
             newPasswordValidator,
             passwordSelector,
             password2Selector,
-            this.passwordRequirements
+            this.passwordRequirements,
         );
     }
 
@@ -150,11 +150,11 @@ export default class Auth extends PageManager {
                 createAccountValidator,
                 passwordSelector,
                 password2Selector,
-                this.passwordRequirements
+                this.passwordRequirements,
             );
         }
 
-        $createAccountForm.submit((event) => {
+        $createAccountForm.on('submit', event => {
             createAccountValidator.performCheck();
 
             if (createAccountValidator.areAll('valid')) {
@@ -167,9 +167,8 @@ export default class Auth extends PageManager {
 
     /**
      * Request is made in this function to the remote endpoint and pulls back the states for country.
-     * @param next
      */
-    loaded(next) {
+    onReady() {
         const $createAccountForm = classifyForm(this.formCreateSelector);
         const $loginForm = classifyForm('.login-form');
         const $forgotPasswordForm = classifyForm('.forgot-password-form');
@@ -193,7 +192,5 @@ export default class Auth extends PageManager {
         if ($createAccountForm.length) {
             this.registerCreateAccountValidator($createAccountForm);
         }
-
-        next();
     }
 }

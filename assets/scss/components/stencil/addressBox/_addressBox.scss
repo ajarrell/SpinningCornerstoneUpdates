@@ -68,10 +68,6 @@
             width: auto;
         }
 
-        a, button {
-            display: inline-block !important;
-        }
-
         // scss-lint:disable SelectorDepth, NestingDepth
         .button {
             margin-bottom: spacing("half");

@@ -16,8 +16,7 @@
 .breadcrumbs {
     display: none; // 1
     font-size: 0; // 2
-    text-align: left;
-    margin-top: 10px;
+    text-align: center;
 
     @include breakpoint("small") {
         display: block; // 1
@@ -27,13 +26,12 @@
 .breadcrumb {
     display: inline-block;
     float: none;
-    text-transform: uppercase;
 
     &.is-active {
+
         // scss-lint:disable NestingDepth
         > .breadcrumb-label {
             cursor: text;
-            font-weight: bold;
         }
     }
 }

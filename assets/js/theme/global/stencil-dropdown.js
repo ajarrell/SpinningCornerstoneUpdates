@@ -16,25 +16,15 @@ export default class StencilDropdown {
 
         // callback "hide"
         if (this.extendables && this.extendables.hide) {
-            this.extendables.hide(event);
+            this.extendables.hide();
         }
-
-        // Show the navigation menu that was hidden to provide place for the search dropdown
-        $dropDown.prev().removeClass('search-open');
 
         $dropDown.removeClass('is-open f-open-dropdown').attr('aria-hidden', 'true');
     }
 
     show($dropDown, event, style) {
-        event.preventDefault();
-
         if (style) {
             $dropDown.attr('style', style).attr('aria-hidden', 'false');
-        }
-
-        // Hide the navigation menu to provide space for the search dropdown
-        if ($dropDown.hasClass('dropdown--quickSearch')) {
-            $dropDown.prev().addClass('search-open');
         }
 
         $dropDown.addClass('is-open f-open-dropdown').attr('aria-hidden', 'false');
@@ -48,11 +38,11 @@ export default class StencilDropdown {
     bind($dropDownTrigger, $container, style) {
         let modalOpened = false;
 
-        $dropDownTrigger.on('click', (event) => {
+        $dropDownTrigger.on('click', event => {
             const $cart = $('.is-open[data-cart-preview]');
 
             if ($cart) {
-                $cart.click();
+                $cart.trigger('click');
             }
 
             if ($container.hasClass('is-open')) {
@@ -62,7 +52,7 @@ export default class StencilDropdown {
             }
         });
 
-        $('body').click((e) => {
+        $('body').on('click', e => {
             // Call onClick handler
             if (this.extendables && this.extendables.onBodyClick) {
                 this.extendables.onBodyClick(e, $container);

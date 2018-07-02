@@ -1,43 +1,35 @@
 ---
 product:
-    custom_fields:
     videos:
         limit: {{theme_settings.productpage_videos_count}}
     reviews:
         limit: {{theme_settings.productpage_reviews_count}}
     related_products:
         limit: {{theme_settings.productpage_related_products_count}}
-products:
-    featured:
-        limit: {{theme_settings.homepage_featured_products_count}}
+    similar_by_views:
+        limit: {{theme_settings.productpage_similar_by_views_count}}
 ---
-{{inject 'product' product}}
 {{#partial "page"}}
-    
-    <div class="container">
-        {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+    {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
 
-        {{#each product.shipping_messages}}
-            {{> components/common/alert-info message}}
-        {{/each}}
+    {{#each product.shipping_messages}}
+        {{> components/common/alert-info message}}
+    {{/each}}
 
-        <div itemscope itemtype="http://schema.org/Product">
-            {{> components/products/product-view schema=true}}
+    <div itemscope itemtype="http://schema.org/Product">
+        {{> components/products/product-view schema=true}}
 
-            {{#if product.videos.list.length}}
-                {{> components/products/videos product.videos}}
-            {{/if}}
+        {{#if product.videos.list.length}}
+            {{> components/products/videos product.videos}}
+        {{/if}}
 
-            <div id="productJSON" style="display: none;">{{product.warranty}}</div>
-        </div>
+        {{#if settings.show_product_reviews}}
+            {{> components/products/reviews reviews=product.reviews product=product urls=urls}}
+        {{/if}}
+
+        {{> components/products/tabs}}
+
     </div>
 
-    <script>
-        var google_tag_params = {
-            ecomm_prodid: '{{product.id}}',
-            ecomm_pagetype: 'product',
-            ecomm_totalvalue: {{product.price.without_tax.value}}
-        };
-    </script>
 {{/partial}}
 {{> layout/base}}

@@ -2,25 +2,27 @@ import $ from 'jquery';
 import 'foundation-sites/js/foundation/foundation';
 import 'foundation-sites/js/foundation/foundation.reveal';
 import nod from './common/nod';
-import PageManager from '../page-manager';
+import PageManager from './page-manager';
 import { api } from '@bigcommerce/stencil-utils';
 import { defaultModal } from './global/modal';
 
 export default class WishList extends PageManager {
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
 
         this.options = {
             template: 'account/add-wishlist',
         };
+
+        return this;
     }
 
     /**
      * Creates a confirm box before deleting all wish lists
      */
     wishlistDeleteConfirm() {
-        $('body').on('click', '[data-wishlist-delete]', (event) => {
-            const confirmed = confirm(this.context.wishlistDelete);
+        $('body').on('click', '[data-wishlist-delete]', event => {
+            const confirmed = window.confirm(this.context.wishlistDelete);
 
             if (confirmed) {
                 return true;
@@ -47,7 +49,7 @@ export default class WishList extends PageManager {
             },
         ]);
 
-        $addWishlistForm.submit((event) => {
+        $addWishlistForm.on('submit', event => {
             this.addWishlistValidator.performCheck();
 
             if (this.addWishlistValidator.areAll('valid')) {
@@ -59,7 +61,7 @@ export default class WishList extends PageManager {
     }
 
     wishListHandler() {
-        $('body').on('click', '[data-wishlist]', (event) => {
+        $('body').on('click', '[data-wishlist]', event => {
             const wishListUrl = event.currentTarget.href;
             const modal = defaultModal();
 
@@ -81,7 +83,7 @@ export default class WishList extends PageManager {
         });
     }
 
-    loaded(next) {
+    onReady() {
         const $addWishListForm = $('.wishlist-form');
 
         if ($addWishListForm.length) {
@@ -90,7 +92,5 @@ export default class WishList extends PageManager {
 
         this.wishlistDeleteConfirm();
         this.wishListHandler();
-
-        next();
     }
 }

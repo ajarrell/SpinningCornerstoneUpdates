@@ -15,74 +15,91 @@
 // -----------------------------------------------------------------------------
 
 .productView-images {
-    @media (min-width: 992px) {
-        width: 60% !important;
-    }
+    margin-bottom: spacing("double");
 }
 
 .productView-image {
     align-items: center;
     display: flex;
     justify-content: center;
-    margin: 5px 0 0 80px;
+    margin: auto;
+    position: relative;
 
-    @media (min-width: 992px) {
-        min-height: 400px;
-        min-width: 400px;
+    @include breakpoint("medium") {
+        min-height: 366px;
+        min-width: inherit;
     }
+
+    + .productView-thumbnails {
+        margin-top: spacing("half");
+    }
+
+    @media (min-width: $screen-xxsmall) and (max-width: $screen-medium) {
+        pointer-events: none;
+    }
+}
+
+.productView-img-container {
+    position: relative;
+    margin: auto;
+    max-width: get-width(stencilString('product_size'));
+    width: 100%;
 
     img {
-        width: 100%;
-    }
-
-    .productView-image--default {
+        @include lazy-loaded-img;
+        max-height: 100%;
         width: auto;
     }
+
+    @include lazy-loaded-padding('product_size');
 }
 
 .productView-thumbnails {
     @include u-listBullets("none");
     @include grid-row($behavior: "nest");
+
     margin-left: -(spacing("quarter"));
     margin-right: -(spacing("quarter"));
-    max-width: 80px;
-    float: left;
 
-    .fa {
-        font-size: 20px;
-        color: #fff;
-        text-align: center;
-        background-color: #ddd;
-        padding: 0 4px;
-        border-radius: 50px;
-        cursor: pointer;
-        position: relative;
+    .slick-list {
+        margin-left: remCalc(40px);
+        margin-right: remCalc(40px);
+    }
 
-        &.fa-angle-up {
-            top: -5px;
-            left: 41%;
-        }
+    .slick-next {
+        right: 0;
+    }
 
-        &.fa-angle-down {
-            bottom: -5px;
-            left: 37%;
-        }
+    .slick-prev {
+        left: 0;
+    }
 
-        &:hover {
-            background: darken(#ddd, 20%);
-        }
+    img {
+        @include lazy-loaded-img;
+        max-height: 50px;
+        max-width: 50px;
+        width: auto;
     }
 }
 
 .productView-thumbnail {
-    max-width: 80px;
+    @include grid-column(3);
+    padding-left: spacing("quarter");
+    padding-right: spacing("quarter");
+    text-align: center;
+
+    @include breakpoint("large") {
+        width: 20%;
+    }
 }
 
 .productView-thumbnail-link {
-    border: 1px solid #f1f1f1;
+    border: container("border");
     display: inline-block;
-    padding: 0 !important;
-    margin: 0 !important;
+    height: 67px;
+    max-width: 75px;
+    padding: 2px;
+    position: relative;
     text-align: center;
     width: 100%;
 
@@ -92,61 +109,24 @@
     }
 }
 
-// Other products
-// -----------------------------------------------------------------------------
-
-.productView-other-products {
-    width: 100% !important;
-    float: none !important;
-    display: block !important;
-    overflow: hidden !important;
-    border-top: 1px solid #e9e9e9;
-
-    @media (max-width: 767px) {
-        padding-left: 25px !important;
-        padding-right: 25px !important;
-    }
-}
-
-// Description
-// -----------------------------------------------------------------------------
-
-.productView-description {
-    width: 100% !important;
-    padding: 0 !important;
-    float: none !important;
-    display: block !important;
-    overflow: hidden !important;
-    border-top: 1px solid #e9e9e9;
-
-    @media (max-width: 767px) {
-        padding-left: 25px !important;
-        padding-right: 25px !important;
-    }
-}
-
 
 // Details
 // -----------------------------------------------------------------------------
 
 .productView-details {
     margin-bottom: spacing("single") + spacing("third");
-
-    @media (min-width: 992px) {
-        width: 40% !important;
-    }
-
-    @media (min-width: 1200px) {
-        padding-right: 100px !important;
-    }
 }
-
 
 
 // Details - Product details
 // -----------------------------------------------------------------------------
 
 .productView-product {
+    @include breakpoint("medium") {
+        border-bottom: container("border");
+        padding-bottom: spacing("single") + spacing("third");
+    }
+
     > :last-child {
         margin-bottom: 0;
     }
@@ -154,41 +134,15 @@
 
 .productView-title {
     font-size: fontSize("small");
-    margin: 0 0 5px;
+    margin: -(spacing("half")) 0 spacing("quarter");
+
+    @include breakpoint("medium") {
+        margin-top: spacing("single");
+    }
 
     @include breakpoint("large") {
         font-size: fontSize("largest");
     }
-}
-
-.productView-share {
-    font-size: 16px;
-    text-decoration: none;
-
-    .fa, span {
-        -webkit-transition: color .15s ease;
-        -moz-transition: color .15s ease;
-        transition: color .15s ease;
-    }
-
-    .fa {
-        font-size: 24px;
-    }
-
-    span {
-        position: relative;
-        top: -5px;
-        left: 5px;
-    }
-}
-
-.productView-divider {
-    height: 2px;
-    background: #777;
-    width: 100%;
-    display: block;
-    margin: 15px 0 0;
-    padding: 0;
 }
 
 .productView-brand {
@@ -211,52 +165,6 @@
     }
 }
 
-
-
-// Details - Etc
-// -----------------------------------------------------------------------------
-
-.productView-etc {
-    .check-row {
-        overflow: hidden;
-        border-top: 1px solid #333;
-        border-bottom: 1px solid #333;
-        padding: 10px 0 8px;
-        margin-bottom: 15px;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        .check-item {
-            width: auto;
-            display: inline-block;
-            float: left;
-
-            .fa, span {
-                color: #333;
-            }
-            .fa {
-                font-size: 16px;
-            }
-            img {
-                @media (max-width: 767px) {
-                    height: 1.5rem;
-                }
-            }
-            span {
-                font-size: 12px;
-                position: relative;
-                top: -1px;
-
-                @media (max-width: 767px) {
-                    font-size: 10px;
-                }
-            }
-        }
-    }
-}
-
-
-
 // Details - Product price
 // -----------------------------------------------------------------------------
 
@@ -264,7 +172,7 @@
     font-size: fontSize("smaller");
     margin-bottom: spacing("third");
 
-    @media (min-width: 992px) {
+    @include breakpoint("medium") {
         font-size: fontSize("larger");
         margin-bottom: spacing("base");
     }
@@ -286,10 +194,12 @@
     vertical-align: middle;
 
     + .productView-reviewLink {
-        display: none;
+        display: block;
+        margin-left: auto;
 
-        @media (min-width: 768px) {
+        @include breakpoint("small") {
             display: inline-block;
+            margin-left: spacing("half");
         }
     }
 
@@ -311,13 +221,13 @@
     @include clearfix;
     margin-top: spacing("half");
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         margin-top: 0;
     }
 
     > :first-child {
 
-        @media (min-width: 768px) {
+        @include breakpoint("small") {
             margin-top: spacing("single");
         }
     }
@@ -331,7 +241,7 @@
 .productView-info-value {
     float: left;
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         float: none;
     }
 }
@@ -341,7 +251,7 @@
     margin-bottom: spacing("eighth");
     margin-right: spacing("quarter");
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         font-family: fontFamily("headingSans");
         font-size: fontSize("smallest");
         font-weight: fontWeight("normal");
@@ -351,7 +261,7 @@
 .productView-info-value {
     margin-bottom: spacing("quarter");
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         margin-bottom: spacing("base");
     }
 }
@@ -362,6 +272,7 @@
 //
 // 1. Align the product options list item radios vertically.
 // 2. Resetting font due to inline-block whitespace issue.
+// 3. File upload button does not properly display in IE if font-size is 0
 //
 // -----------------------------------------------------------------------------
 
@@ -370,22 +281,22 @@
     margin-bottom: spacing("single");
     text-align: center;
 
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         text-align: left;
     }
 
-    .form-increment .form-input {
-        width: 100%;
-    }
-
     .form-input[type="number"] {
-        @media (min-width: 768px) {
+        @include breakpoint("small") {
             width: grid-calc(2, $total-columns);
         }
     }
 
     .form {
         display: inline;
+    }
+
+    input[type="file"] {
+        font-size: fontSize("smallest"); // 3
     }
 
     .form-field {
@@ -399,7 +310,7 @@
             margin-left: spacing("single");
             width: auto;
 
-            @media (min-width: 768px) {
+            @include breakpoint("small") {
                 margin-left: 0;
                 width: 100%;
             }
@@ -412,13 +323,13 @@
 
     .form-action {
 
-        @media (min-width: 768px) {
+        @include breakpoint("small") {
             float: left;
             padding: 0 remCalc(10);
             width: 50%;
         }
 
-        @media (min-width: 992px) {
+        @include breakpoint("medium") {
             float: none;
             padding: 0;
             width: auto;
@@ -484,4 +395,20 @@
 
 .shareProduct {
     text-align: center;
+}
+
+
+// EasyZoom settings for zoomable product image
+// -----------------------------------------------------------------------------
+
+.productView-image .easyzoom-flyout {
+    overflow: hidden;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+
+    img {
+        max-width: none;
+        width: auto;
+    }
 }

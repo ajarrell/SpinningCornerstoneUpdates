@@ -13,9 +13,9 @@
 // -----------------------------------------------------------------------------
 
 .footer {
-    background-color: #f9f9f9;
+    background-color: $footer-background;
     border-top: container("border");
-    padding: 25px 0;
+    padding: spacing("double") 0;
 }
 
 .footer-info {
@@ -33,20 +33,12 @@
     text-align: center;
     vertical-align: top;
 
-    @media (max-width: 767px) {
-        margin: 0;
-    }
-
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         text-align: left;
         width: width("6/12");
     }
 
-    @media (min-width: 768px) and (max-width: 1199px) {
-        width: width("4/12");
-    }
-
-    @media (min-width: 992px) {
+    @include breakpoint("medium") {
         width: width("4/12");
     }
 
@@ -60,9 +52,31 @@
 }
 
 .footer-info-col--small {
-
-    @media (min-width: 992px) {
+    @include breakpoint("medium") {
         width: width("2/12");
+    }
+}
+
+.footer-info-col--social {
+    width: 100%;
+}
+
+.footer-info-col--left {
+    @include breakpoint("small") {
+        padding: 0;
+    }
+}
+
+.footer-info-col--right {
+    @include breakpoint("small") {
+        left: 50%;
+        position: inherit;
+    }
+
+    @include breakpoint("medium") {
+        left: 0;
+        padding: 0;
+        text-align: right;
     }
 }
 
@@ -72,59 +86,16 @@
 
 .footer-info-heading {
     color: $footer-heading-fontColor;
-    font-size: 15px;
-    text-transform: uppercase;
-    position: relative;
-    font-weight: 600;
-
-    .fa {
-        float: right;
-        position: relative;
-        top: 2px;
-        font-size: 20px;
-        cursor: pointer;
-        width: 100%;
-        padding: 10px;
-        position: absolute;
-        text-align: right;
-    }
-
-    @media (max-width: 767px) {
-        padding: 10px 0;
-        border-top: 1px solid #e8e8e8;
-        text-align: left;
-        margin: 0;
-
-        &:last-child {
-            border-bottom: 1px solid #e8e8e8;
-        }
-
-        .fa-minus {
-            display: none;
-        }
-
-        .fa-plus {
-            display: block;
-        }
-    }
-
-    @media (min-width: 768px) {
-        .fa {
-            display: none !important;
-        }
-    }
+    font-size: fontSize("base");
+    text-transform: inherit;
 }
 
 .footer-info-list {
     list-style: none;
     margin-left: 0;
 
-    li {
-        margin-bottom: 5px;
-    }
-
     a {
-        color: #777;
+        color: stencilColor("color-textSecondary");
         text-decoration: none;
 
         // scss-lint:disable NestingDepth
@@ -133,42 +104,12 @@
         }
         // scss-lint:enable NestingDepth
     }
-
-    @media (max-width: 767px) {
-        display: none;
-        padding: 0 0 10px;
-
-        li {
-            text-align: left;
-        }
-
-        &.active {
-            display: block;
-        }
-    }
-
-    @media (min-width: 768px) {
-        display: block !important;
-    }
 }
 
 .footer-copyright {
-    padding-top: 25px;
-    padding-bottom: 25px;
     text-align: center;
-    border-top: 1px solid #e8e8e8;
-    border-bottom: 1px solid #e8e8e8;
 
-    p {
-        color: #333;
-        margin: 0;
-        padding: 0;
-        font-size: 11px;
-        font-weight: 500;
-        text-transform: uppercase;
-    }
-
-    @media (min-width: 768px) {
+    @include breakpoint("small") {
         text-align: left;
     }
 
@@ -194,7 +135,7 @@
     height: remCalc(40);
     margin-top: spacing("single");
 
-    @media (min-width: 992px) {
+    @include breakpoint("medium") {
         margin-top: spacing("double");
     }
 
@@ -210,26 +151,18 @@
     }
 }
 
-#mc_embed_signup_footer {
-    position: relative;
-    label {
-        display: none;
-    }
-    #mce-EMAIL-footer {
-        width: 100%;
-        font-size: 13px;
-        font-weight: 500;
-        text-transform: uppercase;
-        padding: 16px;
-        border-radius: 4px;
-        border: solid 1px #d7d7d7;
-    }
-    #mc-embedded-subscribe-footer {
+.footer-geotrust-ssl-seal {
+    @include breakpoint("small") {
+        bottom: 0;
         position: absolute;
-        right: 0;
-        top: 0;
-        height: 100%;
-        width: 54px;
-        background-color: #a0a0a0;
+        right: 16px;
     }
+
+    table {
+        margin: auto;
+    }
+}
+
+.footer-newsletter-summary {
+    text-align: left;
 }

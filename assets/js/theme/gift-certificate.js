@@ -1,4 +1,4 @@
-import PageManager from '../page-manager';
+import PageManager from './page-manager';
 import $ from 'jquery';
 import nod from './common/nod';
 import giftCertChecker from './common/gift-certificate-validator';
@@ -7,8 +7,8 @@ import { api } from '@bigcommerce/stencil-utils';
 import { defaultModal } from './global/modal';
 
 export default class GiftCertificate extends PageManager {
-    constructor() {
-        super();
+    constructor(context) {
+        super(context);
 
         const $certBalanceForm = $('#gift-certificate-balance');
 
@@ -52,9 +52,9 @@ export default class GiftCertificate extends PageManager {
         if ($customAmounts.length) {
             const $element = $purchaseForm.find('input[name="certificate_amount"]');
             const min = $element.data('min');
-            const minFormatted = $element.data('min-formatted');
+            const minFormatted = $element.data('minFormatted');
             const max = $element.data('max');
-            const maxFormatted = $element.data('max-formatted');
+            const maxFormatted = $element.data('maxFormatted');
 
             purchaseValidator.add({
                 selector: '#gift-certificate-form input[name="certificate_amount"]',
@@ -79,7 +79,7 @@ export default class GiftCertificate extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'You must enter a valid recipient name.',
+                errorMessage: this.context.toName,
             },
             {
                 selector: '#gift-certificate-form input[name="to_email"]',
@@ -88,7 +88,7 @@ export default class GiftCertificate extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'You must enter a valid recipient email.',
+                errorMessage: this.context.toEmail,
             },
             {
                 selector: '#gift-certificate-form input[name="from_name"]',
@@ -97,7 +97,7 @@ export default class GiftCertificate extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'You must enter your name.',
+                errorMessage: this.context.fromName,
             },
             {
                 selector: '#gift-certificate-form input[name="from_email"]',
@@ -106,7 +106,7 @@ export default class GiftCertificate extends PageManager {
 
                     cb(result);
                 },
-                errorMessage: 'You must enter a valid email.',
+                errorMessage: this.context.fromEmail,
             },
             {
                 selector: '#gift-certificate-form input[name="certificate_theme"]:first-of-type',
@@ -114,9 +114,9 @@ export default class GiftCertificate extends PageManager {
                 validate: (cb) => {
                     const val = $purchaseForm.find('input[name="certificate_theme"]:checked').val();
 
-                    cb(typeof(val) === 'string');
+                    cb(typeof (val) === 'string');
                 },
-                errorMessage: 'You must select a gift certificate theme.',
+                errorMessage: this.context.certTheme,
             },
             {
                 selector: '#gift-certificate-form input[name="agree"]',
@@ -125,7 +125,7 @@ export default class GiftCertificate extends PageManager {
 
                     cb(val);
                 },
-                errorMessage: 'You must agree to these terms.',
+                errorMessage: this.context.agreeToTerms,
             },
             {
                 selector: '#gift-certificate-form input[name="agree2"]',
@@ -134,14 +134,14 @@ export default class GiftCertificate extends PageManager {
 
                     cb(val);
                 },
-                errorMessage: 'You must agree to these terms.',
+                errorMessage: this.context.agreeToTerms,
             },
         ]);
 
         if ($certBalanceForm.length) {
             const balanceVal = this.checkCertBalanceValidator($certBalanceForm);
 
-            $certBalanceForm.submit(() => {
+            $certBalanceForm.on('submit', () => {
                 balanceVal.performCheck();
 
                 if (!balanceVal.areAll('valid')) {
@@ -150,7 +150,7 @@ export default class GiftCertificate extends PageManager {
             });
         }
 
-        $purchaseForm.submit((event) => {
+        $purchaseForm.on('submit', event => {
             purchaseValidator.performCheck();
 
             if (!purchaseValidator.areAll('valid')) {
@@ -158,7 +158,7 @@ export default class GiftCertificate extends PageManager {
             }
         });
 
-        $('#gift-certificate-preview').click((event) => {
+        $('#gift-certificate-preview').click(event => {
             event.preventDefault();
 
             purchaseValidator.performCheck();
@@ -168,7 +168,7 @@ export default class GiftCertificate extends PageManager {
             }
 
             const modal = defaultModal();
-            const previewUrl = `${$(event.currentTarget).data('preview-url')}&${$purchaseForm.serialize()}`;
+            const previewUrl = `${$(event.currentTarget).data('previewUrl')}&${$purchaseForm.serialize()}`;
 
             modal.open();
 

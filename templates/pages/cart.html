@@ -1,33 +1,13 @@
 {{#partial "page"}}
-<script>
-   window.juapp=window.juapp||function(){(window.juapp.q=window.juapp.q||[]).push(arguments)} 
-   juapp(
-     'cartItems', 
-     '', 
-     [
-        {{#each cart.items}}
-          { itemid: '{{sku}}', quantity: {{quantity}}, price: {{price.value}}, name: '{{name}}'},
-        {{/each}}
-     ]
-   );
-</script>
+<div class="page">
 
-<div class="page section">
-<div class="container">
     <main class="page-content" data-cart>
+        {{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
         {{> components/cart/page-title}}
 
         <div data-cart-status>
             {{> components/cart/status-messages}}
-        </div>
-
-        <div class="paypal-credit-banner" style="cursor: pointer;" onClick="window.open('https://www.paypal.com/us/webapps/mpp/paypal-credit/faq', '_blank');">
-            <div class="pc-banner-lg">
-                <script type="text/javascript" data-pp-payerid="VZ7FHNXYU9DBW" data-pp-placementtype="1169x50" data-pp-style="WHTBLUNLRG">(function (d, t) {"use strict";var s = d.getElementsByTagName(t)[0], n = d.createElement(t);n.src = "//www.paypalobjects.com/upstream/bizcomponents/js/merchant.js";s.parentNode.insertBefore(n, s);}(document, "script"));</script>
-            </div>
-            <div class="pc-banner-sm" style="cursor: pointer;" onClick="window.open('https://www.paypal.com/us/webapps/mpp/paypal-credit/faq', '_blank');">
-                <script type="text/javascript" data-pp-payerid="VZ7FHNXYU9DBW" data-pp-placementtype="728x90" data-pp-style="WHTBLUNLRG">(function (d, t) {"use strict";var s = d.getElementsByTagName(t)[0], n = d.createElement(t);n.src = "//www.paypalobjects.com/upstream/bizcomponents/js/merchant.js";s.parentNode.insertBefore(n, s);}(document, "script"));</script>
-            </div>
         </div>
 
         {{#if cart.items.length}}
@@ -43,7 +23,12 @@
 
             {{#if cart.show_primary_checkout_button}}
                 <div class="cart-actions">
-                    <a class="btn btn-rounded-corners btn-lg btn-pull-right" href="{{urls.checkout.single_address}}" title="{{lang 'cart.checkout.title'}}">{{lang 'cart.checkout.button'}}</a>
+                    <a class="button button--primary" href="{{urls.checkout.single_address}}" title="{{lang 'cart.checkout.title'}}">{{lang 'cart.checkout.button'}}</a>
+                    {{#if cart.show_multiple_address_shipping}}
+                        <a class="checkoutMultiple" href="{{urls.checkout.multiple_address}}">
+                            {{lang 'cart.preview.checkout_multiple'}}
+                        </a>
+                    {{/if}}
                 </div>
             {{else}}
                 <div class="cart-actions">
@@ -54,7 +39,7 @@
             {{#if cart.additional_checkout_buttons}}
                 <div class="cart-additionalCheckoutButtons">
                     {{#each cart.additional_checkout_buttons}}
-                        <!--{{{this}}}-->
+                        {{{this}}}
                     {{/each}}
                 </div>
             {{/if}}
@@ -65,15 +50,5 @@
         {{{snippet 'cart'}}}
     </main>
 </div>
-</div>
-
-<script>
-    var google_tag_params = {
-        ecomm_prodid: [{{#each cart.items}}{{#if @last}}{{product_id}}{{else}}{{product_id}},{{/if}}{{/each}}],
-        ecomm_pagetype: 'cart',
-        ecomm_totalvalue: {{cart.grand_total.value}}
-    };
-</script>
 {{/partial}}
 {{> layout/base}}
-`

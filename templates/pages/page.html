@@ -1,8 +1,11 @@
 {{#partial "page"}}
 
+{{> components/common/breadcrumbs breadcrumbs=breadcrumbs}}
+
 <main class="page">
 
-    <!--
+    <h1 class="page-heading">{{ page.title }}</h1>
+
     {{#if page.sub_pages}}
     <nav class="navBar navBar--sub">
         <ul class="navBar-section account-navigation">
@@ -12,13 +15,12 @@
         </ul>
     </nav>
     {{/if}}
-    -->
 
-    <div class="page-content page-content--centered {{page.title}}">
+    <div class="page-content page-content--centered">
         {{#replace '%%Syndicate%%' page.content}}
             {{> components/page/rss_feed}}
         {{else}}
-            {{{page.content}}}
+            <p>{{{page.content}}}</p>
         {{/replace}}
     </div>
 
@@ -33,17 +35,6 @@
         </ul>
     {{/if}}
 </main>
-
-<script>
-    var google_tag_params = { 
-            ecomm_pagetype: 'other'
-        };
-</script>
-<script>
-    $(document).ready(function(){
-        $('.padded-content #mc_embed_signup select').select2();
-    })
-</script>
 
 {{/partial}}
 

@@ -7,24 +7,9 @@
     left: -9999px;
     outline: none;
     position: absolute;
-    background: #fff;
-
-    &.is-open {
-        top: 82px !important; // header height
-        @media (max-width: 991px) {
-            top: 140px !important;
-        }
-    }
 }
 
 .dropdown-menu {
-    background: #fff !important;
-    border-radius: 5px;
-    border: 1px solid #e5e5e5;
-    -webkit-box-shadow: 0 0 7px rgba(0, 0, 0, 0.07);
-    -moz-box-shadow: 0 0 7px rgba(0, 0, 0, 0.07);
-    box-shadow: 0 0 7px rgba(0, 0, 0, 0.07);
-
     &.is-loading .loadingOverlay {
         background: none;
         padding: (spacing("double") + spacing("single")) 0;
@@ -33,15 +18,6 @@
 
     &.is-open {
         display: block;
-        -webkit-animation-timing-function: ease;
-        -moz-animation-timing-function: ease;
-        animation-timing-function: ease;
-        -webkit-animation-name: fadeIn;
-        -moz-animation-name: fadeIn;
-        animation-name: fadeIn;
-        -webkit-animation-duration: .35s;
-        -moz-animation-duration: .35s;
-        animation-duration: .35s;
     }
 }
 
@@ -71,86 +47,67 @@
     }
 }
 
-#cart-preview-dropdown {
-    -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px 5px 15px rgba(0, 0, 0, 0.1);
-    -moz-box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px 5px 15px rgba(0, 0, 0, 0.1);
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px 5px 15px rgba(0, 0, 0, 0.1);
-    max-width: 500px;
+.form-wishlist {
+    position: relative;
+}
 
-    @media (min-width: 1200px) {
-        right: 25px !important;
-        left: inherit !important;
-        top: 75px !important;
+.dropdown-menu-button {
+    width: 100%;
+
+    &.is-open {
+        border-bottom-left-radius: 0px;
+        border-bottom-right-radius: 0px;
     }
 
-    .previewCartItem-name {
-        font-size: 16px;
-        line-height: 1;
-        color: #333 !important;
-
-        a {
-            color: #333 !important;
-        }
-    }
-
-    .previewCartItem-price {
-        font-size: 16px;
-        color: #333 !important;
-    }
-    
-    .previewCartList {
-        max-height: 66vh;
-        overflow-y:auto;
-        display: block;
+    .icon {
+        float: right;
+        margin-left: 10px;
     }
 }
 
-.dropdown--quickSearch {
-    position: relative !important;
-    top: 0 !important;
-    padding: 0 !important;
-    background-color: transparent !important;
+#wishlist-dropdown.is-open {
+    background: transparent;
+    left: auto !important;
+    max-width: none !important;
+    width: 100% !important;
 
-    &.is-open {
-        top: 6px !important;
+    @include breakpoint('small') {
+        padding-right: 20px;
     }
 
-    .modal-close {
-        display: none !important; // Hide until JS event to close dropdown on click is fixed
-        top: 2px !important;
-        right: -10px !important;
+    @include breakpoint('medium') {
+        padding-right: 0px;
     }
 
-    form {
-        max-width: 100% !important;
-
-        .form-input {
-            background-color: transparent;
-            border: none;
-            border-bottom: 1px solid #fff;
-            border-radius: 0;
-            color: #333 !important;
-            padding: 0 !important;
-            min-height: 30px !important;
-        }
+    @include breakpoint('large') {
+        padding-right: 11px;
     }
 
-    .quickSearchResults {
-        background: rgba(255, 255, 255, .8);
-        border-bottom: 1px solid #ccc;
-        border-bottom-left-radius: 5px;
-        border-bottom-right-radius: 5px;
-        -webkit-box-shadow: 5px 5px 15px rgba(0, 0, 0, .1), -5px 5px 15px rgba(0, 0, 0, .1);
-        -moz-box-shadow: 5px 5px 15px rgba(0, 0, 0, .1), -5px 5px 15px rgba(0, 0, 0, .1);
-        box-shadow: 5px 5px 15px rgba(0, 0, 0, .1), -5px 5px 15px rgba(0, 0, 0, .1);
-
-        .productGrid {
-            padding: 25px;
-            margin: 0;
-        }
+    &:focus {
+        outline: none;
     }
 
-    .quickSearchMessage {
-        margin: 0 !important;
+    [data-wishlist] {
+        border-top: none;
+        margin-bottom: 0px;
+        width: 100%;
+    }
+
+    .button {
+        background-color: stencilColor("dropdown--wishList-backgroundColor");
+        border-top-left-radius: 0px;
+        border-top-right-radius: 0px;
+        width: 100%;
+    }
+
+    .button--has-items {
+        font-weight: 700;
+    }
+
+    li:not(:last-child) .button {
+        border-bottom: none;
+        border-radius: 0px;
+        border-top: none;
+        margin-bottom: 0px;
     }
 }

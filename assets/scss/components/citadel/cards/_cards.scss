@@ -11,28 +11,10 @@
 //
 // -----------------------------------------------------------------------------
 
-.card-btn {
-    margin-top: 10px;
-}
-
-.card .icon {
-    @media (min-width: 1280px) {
-        width: 18px !important;
-        height: 18px !important;
-    }
-    @media (max-width: 1279px) {
-        width: 16px !important;
-        height: 16px !important;
-    }
-    @media (max-width: 1199px) {
-        width: 12px !important;
-        height: 12px !important;
-    }
-}
 
 .card-figure {
     margin-top: $card-figure-marginTop;
-
+    position: relative;
     &:hover {
 
         // scss-lint:disable NestingDepth
@@ -40,6 +22,12 @@
             opacity: 1;
         }
     }
+}
+
+.card-img-container {
+    max-width: get-width(stencilString('productgallery_size'));
+
+    @include lazy-loaded-padding('productgallery_size');
 }
 
 .card-figcaption {
@@ -59,10 +47,10 @@
 }
 
 .card-image {
+    @include lazy-loaded-img;
     border: 0;
-    display: flex;
-    margin: auto;
     width: auto;
+    max-height: 100%;
 }
 
 .card-title {
@@ -149,41 +137,5 @@
         .card-title > a {
             color: stencilColor("card--alternate-color--hover");
         }
-    }
-}
-
-
-.quickSearchResults .product {
-    .card {
-        border: 1px solid #ff4321;
-        margin: 0;
-
-        &:hover {
-            .card-body {
-                background: #fff !important;
-            }
-        }
-    }
-
-    .card-body {
-        border-top: 1px dotted #e5e5e5;
-    }
-
-    .card-title {
-        a {
-            color: #333;
-        }
-    }
-
-    .card-text {
-        * {
-            color: #333;
-        }
-    }
-
-    .col-sm-5, .col-sm-7 {
-        width: 100% !important;
-        float: none !important;
-        display: block !important;
     }
 }

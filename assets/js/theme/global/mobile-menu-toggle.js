@@ -3,10 +3,13 @@ import _ from 'lodash';
 import mediaQueryListFactory from '../common/media-query-list';
 import { CartPreviewEvents } from './cart-preview';
 
-const PLUGIN_KEY = 'mobile-menu-toggle';
+const PLUGIN_KEY = {
+    CAMEL: 'mobileMenuToggle',
+    SNAKE: 'mobile-menu-toggle',
+};
 
 function optionsFromData($element) {
-    const mobileMenuId = $element.data(PLUGIN_KEY);
+    const mobileMenuId = $element.data(PLUGIN_KEY.CAMEL);
 
     return {
         menuSelector: mobileMenuId && `#${mobileMenuId}`,
@@ -29,8 +32,10 @@ export class MobileMenuToggle {
     } = {}) {
         this.$body = $('body');
         this.$menu = $(menuSelector);
+        this.$navList = $('.navPages-list.navPages-list-depth-max');
         this.$header = $(headerSelector);
         this.$scrollView = $(scrollViewSelector, this.$menu);
+        this.$subMenus = this.$navList.find('.navPages-action');
         this.$toggle = $toggle;
         this.mediumMediaQueryList = mediaQueryListFactory('medium');
 
@@ -38,6 +43,7 @@ export class MobileMenuToggle {
         this.onToggleClick = this.onToggleClick.bind(this);
         this.onCartPreviewOpen = this.onCartPreviewOpen.bind(this);
         this.onMediumMediaQueryMatch = this.onMediumMediaQueryMatch.bind(this);
+        this.onSubMenuClick = this.onSubMenuClick.bind(this);
 
         // Listen
         this.bindEvents();
@@ -56,6 +62,7 @@ export class MobileMenuToggle {
     bindEvents() {
         this.$toggle.on('click', this.onToggleClick);
         this.$header.on(CartPreviewEvents.open, this.onCartPreviewOpen);
+        this.$navList.on('click .navPages-action', this.onSubMenuClick);
 
         if (this.mediumMediaQueryList && this.mediumMediaQueryList.addListener) {
             this.mediumMediaQueryList.addListener(this.onMediumMediaQueryMatch);
@@ -92,6 +99,8 @@ export class MobileMenuToggle {
 
         this.$header.addClass('is-open');
         this.$scrollView.scrollTop(0);
+
+        this.resetSubMenus();
     }
 
     hide() {
@@ -106,6 +115,8 @@ export class MobileMenuToggle {
             .attr('aria-hidden', true);
 
         this.$header.removeClass('is-open');
+
+        this.resetSubMenus();
     }
 
     // Private
@@ -128,6 +139,31 @@ export class MobileMenuToggle {
 
         this.hide();
     }
+
+    onSubMenuClick(event) {
+        const $closestAction = $(event.target).closest('.navPages-action');
+        const $parentSiblings = $closestAction.parent().siblings();
+        const $parentAction = $closestAction.closest('.navPage-subMenu-horizontal').siblings('.navPages-action');
+
+        if (this.$subMenus.hasClass('is-open')) {
+            this.$navList.addClass('subMenu-is-open');
+        } else {
+            this.$navList.removeClass('subMenu-is-open');
+        }
+
+        if ($(event.target).hasClass('is-open')) {
+            $parentSiblings.addClass('is-hidden');
+            $parentAction.addClass('is-hidden');
+        } else {
+            $parentSiblings.removeClass('is-hidden');
+            $parentAction.removeClass('is-hidden');
+        }
+    }
+
+    resetSubMenus() {
+        this.$navList.find('.is-hidden').removeClass('is-hidden');
+        this.$navList.removeClass('subMenu-is-open');
+    }
 }
 
 /*
@@ -139,9 +175,9 @@ export class MobileMenuToggle {
  * @param {Object} [options.scrollViewSelector]
  * @return {MobileMenuToggle}
  */
-export default function mobileMenuToggleFactory(selector = `[data-${PLUGIN_KEY}]`, overrideOptions = {}) {
+export default function mobileMenuToggleFactory(selector = `[data-${PLUGIN_KEY.SNAKE}]`, overrideOptions = {}) {
     const $toggle = $(selector).eq(0);
-    const instanceKey = `${PLUGIN_KEY}-instance`;
+    const instanceKey = `${PLUGIN_KEY.CAMEL}Instance`;
     const cachedMobileMenu = $toggle.data(instanceKey);
 
     if (cachedMobileMenu instanceof MobileMenuToggle) {

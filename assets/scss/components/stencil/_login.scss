@@ -3,16 +3,15 @@
 // =============================================================================
 
 .login {
-    margin: 25px auto;
-    max-width: 900px;
-
-    .page-heading {
-        margin-bottom: 25px;
-    }
+    margin: spacing("double") auto spacing("double")*2;
+    max-width: remCalc(900px);
 }
 
 .login-row {
     @include grid-row();
+    @include breakpoint("medium") {
+        margin-top: spacing("double")*2;
+    }
 }
 
 .login-form {
@@ -23,22 +22,9 @@
 
         margin-top: spacing("double");
     }
-
-    .form-actions {
-        text-align: left;
-    }
 }
 
 .new-customer {
-    .panel {
-        border-radius: 5px;
-        border: 1px solid #e5e5e5;
-    }
-    .panel-header,
-    .panel-body {
-        background: #fff;
-    }
-
     @include grid-column(12);
     @include breakpoint("medium") {
         @include grid-column(6);

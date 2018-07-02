@@ -1,17 +1,19 @@
-<article class="blog row" id="blogPost">
+<article class="blog">
     <div class="blog-post-figure">
         {{#if post.thumbnail}}
             <figure class="blog-thumbnail">
-                    <img src="{{getImage post.thumbnail 'blog_size'}}" alt="{{post.thumbnail.alt}}" />
+                <a href="{{post.url}}">
+                    <img class="lazyload" data-sizes="auto" src="{{cdn 'img/loading.svg'}}" data-src="{{getImage post.thumbnail 'blog_size'}}" alt="{{post.thumbnail.alt}}" title="{{post.thumbnail.alt}}">
+                </a>
             </figure>
         {{/if}}
     </div>
 
     <div class="blog-post-body">
         <header class="blog-header">
-            <h1 class="blog-title">
-                {{post.title}}
-            </h1>
+            <h2 class="blog-title">
+                <a href="{{post.url}}">{{post.title}}</a>
+            </h2>
             <p class="blog-date">{{#if post.author}}{{lang 'blog.posted_by' name=post.author}} on {{/if}}{{post.date_published}}</p>
         </header>
 
@@ -19,42 +21,27 @@
             {{#if post.body}}
                 {{{post.body}}}
             {{else}}
-                {{post.summary}}
+                {{{post.summary}}}
                 {{#if post.show_read_more}}
                     &hellip; <a href="{{url}}">read more</a>
                 {{/if}}
             {{/if}}
         </div>
-                            
+
+
         {{#if show_tags}}
             {{#if post.tags}}
                 <ul class="tags">
                     {{#each post.tags}}
-                        <li class="tag">
-                            <a href="{{url}}">#{{name}}</a>
-                        </li>
+                    <li class="tag">
+                        <a href="{{url}}">#{{name}}</a>
+                    </li>
                     {{/each}}
                 </ul>
             {{/if}}
         {{/if}}
 
         {{>components/common/share}}
-
-        <div id="disqus_thread"></div>
-        <script>
-            var disqus_config = function () {
-                this.page.url = "{{post.url}}";  // Replace PAGE_URL with your page's canonical URL variable
-                this.page.identifier = "{{post.id}}"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-            };
-            (function() { // DON'T EDIT BELOW THIS LINE
-                var d = document, s = d.createElement('script');
-                s.src = 'https://spinningstaging2.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-            })();
-        </script>
-        <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
-                            
 
     </div>
 </article>

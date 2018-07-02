@@ -1,4 +1,6 @@
 <form data-contact-form class="form" action="{{urls.contact_us_submit}}" method="post">
+    {{inject 'contactEmail' (lang 'forms.validate.contact.email_address')}}
+    {{inject 'contactQuestion' (lang 'forms.validate.contact.question')}}
     {{#if forms.contact.error}}
         {{> components/common/alert-error forms.contact.error}}
     {{/if}}
@@ -47,14 +49,14 @@
         {{/if}}
     </div>
 
-    {{{forms.contact.recaptcha.markup}}}
-
     <div class="form-field">
         <label class="form-label" for="contact_question">{{lang 'forms.contact_us.question'}}
             <small>{{lang 'common.required' }}</small>
         </label>
         <textarea name="contact_question" id="contact_question" rows="5" cols="50" class="form-input"></textarea>
     </div>
+
+    {{{forms.contact.recaptcha.markup}}}
 
     <div class="form-actions">
         <input class="button button--primary" type="submit" value="{{lang 'forms.contact_us.submit' }}">

@@ -14,7 +14,7 @@ export class VideoGallery {
         const $target = $(e.currentTarget);
 
         this.currentVideo = {
-            id: $target.data('video-id'),
+            id: $target.data('videoId'),
             $selectedThumb: $target,
         };
 

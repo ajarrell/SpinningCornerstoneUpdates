@@ -3,6 +3,7 @@ import stateCountry from '../common/state-country';
 import nod from '../common/nod';
 import utils from '@bigcommerce/stencil-utils';
 import { Validators } from '../common/form-utils';
+import swal from 'sweetalert2';
 
 export default class ShippingEstimator {
     constructor($element) {
@@ -20,7 +21,7 @@ export default class ShippingEstimator {
             submit: `${this.shippingEstimator} .shipping-estimate-submit`,
         });
 
-        $('.shipping-estimate-submit', this.$element).click((event) => {
+        $('.shipping-estimate-submit', this.$element).on('click', event => {
             // When switching between countries, the state/region is dynamic
             // Only perform a check for all fields when country has a value
             // Otherwise areAll('valid') will check country for validity
@@ -46,7 +47,7 @@ export default class ShippingEstimator {
                 selector: `${this.shippingEstimator} select[name="shipping-country"]`,
                 validate: (cb, val) => {
                     const countryId = Number(val);
-                    const result = countryId !== 0 && !isNaN(countryId);
+                    const result = countryId !== 0 && !Number.isNaN(countryId);
 
                     cb(result);
                 },
@@ -100,7 +101,10 @@ export default class ShippingEstimator {
         // Requests the states for a country with AJAX
         stateCountry(this.$state, this.context, { useIdForStates: true }, (err, field) => {
             if (err) {
-                alert(err);
+                swal({
+                    text: err,
+                    type: 'error',
+                });
 
                 throw new Error(err);
             }
@@ -134,7 +138,7 @@ export default class ShippingEstimator {
         const $estimatorContainer = $('.shipping-estimator');
         const $estimatorForm = $('.estimator-form');
 
-        $estimatorForm.on('submit', (event) => {
+        $estimatorForm.on('submit', event => {
             const params = {
                 country_id: $('[name="shipping-country"]', $estimatorForm).val(),
                 state_id: $('[name="shipping-state"]', $estimatorForm).val(),
@@ -148,19 +152,19 @@ export default class ShippingEstimator {
                 $('.shipping-quotes').html(response.content);
 
                 // bind the select button
-                $('.select-shipping-quote').on('click', (clickEvent) => {
+                $('.select-shipping-quote').on('click', clickEvent => {
                     const quoteId = $('.shipping-quote:checked').val();
 
                     clickEvent.preventDefault();
 
                     utils.api.cart.submitShippingQuote(quoteId, () => {
-                        location.reload();
+                        window.location.reload();
                     });
                 });
             });
         });
 
-        $('.shipping-estimate-show').on('click', (event) => {
+        $('.shipping-estimate-show').on('click', event => {
             event.preventDefault();
 
             $(event.currentTarget).hide();
@@ -169,7 +173,7 @@ export default class ShippingEstimator {
         });
 
 
-        $('.shipping-estimate-hide').on('click', (event) => {
+        $('.shipping-estimate-hide').on('click', event => {
             event.preventDefault();
 
             $estimatorContainer.addClass('u-hiddenVisually');

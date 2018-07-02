@@ -19,7 +19,6 @@ h5,
 h6 {
     font-weight: $header-font-weight;
     margin-top: $heading-marginTop;
-    font-family: 'proxima-nova', sans-serif;
 }
 
 h5,
@@ -37,11 +36,33 @@ cite {
 }
 
 .page-heading {
-    font-size: $h1-font-size;
     margin: 0 0 spacing("double");
     text-align: center;
 }
 
+h1 {
+    font-size: $h1-font-size;
+}
+
+h2 {
+    font-size: $h2-font-size;
+}
+
+h3 {
+    font-size: $h3-font-size;
+}
+
+h4 {
+    font-size: $h4-font-size;
+}
+
+h5 {
+    font-size: $h5-font-size;
+}
+
+h6 {
+    font-size: $h6-font-size;
+}
 
 .definitionList {
     @include clearfix;

@@ -11,11 +11,14 @@
         <input
             class="form-radio"
             type="radio"
-            id="attribute_{{id}}"
+            id="attribute_radio_{{id}}"
             name="attribute[{{../id}}]"
             value="{{id}}"
-            {{#if selected}}checked{{/if}}
+            {{#if selected}}
+                checked
+                data-default
+            {{/if}}
             {{#if ../required}}required{{/if}}>
-        <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_{{id}}">{{this.label}}</label>
+        <label data-product-attribute-value="{{id}}" class="form-label" for="attribute_radio_{{id}}">{{this.label}}</label>
     {{/each}}
 </div>
